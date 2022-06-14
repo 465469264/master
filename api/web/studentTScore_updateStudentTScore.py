@@ -24,20 +24,20 @@ class updateStudentTScore(HttpRunner):
                             "grade": "$grade",
                             "_web_token": "$_web_token",
                             "recruitType": "$recruitType",
-                            "semester": "1",
-                            "scores[0].courseId": "$courseId",
-                            "scores[0].courseName": "$courseName",
-                            "scores[0].examSubjectName": "$examSubjectName",
-                            "scores[0].advScore": "$advScore",                      #上进分
-                            "scores[0].usualTimeMark": "$usualTimeMark",            #平时成绩
-                            "scores[0].score": "$score",                            #卷面分
-                            "scores[0].totalmark": "$totalmark",                     #期末总分
-                            "scores[0].rewardScore": "$rewardScore",                #学业奖励分
-                            "scores[0].totalRewardScore": "$totalRewardScore",       #总分+奖励分
-                            "scores[0].teacherId": "$teacherId",                    #老师id
-                            "scores[0].teacher": "$teacher",                        #老师姓名
-                            "scores[0].examStatus": "$examStatus",                  #状态： 1>补考  2>缓考    3>缺考   4>正常   5>作弊
-                             "scores[0].courseScoreType": "$courseScoreType",       #课程类型   1>常规课程    2>校派课程
+                            "semester": "$semester",
+                            "scores[$a].courseId": "$courseId",
+                            "scores[$a].courseName": "$courseName",
+                            "scores[$a].examSubjectName": "$examSubjectName",
+                            "scores[$a].advScore": "$advScore",                      #上进分
+                            "scores[$a].usualTimeMark": "$usualTimeMark",            #平时成绩
+                            "scores[$a].score": "$score",                            #卷面分
+                            "scores[$a].totalmark": "$totalmark",                     #期末总分
+                            "scores[$a].rewardScore": "$rewardScore",                #学业奖励分
+                            "scores[$a].totalRewardScore": "$totalRewardScore",       #总分+奖励分
+                            "scores[$a].teacherId": "$teacherId",                    #老师id
+                            "scores[$a].teacher": "$teacher",                        #老师姓名
+                            "scores[$a].examStatus": "$examStatus",                  #状态： 1>补考  2>缓考    3>缺考   4>正常   5>作弊
+                             "scores[$a].courseScoreType": "$courseScoreType",       #课程类型   1>常规课程    2>校派课程
     }
                             )
                 .extract()

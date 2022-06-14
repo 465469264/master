@@ -32,11 +32,13 @@ class selStdAchievement(HttpRunner):
                 .extract()
                 # .with_jmespath("body.body.achievementInfo[0].usualTimeMark","usualTimeMark")
                 .validate()
-                .assert_equal("body.body.achievementInfo[0].usualTimeMark", "$usualTimeMark")
-                .assert_equal("body.body.achievementInfo[0].score", "$score")
-                .assert_equal("body.body.achievementInfo[0].rewardScore", "$rewardScore")
-                # .assert_equal("body.body.achievementInfo[0].totalScore", "$totalScore")
-                .assert_equal("body.body.achievementInfo[0].isPass", "$isPass")
+                .assert_equal("body.body.achievementInfo[$a].usualTimeMark", "$usualTimeMark")
+                .assert_equal("body.body.achievementInfo[$a].score", "$score")
+                .assert_equal("body.body.achievementInfo[$a].rewardScore", "$rewardScore")
+                .assert_equal("body.body.achievementInfo[$a].totalScore", "$totalScore")
+                .assert_equal("body.body.achievementInfo[$a].isPass", "$isPass")
+
+
                 .assert_equal("body.message", "success")
 
         )

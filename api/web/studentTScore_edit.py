@@ -17,8 +17,7 @@ class studentTScore_edit_token(HttpRunner):
                 "User-Agent":"PostmanRuntime/7.28.4",
                 "Accept-Encoding":"gzip, deflate, br",
                 "Connection":"keep-alive",
-                # "Cookie": "${ENV(COOKIE)}",
-                "Cookie": "SESSION=82af82b2-689a-4db1-9926-e877d6e80337"
+                "Cookie": "${ENV(COOKIE)}",
 
     })
                 .with_data({"learnId": "$learnId","recruitType":"$recruitType"})
