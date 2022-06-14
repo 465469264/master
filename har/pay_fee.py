@@ -18,7 +18,7 @@ class TestCasesPay_fee(HttpRunner):
             .base_url("${ENV(BASE_URL)}")
             .verify(False)
             .variables(**{
-                "mobile": "${read_data_number(test_data,register_mobile)}"
+                "mobile": "${read_data_number(test_data,register_mobile_chengjiao)}"
                 })
     )
     teststeps = [

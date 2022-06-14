@@ -9,7 +9,7 @@ class TestCasesbuy_zhimi_goods(HttpRunner):
         Config("购买商城中纯智米商品")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(test_data,register_mobile)}"
+            "mobile": "${read_data_number(test_data,register_mobile_chengjiao)}"
         })
             )
     teststeps = [

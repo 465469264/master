@@ -33,7 +33,7 @@ class findStudentTScoreBySemester(HttpRunner):
                 .with_jmespath("body.body[0].teacher", "teacher")                      #教师名字
                 .with_jmespath("body.body[0].teacherId", "teacherId")                 # 教师ID
                 .with_jmespath("body.body[0].advScore", "advScore")                   # 上进分
-                .with_jmespath("body.body[0].usualTimeMark", "usualTimeMark")  # 平时成绩
+                .with_jmespath("body.body[0].usualTimeMark", "usualTimeMark")        # 平时成绩
                 .validate()
                 .assert_equal("status_code", 200)
         )

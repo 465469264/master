@@ -13,7 +13,7 @@ class TestCasesbuy_give_zhimi(HttpRunner):
         Config("赠送智米")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(test_data,register_mobile)}"
+            "mobile": "${read_data_number(test_data,register_mobile_chengjiao)}"
         })
             )
     teststeps = [

@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
 #报名成教
-class sign_up_education(HttpRunner):
+class sign_up_education_chengjiao(HttpRunner):
     config = (
         Config("报名成教")
             .base_url("${ENV(app_BASE_URL)}")
@@ -9,25 +9,22 @@ class sign_up_education(HttpRunner):
 
                           "number": {
                               "body": {
-                                        "activeName": "amylee成人教育课程活动",
-                                        "pfsnLevelName": "1>专科升本科类",
-                                        "android_phoneModel": "SM-N9500",
+                                        "activeName": "$activeName",         #营销活动
+                                        "pfsnLevelName": "$pfsnLevelName",    #报考层次
                                         "idCard": "$idCard",
-                                        "recruitType": "1",
+                                        "recruitType": "$recruitType",
                                         "zmtoken": "$zmtoken",
-                                        "android_version": "7.19.2",
-                                        "android_sdk": 28,
-                                        "unvsName": "amylee成人教育学校",
-                                        "pfsnName": "amylee成人教育",
-                                        "taName": "广州南沙",
+                                        "unvsName": "$unvsName",            #院校名字
+                                        "pfsnName": "$pfsnName",            #专业名称
+                                        "taName": "$taName",                #考区名字
                                         "CREATOR": {},
-                                        "grade": "2022",
-                                        "scholarship": "1273",
-                                        "name": "$name",
-                                        "pfsnLevel": "1",
-                                        "unvsId": "164690457468960222",
-                                        "pfsnId": "164690470996983675",
-                                        "taId": "169"
+                                        "grade": "$grade",                 #报读年级
+                                        "scholarship": "$scholarship",     #优惠类型
+                                        "name": "$name",                   #学生名字
+                                        "pfsnLevel": "$pfsnLevel",        #专业层次
+                                        "unvsId": "$unvsId",             #院校id
+                                        "pfsnId": "$pfsnId",             #专业id
+                                        "taId": "$taId"                   #考区id
                                     },
                               "header": {"appType": "3"}
                           },

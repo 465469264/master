@@ -264,7 +264,7 @@ def w_env(mobile):
 
 
 # 写入注册后的手机号码
-def write_Register_mobile(mobile):
+def write_Register_mobile(key,mobile):
     a = search_data_ini()
     ini_path = a
     config = configparser.ConfigParser()
@@ -273,12 +273,13 @@ def write_Register_mobile(mobile):
         for items in config.items(sections):
             print(items)
             # 如果为空则添加
-            if(config.get("test_data","Register_mobile")==None or config.get("test_data","Register_mobile").strip()==None):
-               config.set("test_data", "Register_mobile",mobile)
+            if(config.get("test_data",key)==None or config.get("test_data",key).strip()==None):
+               config.set("test_data", key,mobile)
             else: #删除再添加
-                config.remove_option("test_data", "Register_mobile")
-                config.set("test_data", "Register_mobile",mobile)
+                config.remove_option("test_data", key)
+                config.set("test_data", key,mobile)
         config.write(open(ini_path, "w+", encoding='utf-8'))
+
 
 
 # 修改数据库模块
@@ -332,10 +333,10 @@ def delete_activity(a):
     return data
 
 # 删除用户的习惯打卡报名记录
-# def delete_task_habit(userId):
-#     sql = 'delete from mkt.mkt_mark_task_enroll where user_id = "{}"'.format(userId)
-#     data = conn_sql().get_data(sql)
-#     return data
+def delete_task_habit(userId):
+    sql = 'delete from mkt.mkt_mark_task_enroll where user_id = "{}"'.format(userId)
+    data = conn_sql().get_data(sql)
+    return data
 
 
 # 修改打卡任务
