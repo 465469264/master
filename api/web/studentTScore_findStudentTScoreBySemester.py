@@ -56,6 +56,17 @@ class findStudentTScoreBySemester(HttpRunner):
                 .with_jmespath("body.body[2].advScore", "advScore2")  # 上进分
                 .with_jmespath("body.body[2].usualTimeMark", "usualTimeMark2")  # 平时成绩
 
+                .with_jmespath("body.body[2].courseName", "courseName3")  # 课程名称
+                .with_jmespath("body.body[2].courseId", "courseId3")  # 课程id
+                .with_jmespath("body.body[2].score", "score3")  # 卷面分
+                .with_jmespath("body.body[2].totalmark", "totalmark3")  # 期末总分
+                .with_jmespath("body.body[2].rewardScore", "rewardScore3")  # 学业奖励分
+                .with_jmespath("body.body[2].totalRewardScore", "totalRewardScore3")  # 总分+奖励分
+                .with_jmespath("body.body[2].teacher", "teacher3")  # 教师名字
+                .with_jmespath("body.body[2].teacherId", "teacherId3")  # 教师ID
+                .with_jmespath("body.body[2].advScore", "advScore3")  # 上进分
+                .with_jmespath("body.body[2].usualTimeMark", "usualTimeMark3")  # 平时成绩
+
 
 
 
