@@ -22,13 +22,13 @@ class Test_Read_habbit(HttpRunner):
         Step(RunTestCase('获取用户报读信息').call(stdLearnInfo).export(*["learnId","pfsnName"])),
         Step(RunTestCase("获取上传图片信息").call(getStsToken).teardown_hook('${upload($accessKeyId,$accessKeySecret,$endpoint,$localFile,$bucketName)}', "scPicUrl").export(*["scPicUrl"])),
         Step(RunTestCase('发布帖子至读书社').with_variables(**({"scType": "2","subType": "0","scPicUrl": "","scText": "Amylee-自动发帖-不带图片-至读书社"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至读书社').with_variables(**({"scType": "2", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至读书社"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至跑团').with_variables(**({"scType": "3", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至跑团"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至跑团').with_variables(**({"scType": "3", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至跑团"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至自考圈').with_variables(**({"scType": "4", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至自考圈"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至自考圈').with_variables(**({"scType": "4", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至自考圈"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至同学圈').with_variables(**({"scType": "1", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至同学圈"})).call(usNewPosting)),
-        Step(RunTestCase('发布帖子至同学圈').with_variables(**({"scType": "1", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至同学圈"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至读书社').with_variables(**({"scType": "2", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至读书社"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至跑团').with_variables(**({"scType": "3", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至跑团"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至跑团').with_variables(**({"scType": "3", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至跑团"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至自考圈').with_variables(**({"scType": "4", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至自考圈"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至自考圈').with_variables(**({"scType": "4", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至自考圈"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至同学圈').with_variables(**({"scType": "1", "subType": "0", "scPicUrl": "", "scText": "Amylee-自动发帖-不带图片-至同学圈"})).call(usNewPosting)),
+        # Step(RunTestCase('发布帖子至同学圈').with_variables(**({"scType": "1", "subType": "0", "scPicUrl": "$scPicUrl", "scText": "Amylee-自动发帖-带图片-至同学圈"})).call(usNewPosting)),
     ]
 if __name__ == '__main__':
     Test_Read_habbit().test_start()

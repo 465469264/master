@@ -31,6 +31,8 @@ class app_login(HttpRunner):
                 .extract()
                 .with_jmespath("body.body.app_auth_token", "app_auth_token")
                 .with_jmespath("body.body.userInfo.userId", "userId")
+                .with_jmespath("body.body.userInfo.realName", "realName")
+
                 .validate()
                 .assert_equal("status_code", 200)
         )
