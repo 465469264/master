@@ -15,7 +15,7 @@ class updateStudentTScore(HttpRunner):
                 .with_headers(**{
                 "Content - Type":"application/x-www-form-urlencoded; charset=UTF-8",
                 "Content - Length":"application/x-www-form-urlencoded; charset=UTF-8",
-                "Cookie":"${ENV(COOKIE)}",
+                "Cookie":"$Cookie",
 
             })
                 .with_data({

@@ -14,10 +14,8 @@ class Test_reping(HttpRunner):
     )
     teststeps = [
         Step(RunTestCase("登录测试账号").call(app_login).export(*["app_auth_token","userId"])),
-        Step(RunTestCase("读书圈子评论-按时间排序,第二条评论是：我是热情，点赞我").with_variables(**({"mappingId": "67707","a":1,"pageSize": "15","sortOrder": "2","pageNum": 1,"mappingType": "4"})).call(getCommentInfo)),
-        Step(RunTestCase("读书圈子评论-按热度排序,第一条评论是：我是热情，点赞我").with_variables(**({"mappingId": "67707","a": 0, "pageSize": "15", "sortOrder": "1", "pageNum": 1, "mappingType": "4"})).call(getCommentInfo)),
-
-
+        Step(RunTestCase("读书圈子评论-按时间排序,第一条评论是：嗨你好你好").with_variables(**({"mappingId": "67834","a":0,"pageSize": "15","sortOrder": "2","pageNum": 1,"mappingType": "4","content":"嗨你好你好"})).call(getCommentInfo)),
+        Step(RunTestCase("读书圈子评论-按热度排序,第二条评论是：我是热评，哈哈哈").with_variables(**({"mappingId": "67834","a": 0, "pageSize": "15", "sortOrder": "1", "pageNum": 1, "mappingType": "4","content":"我是热评，哈哈哈"})).call(getCommentInfo)),
 
 
     ]

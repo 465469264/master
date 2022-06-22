@@ -14,7 +14,7 @@ from api.app.loginOrRegister import app_login
 
 class TestCasesPay_fee(HttpRunner):
     config = (
-        Config("申请发票用例")
+        Config("用于帮学生生成学员订单并审核")
             .base_url("${ENV(BASE_URL)}")
             .verify(False)
             .variables(**{
@@ -23,7 +23,7 @@ class TestCasesPay_fee(HttpRunner):
     )
     teststeps = [
         # 缴费辅导费,并生成学院订单
-        Step(RunTestCase("获取缴费信息,并生成学院订单").call(querry).teardown_hook('${College_order($learn_Id)}').export(*["learnId","learn_Id","subOrderNo","grade","feeAmount"])),
+        Step(RunTestCase("获取缴费信息,并生成学院订单").setup_hook('${login_web()}', "Cookie").call(querry).teardown_hook('${College_order($learn_Id)}').export(*["learnId","learn_Id","subOrderNo","grade","feeAmount","Cookie"])),
         Step(RunTestCase("获取缴费web_token").call(web_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
         Step(RunTestCase("缴辅导费").call(pay_fee)),
         # 删除没用的学院订单,缴费学院订单
@@ -34,9 +34,6 @@ class TestCasesPay_fee(HttpRunner):
         Step(RunTestCase("缴第一年Y1").call(pay_fee3)),
         Step(RunTestCase("查找缴费审核学员").call(feeReview_list).export(*["subOrderNo1", "subOrderNo2","subOrderNo3"])),
         Step(RunTestCase("批量审核").call(reviewFee1).teardown_hook('${std_stage($learn_Id)}')),   #批量审核后，让学员变为在线学员
-        Step(RunTestCase("登录刚注册的手机号").call(app_login).export(*["app_auth_token","userId"])),
-        Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode", "itemName", "grade", "payment","invoiceType"])),
-        Step(RunTestCase("申请发票").call(ApplyRecord)),
     ]
 
 if __name__ == '__main__':

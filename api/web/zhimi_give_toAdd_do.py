@@ -14,7 +14,7 @@ class zhimi_token(HttpRunner):
                 .with_headers(**{
                 "Content - Type":"application/x-www-form-urlencoded; charset=UTF-8",
                 "Host": "${ENV(Host)}",
-                "Cookie":"${ENV(COOKIE)}"
+                "Cookie":"$Cookie"
             })
                 .extract()
                 .with_jmespath("body","body")

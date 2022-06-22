@@ -6,9 +6,9 @@ from api.app.stdLearnInfo import stdLearnInfo
 from api.web.invoiceApp_itemList import invoiceApp_itemList
 from api.web.invoiceApp_chageItemSatus import invoiceApp_chageItemSatus
 
-class TestCases_ApplyRecord_enterprise(HttpRunner):
+class Test_Apply(HttpRunner):
     config = (
-        Config("申请企业发票用例")
+        Config("申请模块")
             .verify(False)
             .variables(**{
                 "mobile": "${read_data_number(ApplyRecord,mobile)}"
@@ -20,9 +20,11 @@ class TestCases_ApplyRecord_enterprise(HttpRunner):
         Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode","learnId","itemName", "grade", "payment","invoiceType"])),
         Step(RunTestCase("申请企业发票").with_variables(**({"companyTaxNumber" :"123456789111111111","invoiceTitle": "1","companyName": "测试",
                                                       "applyPurpose": "测试","email": "123@qq.com"})).call(ApplyRecord)),
-        Step(RunTestCase("号码搜索发票列表").call(invoiceApp_itemList).export(*["itemId", "itemName"])),
+        Step(RunTestCase("号码搜索发票列表").setup_hook('${login_web()}', "Cookie").call(invoiceApp_itemList).export(*["itemId", "itemName","Cookie"])),
         Step(RunTestCase("驳回发票申请").with_variables(**({"status":"2"})).call(invoiceApp_chageItemSatus)),
+
+
     ]
 
 if __name__ == '__main__':
-    TestCases_ApplyRecord_enterprise().test_start()
+    Test_Apply().test_start()

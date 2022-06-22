@@ -17,7 +17,7 @@ class web_token(HttpRunner):
                 "User-Agent":"PostmanRuntime/7.28.4",
                 "Accept-Encoding":"gzip, deflate, br",
                 "Connection":"keep-alive",
-                "Cookie": "${ENV(COOKIE)}"
+                "Cookie": "$Cookie"
             })
                 .with_data({"learnId": "$learnId"})
                 .extract()

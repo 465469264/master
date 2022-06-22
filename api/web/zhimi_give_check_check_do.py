@@ -15,7 +15,7 @@ class check_zhimi(HttpRunner):
                 "Content - Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 "Host": "bms.yzwill.cn",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-                "Cookie": "${ENV(COOKIE)}",
+                "Cookie": "$Cookie",
                 "transferSeq": "1",
                 "X-Requested-With": "XMLHttpRequest",
                 "uri":"http://bms.yzwill.cn/zhimi_give_check/toCheck.do?id=$id"

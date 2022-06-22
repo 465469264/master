@@ -12,7 +12,7 @@ class reviewFee1(HttpRunner):
             RunRequest("收费审核")
                 .post("/feeReview/reviewFees.do")
                 .with_headers(**{
-                "Cookie":"${ENV(COOKIE)}",
+                "Cookie":"$Cookie",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
                 "uri": "http://bms.yzwill.cn/feeReview/toList.do",
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

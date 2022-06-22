@@ -27,8 +27,13 @@ class stdLearnInfo(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
+                .with_jmespath("body.body.learnInfos[0].scholarship", "scholarship")
                 .with_jmespath("body.body.learnInfos[0].learnId", "learnId")
+                .with_jmespath("body.body.learnInfos[0].stdName", "stdName")
+                .with_jmespath("body.body.learnInfos[0].unvsId", "unvsId")
                 .with_jmespath("body.body.stdId","stdId")
+                .with_jmespath("body.body.mobile", "mobile")
+
                 .with_jmespath("body.body.learnInfos[0].pfsnName", "pfsnName")
                 .validate()
                 .assert_equal("body.message", "success")

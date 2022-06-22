@@ -354,8 +354,6 @@ def update_task():
     data4 = conn_sql().get_data(sql4)
     return data1,data2,data3,data4
 
-
-
 # 获取图片上传路径
 def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
     auth = oss2.Auth(accessKeyId, accessKeySecret)
@@ -367,6 +365,24 @@ def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
     scPicUrl = uid + extension
     bucket.put_object_from_file(scPicUrl, localFile)
     return scPicUrl
+
+# 登录web
+def login_web():
+    s = requests.Session()
+    data = {"isOpenImage": "",
+            "mobile": "18221823862",
+            "ImgValidCode": "",
+            "validCode": "888888"}
+    url = "http://bms.yzwill.cn/loginByMobile.do"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "uri": "http://bms.yzwill.cn/toLogin.do",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
+    res = s.post(url=url, headers=headers, data=data)
+    print(res)
+    cookie = requests.utils.dict_from_cookiejar(res.cookies)["SESSION"]
+    Cookie = "SESSION=" + cookie
+    return Cookie
 
 
 

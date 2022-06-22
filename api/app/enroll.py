@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
 #报名成教
-class sign_up_education_chengjiao(HttpRunner):
+class sign_up_education(HttpRunner):
     config = (
         Config("报名成教")
             .base_url("${ENV(app_BASE_URL)}")

@@ -17,7 +17,7 @@ class TestCasesActivity_sendAppMsg(HttpRunner):
             )
     teststeps = [
         # 科目1:奖励分20分，卷面成绩50分，及格
-        Step(RunTestCase("用手机号查询学生信息").call(studentTScore_findAllStudentTScore).export(*["learnId","grade","stdId","recruitType"])),
+        Step(RunTestCase("用手机号查询学生信息").setup_hook('${login_web()}', "Cookie").call(studentTScore_findAllStudentTScore).export(*["learnId","grade","stdId","recruitType","Cookie"])),
         Step(RunTestCase("获取编辑学生成绩的web_token").call(studentTScore_edit_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
         Step(RunTestCase("获取学生第一期-科目1成绩").call(findStudentTScoreBySemester).export(*["courseName","courseId","totalmark","totalRewardScore","teacher","teacherId","advScore","usualTimeMark"])),
         Step(RunTestCase("编辑第一学期-科目1成绩-常规课程有卷面分，学业奖励分20-正常状态").with_variables(**({"a":"0","score":"50","rewardScore":"20","examStatus":"4","courseScoreType":"1","examSubjectName":"$courseName"})).call(updateStudentTScore)),

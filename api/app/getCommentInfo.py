@@ -35,7 +35,7 @@ class getCommentInfo(HttpRunner):
                 .extract()
                 .validate()
                 .assert_equal("body.message", "success")
-                .assert_equal("body.body.list[$a].content", "我是热情，点赞我")
+                .assert_equal("body.body.list[$a].content", "$content")
 
         )
     ]

@@ -18,7 +18,7 @@ class TestCasesbuy_give_zhimi(HttpRunner):
             )
     teststeps = [
         # 智米赠送申请
-        Step(RunTestCase("取智米赠送的web_token").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
+        Step(RunTestCase("取智米赠送的web_token").setup_hook('${login_web()}', "Cookie").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token","Cookie"])),
         Step(RunTestCase("获取用户信息，获取userId").call(getUserInfo).export(*["user_id"])),
         Step(RunTestCase("智米赠送").call(zhimi_give)),
         #智米赠送审核

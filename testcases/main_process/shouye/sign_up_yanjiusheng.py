@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.getCommitToken import get_zmtoken
-from api.app.enroll import sign_up_education_chengjiao
+from api.app.enroll import sign_up_education
 from api.app.Register import Register
 
 class Test_Sign_up_yanjiusheng(HttpRunner):
@@ -29,7 +29,7 @@ class Test_Sign_up_yanjiusheng(HttpRunner):
     teststeps = [
         Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${write_Register_mobile(register_mobile_yanjiusheng,$mobile)}').export(*["app_auth_token","mobile","userId"])),
         Step(RunTestCase("获取报名zmtoken").call(get_zmtoken).export(*["zmtoken"])),
-        Step(RunTestCase("报名研究生").call(sign_up_education_chengjiao)),
+        Step(RunTestCase("报名研究生").call(sign_up_education)),
     ]
 if __name__ == '__main__':
     Test_Sign_up_yanjiusheng().test_start()

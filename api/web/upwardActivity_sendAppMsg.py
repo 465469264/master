@@ -17,7 +17,7 @@ class upwardActivity_sendAppMsg(HttpRunner):
                 "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
                 "Accept-Encoding":"gzip, deflate, br",
                 "Connection":"keep-alive",
-                "Cookie": "${ENV(COOKIE)}"
+                "Cookie": "$Cookie"
             })
                 .with_data({"actId": "$actId","actName":"$actName"})
                 .validate()
