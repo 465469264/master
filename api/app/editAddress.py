@@ -8,22 +8,19 @@ class eddit_address(HttpRunner):
             .variables(**{
                             "number": {
                                     "body":{
-                                            "saName": "测试",
-                                            "address": "测试",
-                                            "districtCode": "3633",
-                                            "android_phoneModel": "SM-N9500",
-                                            "districtName": "天河区",
-                                            "cityCode": "1601",
-                                            "provinceCode": "19",
-                                            "mobile": "13729041111",
-                                            "android_version": "7.19.2",
-                                            "android_sdk": 28,
-                                            "cityName": "广州市",
-                                            "saType": "3",
+                                            "saName": "$saName",                   #收货人
+                                            "address": "$address",                  #详细地址
+                                            "districtCode": "$districtCode",     #区的编码
+                                            "districtName": "$districtName",     #区名称
+                                            "cityCode": "$cityCode",                  #市编码
+                                            "provinceCode": "$provinceCode",                #省编码
+                                            "mobile": "$mobile",             #手机号码
+                                            "cityName": "$cityName",             #市名
+                                            "saType": "$saType",                   #地址类型	  1>教材地址	  2>试卷邮寄地址	  3>收获地址
                                             "CREATOR": {},
-                                            "provinceName": "广东",
-                                            "excType": "1",
-                                            "email": "12@qq.com"
+                                            "provinceName": "$provinceName",           #省份名字
+                                            "excType": "$excType",                   #1>新增   2> 保存
+                                            "email": "$email"                 #邮箱
                                         },
                                     "header":{
                                         "appType":"3"

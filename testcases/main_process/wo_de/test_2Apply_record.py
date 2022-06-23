@@ -9,7 +9,7 @@ from api.app.getInvoiceApplyRecord import getInvoiceApplyRecord
 from api.app.myApplyType import myApplyType
 from api.app.getInvoiceApplyRecord import getInvoiceApplyRecord
 
-class Test_Apply(HttpRunner):
+class Test_Apply_Record(HttpRunner):
     config = (
         Config("申请模块")
             .verify(False)
@@ -38,4 +38,4 @@ class Test_Apply(HttpRunner):
     ]
 
 if __name__ == '__main__':
-    Test_Apply().test_start()
+    Test_Apply_Record().test_start()
