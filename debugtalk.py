@@ -10,7 +10,7 @@ import configparser,os,yaml
 f = Faker(locale='zh_CN')
 import re,oss2
 
-'''
+'''hr
 app>har2case apply.har
 hrun -s apply.json
 

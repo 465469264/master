@@ -10,7 +10,7 @@ class ApplyRecord(HttpRunner):
                                     "body":{
                                             "learnId": "$learnId",
                                             "companyTaxNumber": "$companyTaxNumber",
-                                            "invoiceTitle": "$invoiceTitle",
+                                            "invoiceTitle": "$invoiceTitle",           #抬头类型  1->企业, 2->个人
                                             "userId": "$userId",
                                             "bdsInvoiceItem": "[{\"amount\":\"$payment\",\"itemName\":\"$itemName\",\"invoiceType\":$invoiceType,\"subOrderNo\":\"$bdSubOrderId\",\"expressFee\":\"15\",\"itemCode\":\"$itemCode\"}]",
                                             "companyName": "$companyName",
