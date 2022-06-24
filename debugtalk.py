@@ -25,7 +25,7 @@ def sum_two(m, n):
 def sleep(n_secs):
     time.sleep(n_secs)
 
-#公共模块
+#APP的
 # 校验学员+老师身份消息通知title
 def judge_newUnReadNum(newUnReadNum7,newUnReadNum9):
     try:
@@ -102,8 +102,21 @@ def selAppMsgCenter_msgtype2(body):
     except AssertionError:
         log.error("报名活动消息推送错误")
 
+# 获取图片上传路径
+def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
+    auth = oss2.Auth(accessKeyId, accessKeySecret)
+    bucket = oss2.Bucket(auth, endpoint, bucketName)
+    s_uuid = str(uuid.uuid4())
+    l_uuid = s_uuid.split('-')
+    uid = ''.join(l_uuid)
+    (shotname,extension) = os.path.splitext(localFile)
+    scPicUrl = uid + extension
+    bucket.put_object_from_file(scPicUrl, localFile)
+    return scPicUrl
 
 
+
+# 公用模块
 # 接口数据加密
 def base64_encode(code):
     data = base64.b64encode(str(code).encode()).decode()
@@ -138,43 +151,9 @@ def idcard():
     """生成身份证"""
     return f.ssn()
 
-#获取ini文件路径
-def search_data_ini():
-    f_list = [os.path.dirname(os.path.abspath(__file__))]   #获取项目路径
-    f_str = 'data.ini'
-    s_list = f_list.copy()
-    f_list.clear()
-    for x_dir in s_list:
-        if os.path.isdir(x_dir):
-            try:
-                for fname in os.listdir(x_dir):
-                    fpath = os.path.join(x_dir, fname)
-                    if f_str in fname and os.path.isfile(fpath):
-                        return fpath
-                    elif os.path.isdir(fpath):
-                        # 保存下一级目录
-                        f_list.append(fpath)
-            except IOError:
-                print("错的", x_dir)
-
-#全局搜索指定文件夹路径
-def search_file():
-    f_list = [os.path.dirname(os.path.abspath(__file__))]  #获取项目路径
-    f_str = '.env'
-    s_list = f_list.copy()
-    f_list.clear()
-    for x_dir in s_list:
-        if os.path.isdir(x_dir):
-            try:
-                for fname in os.listdir(x_dir):
-                    fpath = os.path.join(x_dir, fname)
-                    if f_str in fname and os.path.isfile(fpath):
-                        return fpath
-                    elif os.path.isdir(fpath):
-                        # 保存下一级目录
-                        f_list.append(fpath)
-            except IOError:
-                print("错的", x_dir)
+#延迟执行
+def delay(body):
+    time.sleep(body)
 
 #获取当前时间
 def now_times():
@@ -184,6 +163,7 @@ def now_times():
 def time_late():
     return((datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y/%m/%d %H:%M:%S"))
 
+# 往后1分钟
 def time_late_minutes():
     return ((datetime.datetime.now() + datetime.timedelta(minutes=+1)).strftime("%Y/%m/%d %H:%M:%S"))
 
@@ -192,50 +172,29 @@ def day_late():
     return ((datetime.datetime.now() + datetime.timedelta(days=6)).strftime("%Y/%m/%d %H:%M:%S"))
 
 
-#延迟执行
-def delay(body):
-    time.sleep(body)
+# 写入测试数据，及读取测试数据
+# 全局搜索指定文件夹路径
+def search_file(a):
+    f_list = [os.path.dirname(os.path.abspath(__file__))]   #获取项目路径
+    f_str = 'a'
+    s_list = f_list.copy()
+    f_list.clear()
+    for x_dir in s_list:
+        if os.path.isdir(x_dir):
+            try:
+                for fname in os.listdir(x_dir):
+                    fpath = os.path.join(x_dir, fname)
+                    if f_str in fname and os.path.isfile(fpath):
+                        return fpath
+                    elif os.path.isdir(fpath):
+                        # 保存下一级目录
+                        f_list.append(fpath)
+            except IOError:
+                print("错的", x_dir)
 
-
-#web后台模块
-#缴费单
-def feeList():
-    feeList=[{"itemCode":"Y1","itemName":"代收第一年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"2","itemYear":"1","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S1","itemName":"代收第一年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"3","itemYear":"1","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y2","itemName":"代收第二年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"5","itemYear":"2","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S2","itemName":"代收第二年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"6","itemYear":"2","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y3","itemName":"代收第三年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"8","itemYear":"3","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S3","itemName":"代收第三年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"9","itemYear":"3","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"YS","itemName":"代收艺术加考费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"100","itemYear":"1","itemType":"3","feeId":None,"itemSeq":None},{"itemCode":"Y0","itemName":"考前辅导费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"103","itemYear":"0","itemType":"1","feeId":None,"itemSeq":None}]
-    return feeList
-
-#获取web_token
-def get_html(body):
-    pattern = re.compile(r'value="(.+)" name="_web_token"')  # 查找数字
-    body = str(body, encoding="utf-8")
-    a = pattern.findall(body)
-    print(type(a))
-    return a[0]
-
-#27环境执行生成学院订单
-def College_order(learn_Id):
-    sql = 'INSERT INTO pay.bd_sub_order (sub_order_no,order_no,item_code,item_name,item_seq,item_year,item_type,fee_amount,offer_amount,payable,sub_order_status,std_id,std_name,mobile,id_card,user_id,sub_learn_id ) SELECT bms.seq (),' \
-          'CONCAT( "YZ", DATE_FORMAT( NOW(), "%Y%m%d%H%i%s" ), "12378"),it.item_code,it.item_name,it.delay_num,it.item_year,it.item_type,f.define_amount,0.00,f.define_amount,"1",li.std_id,li.ln_std_name,li.mobile,li.id_card,si.user_id,' \
-          'li.learn_id FROM bms.bd_fee_define f LEFT JOIN bms.bd_learn_info li ON li.fee_id = f.fee_id LEFT JOIN bms.bd_fee_item it ON it.item_code = f.item_code LEFT JOIN bms.bd_student_info si ON si.std_id = li.std_id WHERE li.learn_id = "{}"'.format(learn_Id)
-    data = conn_sql().get_data(sql)
-    return data
-# College_order('164880778923176371')
-
-#27环境执行删除生成多的最后两条订单
-def delete_order(learnId):
-    sql = 'delete from pay.bd_sub_order where sub_order_no in (select t.sub_order_no from (select * from pay.bd_sub_order where sub_learn_id = "{}" order by sub_order_no desc limit 0,2)as t)'.format(learnId)
-    data = conn_sql().get_data(sql)
-    return data
-
-# 拼接webcookie
-def web_cookie(cookie):
-    Cookie = "SESSION=" + str(cookie)
-    return Cookie
-
-
-# app模块
 # 读取data的测试数据
 def read_data_number(a,b):
-    c = search_data_ini()
+    c = search_file('data.ini')
     ini_path = c
     config = configparser.ConfigParser()
     config.read(ini_path,encoding="utf-8-sig")
@@ -244,14 +203,14 @@ def read_data_number(a,b):
 
 
 
-#把APP手机号注册参数写入到env文件
+#把APP手机号注册参数写入到data文件
 def w_env(mobile):
     """
     更新后台的authtoken，减少登录操作
     :param authtoken:
     :return:
     """
-    a = search_file()
+    a = search_file('.env')
     # file_dir = os.path.abspath('../..')  # 获取上级路径
     # file_dir = os.path.abspath(os.path.join(os.getcwd(), "../.."))  # 获取上上级路径
     dot_env = load_dot_env_file(a)
@@ -262,10 +221,9 @@ def w_env(mobile):
             f.write(k_v)
             f.write('\n')
 
-
 # 写入注册后的手机号码
 def write_Register_mobile(key,mobile):
-    a = search_data_ini()
+    a = search_file('data.ini')
     ini_path = a
     config = configparser.ConfigParser()
     config.read(ini_path,encoding="utf-8-sig")
@@ -279,6 +237,40 @@ def write_Register_mobile(key,mobile):
                 config.remove_option("test_data", key)
                 config.set("test_data", key,mobile)
         config.write(open(ini_path, "w+", encoding='utf-8'))
+
+
+
+#web后台模块
+# 登录web
+def login_web():
+    s = requests.Session()
+    data = {"isOpenImage": "",
+            "mobile": "18221823862",
+            "ImgValidCode": "",
+            "validCode": "888888"}
+    url = "http://bms.yzwill.cn/loginByMobile.do"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "uri": "http://bms.yzwill.cn/toLogin.do",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
+    res = s.post(url=url, headers=headers, data=data)
+    print(res)
+    cookie = requests.utils.dict_from_cookiejar(res.cookies)["SESSION"]
+    Cookie = "SESSION=" + cookie
+    return Cookie
+
+#获取web_token
+def get_html(body):
+    pattern = re.compile(r'value="(.+)" name="_web_token"')  # 查找数字
+    body = str(body, encoding="utf-8")
+    a = pattern.findall(body)
+    print(type(a))
+    return a[0]
+
+# 拼接webcookie
+def web_cookie(cookie):
+    Cookie = "SESSION=" + str(cookie)
+    return Cookie
 
 
 
@@ -338,6 +330,25 @@ def delete_task_habit(userId):
     data = conn_sql().get_data(sql)
     return data
 
+#缴费单
+def feeList():
+    feeList=[{"itemCode":"Y1","itemName":"代收第一年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"2","itemYear":"1","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S1","itemName":"代收第一年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"3","itemYear":"1","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y2","itemName":"代收第二年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"5","itemYear":"2","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S2","itemName":"代收第二年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"6","itemYear":"2","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y3","itemName":"代收第三年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"8","itemYear":"3","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S3","itemName":"代收第三年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"9","itemYear":"3","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"YS","itemName":"代收艺术加考费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"100","itemYear":"1","itemType":"3","feeId":None,"itemSeq":None},{"itemCode":"Y0","itemName":"考前辅导费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"103","itemYear":"0","itemType":"1","feeId":None,"itemSeq":None}]
+    return feeList
+
+#27环境执行生成学院订单
+def College_order(learn_Id):
+    sql = 'INSERT INTO pay.bd_sub_order (sub_order_no,order_no,item_code,item_name,item_seq,item_year,item_type,fee_amount,offer_amount,payable,sub_order_status,std_id,std_name,mobile,id_card,user_id,sub_learn_id ) SELECT bms.seq (),' \
+          'CONCAT( "YZ", DATE_FORMAT( NOW(), "%Y%m%d%H%i%s" ), "12378"),it.item_code,it.item_name,it.delay_num,it.item_year,it.item_type,f.define_amount,0.00,f.define_amount,"1",li.std_id,li.ln_std_name,li.mobile,li.id_card,si.user_id,' \
+          'li.learn_id FROM bms.bd_fee_define f LEFT JOIN bms.bd_learn_info li ON li.fee_id = f.fee_id LEFT JOIN bms.bd_fee_item it ON it.item_code = f.item_code LEFT JOIN bms.bd_student_info si ON si.std_id = li.std_id WHERE li.learn_id = "{}"'.format(learn_Id)
+    data = conn_sql().get_data(sql)
+    return data
+# College_order('164880778923176371')
+
+#27环境执行删除生成多的最后两条订单
+def delete_order(learnId):
+    sql = 'delete from pay.bd_sub_order where sub_order_no in (select t.sub_order_no from (select * from pay.bd_sub_order where sub_learn_id = "{}" order by sub_order_no desc limit 0,2)as t)'.format(learnId)
+    data = conn_sql().get_data(sql)
+    return data
 
 # 修改打卡任务
 def update_task():
@@ -354,35 +365,9 @@ def update_task():
     data4 = conn_sql().get_data(sql4)
     return data1,data2,data3,data4
 
-# 获取图片上传路径
-def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
-    auth = oss2.Auth(accessKeyId, accessKeySecret)
-    bucket = oss2.Bucket(auth, endpoint, bucketName)
-    s_uuid = str(uuid.uuid4())
-    l_uuid = s_uuid.split('-')
-    uid = ''.join(l_uuid)
-    (shotname,extension) = os.path.splitext(localFile)
-    scPicUrl = uid + extension
-    bucket.put_object_from_file(scPicUrl, localFile)
-    return scPicUrl
 
-# 登录web
-def login_web():
-    s = requests.Session()
-    data = {"isOpenImage": "",
-            "mobile": "18221823862",
-            "ImgValidCode": "",
-            "validCode": "888888"}
-    url = "http://bms.yzwill.cn/loginByMobile.do"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "uri": "http://bms.yzwill.cn/toLogin.do",
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
-    res = s.post(url=url, headers=headers, data=data)
-    print(res)
-    cookie = requests.utils.dict_from_cookiejar(res.cookies)["SESSION"]
-    Cookie = "SESSION=" + cookie
-    return Cookie
+
+
 
 
 

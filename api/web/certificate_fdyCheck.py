@@ -6,31 +6,26 @@ class fdyCheck(HttpRunner):
         Config("学员证明申请-----审核")
             .base_url("${ENV(BASE_URL)}")
             .verify(False)
-            .variables()
+            .variables(**({"url":"${ENV(BASE_URL)}"})
+
+        )
     )
     teststeps = [
         Step(
             RunRequest("学员证明申请-----审核")
                 .post("/certificate/fdyCheck.do")
                 .with_headers(**{
-                "Accept":"*/*",
-                "User-Agent":"PostmanRuntime/7.28.4",
-                "Accept-Encoding":"gzip, deflate, br",
-                "Connection":"keep-alive",
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'transferSeq': '1',
+                'X-Requested-With': 'XMLHttpRequest',
+                "Host": "${ENV(Host)}",
                 "Cookie": "$Cookie",
-
-    })
-                .with_data({"certId": "$certId",
-                            "learnId":"$learnId",
-                            "applyTyp":"$applyTyp",    # 6>报读证明  5>其他,
-                            "_web_token":"$_web_token",
-                            "checkStatus":"checkStatus",        #-1>审核不通过      0>审核通过
-                            "reason": "reason"                #审核备注
-
-                            })
+                })
+                # checkStatus  -1>审核不通过      0>审核通过             "applyTyp":"$applyTyp",    # 6>报读证明  5>其他,    "reason": "$reason",                #审核备注
+                .with_data({'certId': '$certId', 'learnId': '$learnId', 'applyType': '$applyType', '_web_token': '', 'ifSubmit': '', 'checkStatus': '$checkStatus', 'reason': '$reason', 'admin-role-save': ''})
                 .extract()
-                .with_jmespath("body.body.data[0].certId","certId") #获取body
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.code", "00")
         )
     ]
