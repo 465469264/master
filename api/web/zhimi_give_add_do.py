@@ -22,10 +22,10 @@ class zhimi_give(HttpRunner):
                 .with_data(
                             {
                             "_web_token": "$_web_token",
-                            "userId": "$user_id",
-                            "zhimiType": "1",
-                            "accSerialType": "5",
-                            "zhimiCount":"699",
+                            "userId": "$userId",
+                            "zhimiType": "$zhimiType",                #1>进账   2>出账
+                            "accSerialType": "$accSerialType",            #1>注册赠送  2>缴费送自身  3>下线缴费送  4>任务卡赠送  5>其他补送  26>其他收回	27>抽奖使用	28>活动报名
+                            "zhimiCount":"$zhimiCount",
                             "reasonDesc":"测试",
                             }
                             )

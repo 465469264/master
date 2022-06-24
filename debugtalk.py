@@ -330,6 +330,12 @@ def delete_task_habit(userId):
     data = conn_sql().get_data(sql)
     return data
 
+# 查询用户的智米
+def find_zhimi(userId):
+    sql = 'SELECT zhimi_amount FROM us.us_base_info WHERE user_id = "{}"'.format(userId)
+    data = conn_sql().get_data(sql)
+    return data
+
 #缴费单
 def feeList():
     feeList=[{"itemCode":"Y1","itemName":"代收第一年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"2","itemYear":"1","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S1","itemName":"代收第一年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"3","itemYear":"1","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y2","itemName":"代收第二年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"5","itemYear":"2","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S2","itemName":"代收第二年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"6","itemYear":"2","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y3","itemName":"代收第三年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"8","itemYear":"3","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S3","itemName":"代收第三年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"9","itemYear":"3","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"YS","itemName":"代收艺术加考费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"100","itemYear":"1","itemType":"3","feeId":None,"itemSeq":None},{"itemCode":"Y0","itemName":"考前辅导费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"103","itemYear":"0","itemType":"1","feeId":None,"itemSeq":None}]

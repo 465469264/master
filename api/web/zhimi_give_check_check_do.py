@@ -24,7 +24,7 @@ class check_zhimi(HttpRunner):
                 .with_data(
                 {
                     "id": "$id",
-                    "reasonStatus": "2",
+                    "reasonStatus": "$reasonStatus",       #2>通过   3>驳回
                     "rejectDesc": "",
                     "_web_token": "$_web_token",
                 }
