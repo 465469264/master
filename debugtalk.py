@@ -176,7 +176,7 @@ def day_late():
 # 全局搜索指定文件夹路径
 def search_file(a):
     f_list = [os.path.dirname(os.path.abspath(__file__))]   #获取项目路径
-    f_str = 'a'
+    f_str = a
     s_list = f_list.copy()
     f_list.clear()
     for x_dir in s_list:
@@ -201,8 +201,6 @@ def read_data_number(a,b):
     print(config.get(a,b))
     return config.get(a,b)
 
-
-
 #把APP手机号注册参数写入到data文件
 def w_env(mobile):
     """
@@ -220,6 +218,8 @@ def w_env(mobile):
             k_v = k + '=' + str(v)
             f.write(k_v)
             f.write('\n')
+
+
 
 # 写入注册后的手机号码
 def write_Register_mobile(key,mobile):

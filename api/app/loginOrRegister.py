@@ -10,7 +10,11 @@ class app_login(HttpRunner):
                                     "body":{
                                     "mobile": "$mobile",
                                     "valicode": "888888",
-                                    "regChannel": "6"
+                                    "regChannel": "6",
+                                    "notPrompt": 1,
+                                    "android_sdk": 28,
+                                    "uuId": "2a74253c-7c4d-3c84-abb6-e9e72fabb9a1",
+                                    "sign": "86E4295F988D9CDADB9CBB4494B71692",
                                     },
                                     "header":{"appType":"3"}
                                     },

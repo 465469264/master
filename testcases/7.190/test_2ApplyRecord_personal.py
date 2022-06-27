@@ -19,8 +19,7 @@ class TestCases_ApplyRecord_personal(HttpRunner):
         Step(RunTestCase("登录申请发票的手机号").call(app_login).teardown_hook('${login_web()}', "Cookie").export(*["app_auth_token","userId","Cookie"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode","learnId","itemName", "grade", "payment","invoiceType"])),
-        Step(RunTestCase("申请个人发票").with_variables(**({"companyTaxNumber" :"","invoiceTitle": "2","companyName": "",
-                                                      "applyPurpose": "测试","email": "123@qq.com"})).call(ApplyRecord)),
+        Step(RunTestCase("申请个人发票").with_variables(**({"companyTaxNumber" :"","invoiceTitle": "2","companyName": "","applyPurpose": "测试","email": "123@qq.com"})).call(ApplyRecord)),
         Step(RunTestCase("号码搜索发票列表").call(invoiceApp_itemList).export(*["itemId", "itemName"])),
         Step(RunTestCase("驳回发票申请").with_variables(**({"status":"2"})).call(invoiceApp_chageItemSatus)),
     ]

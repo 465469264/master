@@ -24,7 +24,7 @@ class Test_Apply_qita(HttpRunner):
                 })
     )
     teststeps = [
-        Step(RunTestCase("登录手机号").call(app_login).export(*["app_auth_token","userId"])),
+        Step(RunTestCase("登录手机号").setup_hook('${delay(5)}').call(app_login).export(*["app_auth_token","userId"])),
         Step(RunTestCase("取智米支出的web_token").setup_hook('${login_web()}', "Cookie").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token","Cookie"])),
         Step(RunTestCase("后台申请智米支出100").with_variables(**({"zhimiCount":"$amount","accSerialType":"26"})).call(zhimi_give)),
         Step(RunTestCase("获取要审核的记录id").call(zhimi_give_check_list).export(*["id"])),

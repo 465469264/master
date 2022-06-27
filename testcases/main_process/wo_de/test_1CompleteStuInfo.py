@@ -5,22 +5,39 @@ from api.app.getNeedCompleteStuInfo import getInvoiceApply
 from api.app.stdLearnInfo import stdLearnInfo
 from api.app.updateCompleteStuInfo import updateCompleteStuInfo
 from api.app.getStsToken import getStsToken
-
+from api.app.getCommitToken import get_zmtoken
+from api.app.enroll import sign_up_education
+from api.app.Register import Register
 
 class Test_perationStatistic(HttpRunner):
     config = (
         Config("完善成教资料")
             .verify(False)
             .variables(**{
-            # "mobile": "${read_data_number(accountnumber,teacher_student6)}",
-            "mobile": "15960652414",
             "localFile": "${read_data_number(SelClockTaskTopic_run,localFile)}",
             "bucketName": "yzimstemp",
+            "mobile": "${get_not_exist_mobile()}",
+            "idCard": "${idcard()}",
+            "name": "${get_name()}",
+            "activeName": "amylee成人教育课程活动",
+            "pfsnLevelName": "1>专科升本科类",
+            "recruitType": "1",
+            "unvsName": "amylee成人教育学校",
+            "pfsnName": "amylee成人教育",
+            "taName": "广州南沙",
+            "grade": "2022",
+            "scholarship": "1273",
+            "pfsnLevel": "1",
+            "unvsId": "164690457468960222",
+            "pfsnId": "164690470996983675",
+            "taId": "169"
         }
                        )
     )
     teststeps = [
-        Step(RunTestCase("登录测试账号").call(app_login).export(*["app_auth_token", "userId", "realName"])),
+        Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${write_Register_mobile(register_mobile_chengjiao,$mobile)}').export(*["app_auth_token", "mobile", "userId","realName"])),
+        Step(RunTestCase("获取报名zmtoken").call(get_zmtoken).export(*["zmtoken"])),
+        Step(RunTestCase("报名成教").call(sign_up_education)),
         Step(RunTestCase("获取上传图片信息").call(getStsToken).teardown_hook('${upload($accessKeyId,$accessKeySecret,$endpoint,$localFile,$bucketName)}', "scPicUrl").export(*["scPicUrl"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["scholarship","learnId", "mobile", "stdId","unvsId"])),
 

@@ -14,6 +14,7 @@ class Test_Apply_qita(HttpRunner):
             .verify(False)
             .variables(**{
                 "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                # "mobile": "13729041111",
                 "accType":"2",      #accType.1	>现金账户	 2>智米	 3>滞留账户
                 "pageSize":"20",
                 "pageNum":"1",
@@ -24,7 +25,7 @@ class Test_Apply_qita(HttpRunner):
                 })
     )
     teststeps = [
-        Step(RunTestCase("登录手机号").call(app_login).export(*["app_auth_token","userId"])),
+        Step(RunTestCase("登录手机号").setup_hook('${delay(5)}').call(app_login).export(*["app_auth_token","userId"])),
         Step(RunTestCase("统计智米，并与数据库校验").setup_hook('${find_zhimi($userId)}', "accAmount").call(AccountDetail)),
 
         Step(RunTestCase("取智米赠送的web_token").setup_hook('${login_web()}', "Cookie").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token","Cookie"])),

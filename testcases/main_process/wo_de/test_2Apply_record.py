@@ -18,7 +18,7 @@ class Test_Apply_Record(HttpRunner):
                 })
     )
     teststeps = [
-        Step(RunTestCase("登录申请发票的手机号").call(app_login).export(*["app_auth_token","userId"])),
+        Step(RunTestCase("登录申请发票的手机号").setup_hook('${delay(5)}').call(app_login).export(*["app_auth_token","userId"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("获取可申请的类型").call(myApplyType)),
         Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode","learnId","itemName", "grade", "payment","invoiceType"])),
