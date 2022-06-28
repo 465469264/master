@@ -1,14 +1,14 @@
+#获取活动详情
 from httprunner import HttpRunner, Config, Step, RunRequest
-#获取圈子页的活动列表
-class selUpwardActivityInfo(HttpRunner):
+class selUpwardActivityDetailById(HttpRunner):
     config = (
-        Config("获取圈子页的活动列表")
+        Config("获取活动详情")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                           "number": {
                                     "body":{
-                                    "sign": "86E4295F988D9CDADB9CBB4494B71692",
+                                     "actId": "$actId"
                                     },
                                     "header":{"appType":"3"}
                                     },
@@ -17,8 +17,8 @@ class selUpwardActivityInfo(HttpRunner):
         )
     teststeps = [
         Step(
-            RunRequest("获取圈子页的活动列表")
-                .post("/proxy/mkt/selUpwardActivityInfo/1.0/")
+            RunRequest("获取活动详情")
+                .post("/proxy/mkt/selUpwardActivityDetailById/1.0/")
                 .with_headers(**{
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "base64.b64encode",
@@ -28,10 +28,11 @@ class selUpwardActivityInfo(HttpRunner):
             )
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body[0].id", "id")                #活动id
-                .with_jmespath("body.body[0].actName", "actName")       #活动名称
+                .with_jmespath("body.body.actName", "actName")       #活动名称
                 .validate()
                 .assert_equal("status_code", 200)
+                .assert_equal("body.body.actName", "$actName")  # 活动名称
+
         )
     ]
 
@@ -40,4 +41,4 @@ class selUpwardActivityInfo(HttpRunner):
 
 
 if __name__ == '__main__':
-    selUpwardActivityInfo().test_start()
+    selUpwardActivityDetailById().test_start()

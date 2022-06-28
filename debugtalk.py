@@ -180,6 +180,18 @@ def w_env(mobile):
             f.write(k_v)
             f.write('\n')
 
+#写入app_auth_token至env
+def w_env_token(app_auth_token):
+    a = search_file('.env')
+    dot_env = load_dot_env_file(a)
+    dot_env.update({'app_auth_token': app_auth_token})
+    with open(a, "w") as f:
+        for k, v in dot_env.items():
+            k_v = k + '=' + str(v)
+            f.write(k_v)
+            f.write('\n')
+
+
 
 
 # 写入注册后的手机号码
