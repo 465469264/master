@@ -10,7 +10,7 @@ class usRunningExt(HttpRunner):
                                     "body":{
                                             "cycleType": "$cycleType",                                     #打卡周期类型 1: 连续 2：累计
                                             "learnId": "$learnId",
-                                            "runJson": "{\"runImg\":\"$scPicUrl\",\"distance\":\"$distance\",\"spendDesc\":\"9'19\\\"\",\"runSecond\":\"0.47\",\"identifier\":\"\\/L0\\/001\",\"historyRun\":0,\"runTime\":\"$runTime\"}",
+                                            "runJson": "{\"runImg\":\"$scPicUrl\",\"distance\":\"$distance\",\"spendDesc\":\"$spendDesc\\\"\",\"runSecond\":\"$runSecond\",\"identifier\":\"\\/L0\\/001\",\"historyRun\":$historyRun,\"runTime\":\"$runTime\"}",
                                             "taskEnrollId": "$taskEnrollId",                               #任务报名id
                                             "scPicUrl": "",
                                             "subType": "$subType",                                         #普通贴：subType :0     1：读书贴  2：跑步贴）
@@ -21,7 +21,7 @@ class usRunningExt(HttpRunner):
                                             "scVideoUrl": "",
                                             "ifRunRecord": "$ifRunRecord",                               #是否生成跑步记录  1：是（发帖+跑步记录）  0：否（单纯发跑步帖子）
                                             "taskId": "$taskId",                                    #习惯打卡id
-                                            "scText": "$scText"+"$markContent"                               #习惯打卡术语
+                                            "scText": "$topicName"+"$markContent"                               #习惯打卡术语
                                         },
                                         "header":{"appType":"3"}
                                     },
@@ -36,7 +36,7 @@ class usRunningExt(HttpRunner):
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "text/yzedu+; charset=UTF-8",
                             "Host": "${ENV(app_Host)}",
-                            "authtoken": "$app_auth_token",
+                            "authtoken": "${ENV(app_auth_token)}",
 
             }
             )

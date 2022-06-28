@@ -20,7 +20,7 @@ class usReadExt(HttpRunner):
                                     "scVideoUrl": "",
                                     "taskId": "$taskId",
                                     "extContent": "{\"bookUrl\":\"$imgUrl\",\"readPersonNum\":$readPersonNum,\"bookName\":\"$name\"}",
-                                    "scText": "$scText"+"$markContent"
+                                    "scText": "$topicName"+"$markContent"
                                 },
                                     "header":{"appType":"3"}
                            },
@@ -36,7 +36,7 @@ class usReadExt(HttpRunner):
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
-                "authtoken": "$app_auth_token",
+                "authtoken": "${ENV(app_auth_token)}",
             })
                 .with_data('$data')
                 .extract()

@@ -29,7 +29,7 @@ class getStsToken(HttpRunner):
                 'frontTrace': '{"transferSeq":"1","phoneModel":"Redmi 6","app_type":"android","app_version":"7.12.3","title":"%E8%8E%B7%E5%BE%97oss%E4%B8%8A%E4%BC%A0token","transferId":"163296339421021756","uri":"/proxy/proxy/getStsToken/1.0/","phoneSys":"9","app_sdk":"28","sendTime":"1632963394223"}',
                 'Content-Type': 'text/yzedu+; charset=UTF-8',
                 "Host": "${ENV(app_Host)}",
-                "authtoken": "$app_auth_token",
+                "authtoken": "${ENV(app_auth_token)}",
                             })
                 .with_data('$data')
                 .extract()

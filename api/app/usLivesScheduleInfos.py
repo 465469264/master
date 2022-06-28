@@ -29,7 +29,7 @@ class TestZhibo(HttpRunner):
             .post("/proxy/us/usLivesScheduleInfos/1.0/")
             .with_headers(
                 **{
-                    "authtoken": "$app_auth_token",
+                    "authtoken": "${ENV(app_auth_token)}",
                     "User-Agent": "Android/environment=test/app_version=7.19.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                     "Content-Type": "text/yzedu+; charset=UTF-8",
                 }

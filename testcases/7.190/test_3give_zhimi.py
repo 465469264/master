@@ -13,7 +13,7 @@ class TestCasesbuy_give_zhimi(HttpRunner):
         Config("赠送智米")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(test_data,register_mobile_chengjiao)}",
+            "mobile": "${read_data_number(ApplyRecord,mobile)}",
             "accType": "2",  # accType.1	>现金账户	 2>智米	 3>滞留账户
             "pageSize": "20",
             "pageNum": "1",

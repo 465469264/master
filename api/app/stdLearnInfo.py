@@ -23,7 +23,7 @@ class stdLearnInfo(HttpRunner):
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
-                "authtoken": "$app_auth_token",
+                "authtoken": "${ENV(app_auth_token)}",
             })
                 .with_data('$data')
                 .extract()
@@ -34,7 +34,6 @@ class stdLearnInfo(HttpRunner):
                 .with_jmespath("body.body.stdId","stdId")
                 .with_jmespath("body.body.mobile", "mobile")
                 .with_jmespath("body.body.learnInfos[0].grade", "grade")
-                .with_jmespath("body.body.learnInfos[0].unvsId", "unvsId")
                 .with_jmespath("body.body.learnInfos[0].unvsName", "unvsName")
                 .validate()
                 .assert_equal("body.message", "success")

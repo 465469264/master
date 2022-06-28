@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.loginOrRegister import app_login
-from api.app.userHome import get_inf0
+from api.app.userHome import get_info
 from api.app.addNewComment import addNewComment
 from api.app.updateInMessageRead import updateInMessageRead
 from api.app.selAppMsgCenter import selAppMsgCenter
@@ -11,7 +11,6 @@ class TestCaseschicken_message(HttpRunner):
         Config("消息一键已读-评论，@，点赞")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(accountnumber,teacher_student6)}",
             "level":"2",
             "menuType":"1",
             "mappingId": "${read_data_number(circle,mappingId)}",
@@ -20,7 +19,6 @@ class TestCaseschicken_message(HttpRunner):
         })
             )
     teststeps = [
-        Step(RunTestCase("登录学员和老师账号").call(app_login).export(*["app_auth_token","userId"])),
         Step(RunTestCase("通知列表-学习提醒-一键已读").with_variables(**({"a": "1"})).call(
             updateInMessageRead)),
         Step(RunTestCase("通知列表-活动提醒一键已读").with_variables(**({"a": "2"})).call(
@@ -41,7 +39,7 @@ class TestCaseschicken_message(HttpRunner):
             updateInMessageRead)),
         Step(RunTestCase("通知列表-粉丝一键已读").with_variables(**({"a": "11"})).call(
             updateInMessageRead)),
-        Step(RunTestCase("获取用户信息").call(get_inf0).export(*["nickname", "realName", "stdName"])),
+        Step(RunTestCase("获取用户信息").call(get_info).export(*["nickname", "realName", "stdName"])),
         Step(RunTestCase("老师账号返回的通知标题").call(selAppMsgCenter)),
                  ]
 

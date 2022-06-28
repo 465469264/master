@@ -12,9 +12,9 @@ class addNewComment(HttpRunner):
                                             "ifLimit": "$ifLimit",          #搜当前业务是否支持多次评论，0：支持，1 不支持索类型
                                             "stdName": "$stdName",
                                             "nickName": "$nickname",
-                                            "content": "$content",          #评论业务 类型，1：咨询文章，2：上进故事 3：上进活动 4:圈子
+                                            "content": "$content",
                                             "realName": "$realName",
-                                            "commentType": "$commentType",
+                                            "commentType": "$commentType",        #评论业务 类型，1：咨询文章，2：上进故事 3：上进活动 4:圈子
                                             "circleUserId": "$circleUserId",
                                             "notityList": "[{\"mobile\":\"$mobile\",\"userId\":\"$userId\",\"userName\":\"$userName\"}]",    #@人信息json字符串
                                         },
@@ -31,7 +31,7 @@ class addNewComment(HttpRunner):
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "base64.b64encode",
                             "Host": "${ENV(app_Host)}",
-                            "authtoken": "$app_auth_token",
+                            "authtoken": "${ENV(app_auth_token)}",
 
             }
             )

@@ -9,7 +9,7 @@ class zhimi_give(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("智米赠送")
+            RunRequest("智米")
                 .post("/zhimi_give/add.do")
                 .with_headers(**{
                 "Content - Type": "application/x-www-form-urlencoded; charset=UTF-8",

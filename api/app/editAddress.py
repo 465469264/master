@@ -15,7 +15,8 @@ class eddit_address(HttpRunner):
                                             "cityCode": "$cityCode",                  #市编码
                                             "provinceCode": "$provinceCode",                #省编码
                                             "mobile": "$mobile",             #手机号码
-                                            "cityName": "$cityName",             #市名
+                                            "cityName": "$cityName",             #市名,
+                                            "isDefault": "2",
                                             "saType": "$saType",                   #地址类型	  1>教材地址	  2>试卷邮寄地址	  3>收获地址
                                             "CREATOR": {},
                                             "provinceName": "$provinceName",           #省份名字
@@ -31,14 +32,14 @@ class eddit_address(HttpRunner):
             )
     teststeps = [
         Step(
-            RunRequest("购物添加收获地址")
+            RunRequest("添加收获地址")
                 .post("/proxy/us/editAddress/1.0/")
                 .with_headers(**{
                 "Accept - Encoding": "gzip",
                 "User-Agent": "Android/environment=test/app_version=7.19.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
-                "authtoken": "$app_auth_token",
+                "authtoken": "${ENV(app_auth_token)}",
                             })
                 .with_data('$data')
                 .validate()

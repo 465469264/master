@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
 #智米记录
-class AccountDetail(HttpRunner):
+class AccountSerial(HttpRunner):
     config = (
         Config("智米收入记录")
             .base_url("${ENV(app_BASE_URL)}")
@@ -25,12 +25,11 @@ class AccountDetail(HttpRunner):
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "base64.b64encode",
                             "Host": "${ENV(app_Host)}",
-                            "authtoken": "$app_auth_token",
+                            "authtoken": "${ENV(app_auth_token)}",
             }
             )
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.accAmount", "accAmount")
                 .validate()
                 .assert_equal("body.message", "success")
                 .assert_equal("body.body[$a].amount", "$amount")
@@ -38,6 +37,6 @@ class AccountDetail(HttpRunner):
         )
     ]
 if __name__ == '__main__':
-   AccountDetail().test_start()
+   AccountSerial().test_start()
 
 

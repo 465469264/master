@@ -19,7 +19,6 @@ class Test_Apply_qita(HttpRunner):
                 })
     )
     teststeps = [
-        Step(RunTestCase("登录申请其他证明的手机号").setup_hook('${delay(5)}').call(app_login).export(*["app_auth_token","userId"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId","std_name","unvsId","unvsName","grade"])),
         Step(RunTestCase("获取省份").call(GetJDProvince).export(*["provinceCode","provinceName"])),
         Step(RunTestCase("获取城市").with_variables(**({"id":"$provinceCode"})).call(getJDCity).export(*["cityCode","cityName"])),

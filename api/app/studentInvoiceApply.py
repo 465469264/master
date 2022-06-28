@@ -35,11 +35,12 @@ class ApplyRecord(HttpRunner):
                                 "Content-Type":"text/yzedu+; charset=UTF-8",
                                 "Host": "${ENV(app_Host)}",
                                 # "Host": "test.yzwill.cn",
-                                "authtoken":"$app_auth_token",
+                                "authtoken":"${ENV(app_auth_token)}",
                                 })
 
                 .with_data('$data')
                 .validate()
                 .assert_equal("status_code", 200)
+
         )
     ]

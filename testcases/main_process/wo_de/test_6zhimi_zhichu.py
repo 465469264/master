@@ -6,7 +6,8 @@ from api.web.zhimi_give_check_list_do import zhimi_give_check_list
 from api.web.zhimi_give_check_toCheck_do import zhimi_check_token
 from api.web.zhimi_give_check_check_do import check_zhimi
 from api.web.zhimi_give_toAdd_do import zhimi_token
-from api.app.accountSerial import AccountDetail
+from api.app.accountSerial import AccountSerial
+from api.app.userHome import get_info
 
 class Test_Apply_qita(HttpRunner):
     config = (
@@ -24,14 +25,14 @@ class Test_Apply_qita(HttpRunner):
                 })
     )
     teststeps = [
-        Step(RunTestCase("登录手机号").setup_hook('${delay(5)}').call(app_login).export(*["app_auth_token","userId"])),
+        Step(RunTestCase("获取信息").call(get_info).export(*["userId"])),
         Step(RunTestCase("取智米支出的web_token").setup_hook('${login_web()}', "Cookie").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token","Cookie"])),
         Step(RunTestCase("后台申请智米支出100").with_variables(**({"zhimiCount":"$amount","accSerialType":"26"})).call(zhimi_give)),
         Step(RunTestCase("获取要审核的记录id").call(zhimi_give_check_list).export(*["id"])),
         Step(RunTestCase("获取智米审核web_token").call(zhimi_check_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
-        Step(RunTestCase("智米审核后支出").call(check_zhimi)),
+        Step(RunTestCase("智米通过审核后支出").with_variables(**({"reasonStatus":"2"})).call(check_zhimi)),
         Step(RunTestCase("统计智米，并与数据库校验").setup_hook('${find_zhimi($userId)}', "accAmount").call(AccountDetail)),
-        Step(RunTestCase("我的页面增加了一条100智米的支出记录").call(AccountDetail)),
+        Step(RunTestCase("我的页面增加了一条100智米的支出记录").call(AccountSerial)),
 
     ]
 if __name__ == '__main__':

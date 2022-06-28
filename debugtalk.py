@@ -41,9 +41,6 @@ def judge_newUnReadNum2(ls,unReadMsgNum):
     for a in range(len(ls)):
         if ls[a] == None:
             ls[a] = 0
-    # print(ls)
-    # print(sum(ls))
-    # return sum(ls)
     try:
         assert sum(ls) == unReadMsgNum
         log.info("首页小鸡的新消息新消息正确")
@@ -57,42 +54,6 @@ def judge_topic1(body):
         log.info("跑步绩效话题正确")
     except AssertionError:
         log.error("跑步绩效话题错误")
-
-# 老师+习惯：默认带出跑步绩效话题+跑步习惯话题+习惯自动话术
-def judge_topic2(body):
-    try:
-        assert body['topicName'] == "#amylee跑步测试勿删#,#上进远智跑团打卡#"
-        assert body['taskName'] == "amylee跑步测试勿删"
-        log.info("跑步绩效话题正确")
-    except AssertionError:
-        log.error("跑步绩效话题错误")
-
-# 其他用户+习惯，默认带出习惯话题+习惯自动话术
-def judge_topic3(body):
-    try:
-        assert body['topicName'] == "#amylee跑步测试勿删#"
-        assert body['taskName'] == "amylee跑步测试勿删"
-        log.info("跑步绩效话题正确")
-    except AssertionError:
-        log.error("跑步绩效话题错误")
-
-#老师+习惯：默认带出读书绩效话题+读书习惯话题+习惯自动话术
-def judge_topic4(body):
-    try:
-        assert body['topicName'] == "#amylee读书打卡勿删测试#,#上进远智读书会打卡#"
-        assert body['taskName'] == "amylee读书打卡勿删测试"
-        log.info("读书绩效话题正确")
-    except AssertionError:
-        log.error("读书绩效话题错误")
-
-# 老师：默认带出读书绩效话题+X月累计打卡X次
-def judge_topic5(body):
-    try:
-        assert "累计" in body['markContent']
-        assert body['topicName'] == "#上进远智读书会打卡#"
-        log.info("读书绩效话题正确")
-    except AssertionError:
-        log.error("读书绩效话题错误")
 
 # 判断报名活动的消息推送
 def selAppMsgCenter_msgtype2(body):
@@ -372,8 +333,38 @@ def update_task():
     return data1,data2,data3,data4
 
 
+#多参数
 
+#发票类
+def Apply_record():
+    return [
+        {"companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com"},
+        {"companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com",},
+        {"companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试", "email": ""},
+        {"companyTaxNumber": "123456789111111111", "invoiceTitle": "2", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com"}
+    ]
 
+#报读证明
+def Apply_Enrollment():
+    return[
+        {"remark": "测试","applyPurpose": "测试"},
+        {"remark": "","applyPurpose": "测试","receiveType": "3"},
+        {"remark": "","applyPurpose": "","receiveType": "3"},
+        {"remark": "测试@@@123古典风格fffff","applyPurpose": "测试@@@123古典风格fffff测试@@@123古典风格fffff测试@@@123古典风格fffff"}
 
+    ]
 
+# 评论活动
+def Activity_content():
+    return [
+        {"content":"测试测试测试"},
+        {"content":"热评外显，默认取动态中点赞最高评论放在外面显示，只显示一条；且评论的点赞数要达到>>5个赞才显示在列表外如果某条动态热评最高的点赞只有4个赞，则这条热评不外显在列表外,动态详情的评论增加按热度的排序，默认按热度排序,按热度排：点赞从"},
+        {"content":""}
 
+    ]
+
+#跑步打卡数据
+def run():
+    return[
+        {"distance":"3","spendDesc":"9'19","runSecond":"0.47","historyRun":"0","runTime":"00:27:59"}
+    ]
