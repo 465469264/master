@@ -10,7 +10,7 @@ from api.app.selUpwardActEnrollUser import selUpwardActEnrollUser
 from api.app.selUpwardActivityDetailById import selUpwardActivityDetailById
 from api.app.userHome import get_info
 
-class Test_Circle_Dynamics_post(HttpRunner):
+class Test_Circle_Dynamicst(HttpRunner):
     config = (
         Config("圈子页的活动报名-点赞，评论，查看我的活动")
             .verify(False)
@@ -33,7 +33,7 @@ class Test_Circle_Dynamics_post(HttpRunner):
     ]
 
 if __name__ == "__main__":
-    Test_Circle_Dynamics_post().test_start()
+    Test_Circle_Dynamicst().test_start()
 
 
 

@@ -1,7 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.operationStatistic import operationStatistic
 from api.app.loginOrRegister import app_login
-from api.app.selCircleDynamicInfos import selCircleDynamicInfos
 
 class Test_perationStatistic(HttpRunner):
     config = (

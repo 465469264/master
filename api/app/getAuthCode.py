@@ -9,7 +9,7 @@ class getAuthCode(HttpRunner):
             .variables(**{
                           "number": {
                                     "body":{
-                                            "isUntying": "1",
+                                            "isUntying": "1",                   #未知字段
                                             "idCard": "$idcard",
                                             "android_version": "7.19.2",
                                             "android_sdk": 28

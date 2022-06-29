@@ -15,7 +15,7 @@ class addNewComment(HttpRunner):
                                             "content": "$content",
                                             "realName": "$realName",
                                             "commentType": "$commentType",        #评论业务 类型，1：咨询文章，2：上进故事 3：上进活动 4:圈子
-                                            "circleUserId": "$circleUserId",
+                                            "circleUserId": "$circleUserId",      #被评论人的userid
                                             "notityList": "[{\"mobile\":\"$mobile\",\"userId\":\"$userId\",\"userName\":\"$userName\"}]",    #@人信息json字符串
                                         },
                                         "header":{"appType":"3"}
@@ -37,7 +37,7 @@ class addNewComment(HttpRunner):
             )
                 .with_data('$data')
                 .validate()
-                .assert_equal("body.message", "$message")
+                .assert_equal("body.message", "success")
         )
     ]
 if __name__ == '__main__':

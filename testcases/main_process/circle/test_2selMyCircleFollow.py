@@ -4,7 +4,7 @@ from api.app.selMyCircleFollowList import SelMyCircleFollowList
 from api.app.userHome import get_info
 from api.app.personalHomepageStatistics import personalHomepageStatistics
 
-class TestCaseCircle_Dynamics_post(HttpRunner):
+class Test_Circle_Dynamics(HttpRunner):
     config = (
         Config("关注列表跳转到关注的人的主页")
             .verify(False)
@@ -22,7 +22,7 @@ class TestCaseCircle_Dynamics_post(HttpRunner):
     ]
 
 if __name__ == "__main__":
-    TestCaseCircle_Dynamics_post().test_start()
+    Test_Circle_Dynamics().test_start()
 
 
 

@@ -28,7 +28,10 @@ class Test_Run_habbit(HttpRunner):
             "subType":"2",         #跑步贴
             "mappingIdType": "3",  #跑步类型
             "scType":"3",          #跑团
-            "ifRunRecord":"1"        #生成跑步记录
+            "ifRunRecord":"1",        #生成跑步记录
+            "own":"0",
+
+
                         }
                        )
     )
@@ -37,7 +40,7 @@ class Test_Run_habbit(HttpRunner):
         Step(RunTestCase("习惯默认带出习惯话题").call(SelClockTaskTopic).export(*["taskEnrollId","markContent"])),
         Step(RunTestCase("获取上传图片信息").call(getStsToken).teardown_hook('${upload($accessKeyId,$accessKeySecret,$endpoint,$localFile,$bucketName)}', "scPicUrl").export(*["scPicUrl"])),
         Step(RunTestCase("发贴跑步习惯打卡帖子").call(usRunningExt)),
-        Step(RunTestCase("查看自己的圈子").with_variables(**({"pageSize": "20", "userRoleType": 2, "pageNum": 1, "userId": "$unvsId"})).call(selCircleDynamicInfos)),
+        Step(RunTestCase("查看自己的圈子").with_variables(**({"pageSize": "20", "userRoleType": 2, "pageNum": 1, "userId": "$unvsId","scType": ""})).call(selCircleDynamicInfos)),
 
     ]
 if __name__ == '__main__':

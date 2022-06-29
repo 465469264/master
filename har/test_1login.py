@@ -1,7 +1,7 @@
 #登录
 from httprunner import HttpRunner, Config, Step, RunRequest, RunTestCase
 from api.app.loginOrRegister import app_login
-class TestCaseCircle_Dynamics_post(HttpRunner):
+class Test_login(HttpRunner):
     config = (
         Config("登录app")
             .verify(False)
@@ -15,7 +15,7 @@ class TestCaseCircle_Dynamics_post(HttpRunner):
     ]
 
 if __name__ == "__main__":
-    TestCaseCircle_Dynamics_post().test_start()
+    Test_login().test_start()
 
 
 

@@ -12,7 +12,7 @@ class getCommentInfo(HttpRunner):
                                             "sortOrder": "$sortOrder",        #排序方式  1按热度  2按时间
                                             "pageNum": "$pageNum",
                                             "mappingType": "$mappingType",               #评论业务 类型，1：咨询文章，2：上进活动 4:圈子
-                                            "mappingId": "$mappingId"            #圈子id
+                                            "mappingId": "$mappingId"            #圈子id/活动id/习惯id
                                         },
                                         "header":{"appType":"4"}
                                     },
@@ -33,6 +33,7 @@ class getCommentInfo(HttpRunner):
             )
                 .with_data('$data')
                 .extract()
+                .with_jmespath("body.body.list[0].commentId", "commentId")
                 .validate()
                 .assert_equal("body.message", "success")
                 .assert_equal("body.body.list[$a].content", "$content")

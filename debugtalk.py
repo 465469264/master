@@ -380,3 +380,21 @@ def run():
     return[
         {"distance":"3","spendDesc":"9'19","runSecond":"0.47","historyRun":"0","runTime":"00:27:59"}
     ]
+
+#搜索接口不同类型及不同关键字
+def search():
+    # 类型，0>搜索栏搜索    6>上进学社   2>查询好友  7>查询老师  4>上进习惯  5>上进活动  3>查看话题  1>查看动态  8>礼品商城  12>上进直播
+    return[
+        {"keyWords": "a","type": "0"},
+        {"keyWords": "测试测试测试", "type": "2"},
+        {"keyWords": "amylee", "type": "6"},
+
+    ]
+#进入不同的圈子页
+#圈子  0>关注  1>同学圈  2>读书社  3>跑团  4>自考圈       查看自己圈子/别人圈子时/最新圈子时不传
+def scircle():
+    return[
+        {"scType": "2"},
+        {"scType": "3"},
+
+    ]

@@ -9,8 +9,6 @@ class getInvoiceApply(HttpRunner):
                             "number": {
                                     "body":{
                                             "learnId": "$learnId",
-                                            "android_version": "7.19.1",
-                                            "android_phoneModel": "SM-N9500",
                                             "android_sdk": 28
                                             },
                                     "header":{

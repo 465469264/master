@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.updateUserInfo import app_Adult_education
-from api.app.userHome import get_inf0
+from api.app.userHome import get_info
 from api.app.getCommitToken import get_zmtoken
 from api.app.enroll import sign_up_education
 from api.app.Register import Register

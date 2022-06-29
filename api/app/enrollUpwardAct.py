@@ -9,7 +9,7 @@ class enrollUpwardAct(HttpRunner):
             .variables(**{
                           "number": {
                                     "body":{
-                                        "actId": "$actId",
+                                        "actId": "$actId",                 #活动id
                                         "android_version": "7.19.6",
                                         "android_phoneModel": "SM-N9500",
                                         "android_sdk": 28

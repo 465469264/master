@@ -11,6 +11,8 @@ class TestCaseCircle_Dynamics_post(HttpRunner):
             .verify(False)
             .variables(**{
              "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                "scType": "",
+                "own": "",
         })
     )
     teststeps = [

@@ -8,7 +8,7 @@ class AccountSerial(HttpRunner):
             .variables(**{
                           "number": {
                                     "body":{
-                                            "accType": "$accType",           #2
+                                            "accType": "$accType",         #accType.1	>现金账户	 2>智米	 3>滞留账户
                                             "pageSize": "$pageSize",
                                             "pageNum": "$pageNum"
                                         },
