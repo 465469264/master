@@ -8,7 +8,7 @@ class selCircleDynamicInfos(HttpRunner):
             .variables(**{
                             "number": {
                                     "body":{
-                                            "own": "$own",                     #0>只返回自己发的帖子，  1>返回评论/点赞他人，及自己发的帖子          查看最新或者跑团/同学圈/最新/时传空
+                                            "own": "$own",                     #2>只返回自己发的帖子，  0>返回评论/点赞他人，及自己发的帖子          查看最新或者跑团/同学圈/最新/时传空
                                             "scType": "$scType",                     #圈子  0>关注  1>同学圈  2>读书社  3>跑团  4>自考圈       查看自己圈子/别人圈子时/最新圈子时不传
                                             "pageSize": "$pageSize",            #尺寸
                                             "userRoleType": "$userRoleType",       #账号身份         2>员工，4>学员   6>老师+学员  0>没有报读
@@ -53,7 +53,7 @@ class selCircleDynamicInfos2(HttpRunner):
             .variables(**{
                             "number": {
                                     "body":{
-                                            "own": "$own",                     #0>只返回自己发的帖子，  1>返回评论/点赞他人，及自己发的帖子          查看最新或者跑团/同学圈/最新/时传空
+                                            "own": "$own",                     #1>只返回自己发的帖子，  0>返回评论/点赞他人，及自己发的帖子          查看最新或者跑团/同学圈/最新/时传空
                                             "pageSize": "$pageSize",            #尺寸
                                             "userRoleType": "$userRoleType",       #账号身份         2>员工，4>学员   6>老师+学员  0>没有报读
                                             "userId": "$userId",

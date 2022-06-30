@@ -12,7 +12,7 @@ class TestCasesSelClockTaskTopic_for_run(HttpRunner):
                           })
             )
     teststeps = [
-        Step(RunTestCase("习惯默认带出习惯话题").with_variables(**({})).call(SelClockTaskTopic)),
+        Step(RunTestCase("习惯默认带出习惯话题").call(SelClockTaskTopic)),
                  ]
 
 if __name__ == '__main__':

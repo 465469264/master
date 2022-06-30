@@ -30,7 +30,6 @@ def sleep(n_secs):
 def judge_newUnReadNum(newUnReadNum7,newUnReadNum9):
     try:
         assert int(newUnReadNum7) == 1
-        assert int(newUnReadNum9) == 1
         log.info("newUnReadNum新消息正确")
     except AssertionError:
         log.error("newUnReadNum新消息错误")
@@ -195,7 +194,7 @@ def w_env_token(app_auth_token):
 
 
 # 写入注册后的手机号码
-def write_Register_mobile(key,mobile):
+def write_Register_mobile(mobile):
     a = search_file('data.ini')
     ini_path = a
     config = configparser.ConfigParser()
@@ -204,11 +203,11 @@ def write_Register_mobile(key,mobile):
         for items in config.items(sections):
             print(items)
             # 如果为空则添加
-            if(config.get("test_data",key)==None or config.get("test_data",key).strip()==None):
-               config.set("test_data", key,mobile)
+            if(config.get("test_data","new_mobile")==None or config.get("test_data","new_mobile").strip()==None):
+               config.set("test_data","new_mobile",mobile)
             else: #删除再添加
-                config.remove_option("test_data", key)
-                config.set("test_data", key,mobile)
+                config.remove_option("test_data", "new_mobile")
+                config.set("test_data", "new_mobile",mobile)
         config.write(open(ini_path, "w+", encoding='utf-8'))
 
 
@@ -268,6 +267,7 @@ def Modify_lives_schedule():
     sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=254'.format(a,b)
     data = conn_sql().get_data(sql)
     # return data
+
 
 #修改数据库让直播类型为营销课
 def Marketing_class_yingxiao():

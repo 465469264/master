@@ -1,6 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest, RunTestCase
-#获取直播广场列表
-class TestZhibo(HttpRunner):
+#APP获取是否有直播
+class isLiving(HttpRunner):
     config = (
         Config("获取直播广场列表")
             .base_url("${ENV(app_BASE_URL)}")
@@ -8,11 +8,8 @@ class TestZhibo(HttpRunner):
             .variables(**{
             "number": {
                 "body": {
-                        "tab": "1",
-                        "pageSize": "20",
                         "android_sdk": 28,
-                        "userId": "$userId",
-                        "pageNum": "1"
+
                     },
                 "header": {
                     "appType": "3"
@@ -23,8 +20,8 @@ class TestZhibo(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("获取直播广场列表")
-            .post("/proxy/us/usLivesScheduleInfos/1.0/")
+            RunRequest("APP获取是否有直播")
+            .post("/proxy/us/isLiving/1.0/")
             .with_headers(
                 **{
                     "authtoken": "${ENV(app_auth_token)}",
@@ -34,7 +31,7 @@ class TestZhibo(HttpRunner):
             )
             .with_data('$data')
             .extract()
-            .with_jmespath("body.body[0].posterUrl", "posterUrl")
+            .with_jmespath("body.body.isLiving", "$isLiving")
             .validate()
             .assert_equal("status_code", 200)
         ),
@@ -42,4 +39,4 @@ class TestZhibo(HttpRunner):
 
 
 if __name__ == "__main__":
-    TestZhibo().test_start()
+    isLiving().test_start()

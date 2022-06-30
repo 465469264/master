@@ -10,8 +10,6 @@ class enrollUpwardAct(HttpRunner):
                           "number": {
                                     "body":{
                                         "actId": "$actId",                 #活动id
-                                        "android_version": "7.19.6",
-                                        "android_phoneModel": "SM-N9500",
                                         "android_sdk": 28
                                     },
                                         "header":{"appType":"3"}

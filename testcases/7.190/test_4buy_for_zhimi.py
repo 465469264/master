@@ -21,7 +21,7 @@ class TestCasesbuy_zhimi_goods(HttpRunner):
         Step(RunTestCase("获取城市").with_variables(**({"id": "$provinceCode"})).call(getJDCity).export(*["cityCode", "cityName"])),
         Step(RunTestCase("地区").with_variables(**({"id": "$cityCode"})).call(getJDCounty).export(*["districtCode", "districtName"])),
         Step(RunTestCase("编辑收货地址").with_variables(**({"saName": "测试", "address": "测试地址", "saType": "3", "excType": "2", "email": "123@qq.com"})).call(eddit_address)),
-        # Step(RunTestCase("购物纯智米商品").call(buy_goods)),
+        Step(RunTestCase("购物纯智米商品").call(buy_goods)),
     ]
 if __name__ == '__main__':
     TestCasesbuy_zhimi_goods().test_start()

@@ -5,6 +5,7 @@ from api.app.loginOrRegister import app_login
 from api.app.stdLearnInfo import stdLearnInfo
 from api.web.invoiceApp_itemList import invoiceApp_itemList
 from api.web.invoiceApp_chageItemSatus import invoiceApp_chageItemSatus
+from api.app.userHome import get_info
 
 class TestCases_ApplyRecord_personal(HttpRunner):
     config = (
@@ -16,7 +17,8 @@ class TestCases_ApplyRecord_personal(HttpRunner):
     )
     teststeps = [
         # 缴费辅导费,并生成学院订单
-        Step(RunTestCase("登录申请发票的手机号").call(app_login).teardown_hook('${login_web()}', "Cookie").export(*["app_auth_token","userId","Cookie"])),
+        Step(
+            RunTestCase("获取信息").call(get_info).teardown_hook('${login_web()}', "Cookie").export(*["userId", "Cookie"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode","learnId","itemName", "grade", "payment","invoiceType"])),
         Step(RunTestCase("申请个人发票").with_variables(**({"companyTaxNumber" :"","invoiceTitle": "2","companyName": "","applyPurpose": "测试","email": "123@qq.com"})).call(ApplyRecord)),

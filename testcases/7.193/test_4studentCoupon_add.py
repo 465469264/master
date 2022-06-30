@@ -14,9 +14,7 @@ class TestCasesenrollUpwardAct_sendAppMsg(HttpRunner):
                           })
             )
     teststeps = [
-        Step(RunTestCase("登录app").call(app_login).export(*["app_auth_token"])),
-        Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId","stdId"])),
-        Step(RunTestCase("登录学员系统").call(login_web).teardown_hook('${web_cookie($cookie)}', "Cookie").export(*["Cookie"])),
+        Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).teardown_hook('${login_web()}', "Cookie").export(*["learnId","stdId","Cookie"])),
         Step(RunTestCase("赠送优惠券给学员").setup_hook('${coupon($couponId)}').with_variables(**({"remark":"测试","reasonDesc":"测试"})).call(studentCoupon_add)),
 
     ]

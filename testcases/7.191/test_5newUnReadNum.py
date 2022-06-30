@@ -11,8 +11,8 @@ class TestCasesnewUnReadNum(HttpRunner):
         })
             )
     teststeps = [
-        Step(RunTestCase("登录学员和老师账号").call(app_login).export(*["app_auth_token","userId"])),
-        Step(RunTestCase("判断消息通知@和评论的newUnReadNum").call(selAppMsgCenter).teardown_hook('${judge_newUnReadNum($newUnReadNum7,$newUnReadNum9)}')),
+
+        Step(RunTestCase("判断消息通知@和评论的newUnReadNum").call(selAppMsgCenter).teardown_hook('${judge_newUnReadNum($newUnReadNum7)')),
                  ]
 
 if __name__ == '__main__':
