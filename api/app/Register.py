@@ -19,8 +19,8 @@ class Register(HttpRunner):
                 .with_headers(**{
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "base64.b64encode",
-                            "Host": "${ENV(app_Host)}"
-                }
+                            "Host": "${ENV(app_Host)}",
+            }
             )
                 .with_data('$data')
                 .extract()

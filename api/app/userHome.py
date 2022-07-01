@@ -9,7 +9,8 @@ class get_info(HttpRunner):
                           "number": '{"header": {"appType": "3"},'
                                     '"body":{"android_phoneModel":"SM-N9500","android_version":"7.18.2","android_sdk":28}}',
                           "data": "${base64_encode($number)}"
-                          })
+                          }
+                       )
     )
     teststeps = [
         Step(

@@ -7,7 +7,6 @@ class Test_login(HttpRunner):
             .verify(False)
             .variables(**{
              "mobile": "${read_data_number(ApplyRecord,mobile)}",
-            "content": "测试测试",
         })
     )
     teststeps = [

@@ -42,7 +42,7 @@ class usRunningExt(HttpRunner):
             )
                 .with_data('$data')
                 .validate()
-                .assert_equal("body.message", "success")
+                # .assert_equal("body.message", "success")
         )
     ]
 if __name__ == '__main__':

@@ -74,6 +74,13 @@ def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
     bucket.put_object_from_file(scPicUrl, localFile)
     return scPicUrl
 
+#判断是否已登录
+def judge_sing(body):
+    if body == True:
+        return "您今天已经签过到啦~"
+    elif body == False:
+        return "success"
+
 
 
 # 公用模块
@@ -121,7 +128,7 @@ def now_times():
 
 #获取当前时间后一个小时
 def time_late():
-    return((datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y/%m/%d %H:%M:%S"))
+    return((datetime.datetime.now() + datetime.timedelta(hours=+2)).strftime("%Y/%m/%d %H:%M:%S"))
 
 # 往后1分钟
 def time_late_minutes():
@@ -194,7 +201,7 @@ def w_env_token(app_auth_token):
 
 
 # 写入注册后的手机号码
-def write_Register_mobile(mobile):
+def write_Register_mobile(b,mobile):
     a = search_file('data.ini')
     ini_path = a
     config = configparser.ConfigParser()
@@ -203,12 +210,13 @@ def write_Register_mobile(mobile):
         for items in config.items(sections):
             print(items)
             # 如果为空则添加
-            if(config.get("test_data","new_mobile")==None or config.get("test_data","new_mobile").strip()==None):
-               config.set("test_data","new_mobile",mobile)
+            if(config.get("test_data",b)==None or config.get("test_data",b).strip()==None):
+               config.set("test_data",b,mobile)
             else: #删除再添加
-                config.remove_option("test_data", "new_mobile")
-                config.set("test_data", "new_mobile",mobile)
+                config.remove_option("test_data", b)
+                config.set("test_data", b,mobile)
         config.write(open(ini_path, "w+", encoding='utf-8'))
+
 
 
 
@@ -371,7 +379,6 @@ def Activity_content():
     return [
         {"content":"测试测试测试"},
         {"content":"热评外显，默认取动态中点赞最高评论放在外面显示，只显示一条；且评论的点赞数要达到>>5个赞才显示在列表外如果某条动态热评最高的点赞只有4个赞，则这条热评不外显在列表外,动态详情的评论增加按热度的排序，默认按热度排序,按热度排：点赞从"},
-        {"content":""}
 
     ]
 
@@ -387,8 +394,12 @@ def search():
     return[
         {"keyWords": "a","type": "0"},
         {"keyWords": "测试测试测试", "type": "2"},
+        {"keyWords": "测试", "type": "3"},
+        {"keyWords": "amylee", "type": "4"},
+        {"keyWords": "a", "type": "5"},
         {"keyWords": "amylee", "type": "6"},
-
+        {"keyWords": "amylee", "type": "8"},
+        {"keyWords": "amylee", "type": "12"},
     ]
 #进入不同的圈子页
 #圈子  0>关注  1>同学圈  2>读书社  3>跑团  4>自考圈       查看自己圈子/别人圈子时/最新圈子时不传
@@ -396,5 +407,30 @@ def scircle():
     return[
         {"scType": "2"},
         {"scType": "3"},
+    ]
+
+#优惠券传值，分别查所有优惠券，查报读的优惠政策，非报读的优惠政策
+def Coupons_scholarship():
+    return[
+        {"recruitType": "", "scholarship": ""},
+        {"recruitType": "1", "scholarship": "1273"},
+        {"recruitType": "", "scholarship": "1272"}
+    ]
+
+#帮助与反馈>传值
+def channel():
+    return[
+        {"channel": "1", "message": "success"},
+        {"channel": "3", "message": "success"},
+        {"channel": "5", "message": "success"},
+        {"channel": "6", "message": "success"},
+        {"channel": "1,3,5,6", "message": "success"},
+
+    ]
+
+#消息通知一键已读
+def msgType():
+    return[
+        {"msgType":"1"},{"msgType":"1"},{"msgType":"2"},{"msgType":"3"},{"msgType":"4"},{"msgType":"5"},{"msgType":"6"},{"msgType":"7"},{"msgType":"8"},{"msgType":"9"},{"msgType":"10"},
 
     ]

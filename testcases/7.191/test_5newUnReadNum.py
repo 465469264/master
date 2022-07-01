@@ -7,7 +7,6 @@ class TestCasesnewUnReadNum(HttpRunner):
         Config("评论和@的newUnReadNum的返回数据")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(accountnumber,teacher_student6)}",
         })
             )
     teststeps = [

@@ -1,14 +1,13 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
-# @我消息一键已读
-class updateInMessageRead(HttpRunner):
+# 判断是否已签到
+class isSign(HttpRunner):
     config = (
-        Config("消息列表-@我一键已读")
+        Config("判断是否已签到")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                            "number": {
                                     "body":{
-                                            "msgType": "$msgType"
                                         },
                                     "header":{"appType":"3"}
                            },
@@ -18,8 +17,8 @@ class updateInMessageRead(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("消息列表-@我一键已读")
-                .post("/proxy/bds/updateInMessageRead/1.0/")
+            RunRequest("判断是否已签到")
+                .post("/proxy/us/isSign/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -28,10 +27,12 @@ class updateInMessageRead(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
+                .with_jmespath("body.body","body")
                 .validate()
                 .assert_equal("body.message", "success")
+
         )
     ]
 
 if __name__ == '__main__':
-    updateInMessageRead().test_start()
+    isSign().test_start()

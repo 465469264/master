@@ -4,6 +4,7 @@ from api.app.stdLearnInfo import stdLearnInfo
 from api.app.selClockTaskTopic import SelClockTaskTopic
 from api.app.selUsNewBookDetail import selUsNewBookDetail
 from api.app.usReadExt import usReadExt
+from api.app.userHome import get_info
 
 
 class Test_Read_habbit(HttpRunner):
@@ -11,7 +12,6 @@ class Test_Read_habbit(HttpRunner):
         Config("读书打卡话术-打卡")
             .verify(False)
             .variables(**{
-            "mobile": "${read_data_number(accountnumber,teacher_student6)}",
             "taskId": "${read_data_number(SelClockTaskTopic_read,taskid)}",
             "localFile": "${read_data_number(SelClockTaskTopic_run,localFile)}",
             "bucketName": "yzimstemp",
@@ -25,7 +25,7 @@ class Test_Read_habbit(HttpRunner):
                        )
     )
     teststeps = [
-        Step(RunTestCase("登录测试账号").call(app_login).export(*["app_auth_token","userId"])),
+        Step(RunTestCase("获取信息").call(get_info).export(*["userId"])),
         Step(RunTestCase('获取用户报读信息').call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("默认带出读书绩效话题").call(SelClockTaskTopic).export(*["taskEnrollId","markContent"])),
         Step(RunTestCase("带出书籍").call(selUsNewBookDetail).export(*["name","imgUrl","readPersonNum","bookId"])),

@@ -19,7 +19,7 @@ class get_zmtoken(HttpRunner):
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
-                "authtoken": "${ENV(app_auth_token)}",
+                "authtoken": "$app_auth_token",
             })
                 .with_data('$data')
                 .extract()

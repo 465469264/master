@@ -30,8 +30,8 @@ class Test_Sign_up_adult(HttpRunner):
             )
     teststeps = [
         Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${write_Register_mobile(register_mobile_chengjiao,$mobile)}').export(*["app_auth_token","mobile","userId"])),
-        Step(RunTestCase("获取报名zmtoken").call(get_zmtoken).export(*["zmtoken"])),
-        Step(RunTestCase("报名成教").call(sign_up_education)),
+        # Step(RunTestCase("获取报名zmtoken").call(get_zmtoken).export(*["zmtoken"])),
+    #     Step(RunTestCase("报名成教").call(sign_up_education)),
     ]
 if __name__ == '__main__':
     Test_Sign_up_adult().test_start()

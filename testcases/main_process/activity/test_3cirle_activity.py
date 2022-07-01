@@ -1,4 +1,4 @@
-#圈子页的活动
+#活动用到接口
 from httprunner import HttpRunner, Config, Step, RunRequest, RunTestCase
 from api.app.selUpwardActivityInfo import selUpwardActivityInfo
 from api.app.enrollUpwardAct import enrollUpwardAct
@@ -17,6 +17,8 @@ class Test_Circle_Dynamicst(HttpRunner):
             .variables(**{
              "mobile": "${read_data_number(ApplyRecord,mobile)}",
             "content": "测试测试",
+            "type": ""
+
         })
     )
     teststeps = [
@@ -25,7 +27,7 @@ class Test_Circle_Dynamicst(HttpRunner):
         Step(RunTestCase("根据列表返回的活动id查看活动详情").with_variables(**({"actId":"$id"})).call(selUpwardActivityDetailById)),
         Step(RunTestCase("获取已报名活动的头像").with_variables(**({"actId":"$id"})).call(selUpwardActEnrollUser)),
         Step(RunTestCase("报名活动").with_variables(**({"actId": "$id"})).call(enrollUpwardAct)),
-        Step(RunTestCase("查看我的活动页，报名成功").with_variables(**({"type":1,"pageSize":10,"pageNum":1,"a":0})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("查看我的活动页，报名成功").with_variables(**({"type":1,"pageSize":10,"pageNum":1})).call(selMyUpwardActivityInfo)),
         Step(RunTestCase("分享活动").with_variables(**({"actId": "$id"})).call(upwardActShare)),
         Step(RunTestCase("评论").with_variables(**({"message":"success","mappingId":"$id","ifLimit": 0,"commentType": "3","circleUserId": "","userName":"$realName"})).call(addNewComment)),
         Step(RunTestCase("查看活动的评论的第一条是刚添加的评论").with_variables(**({"a":0,"pageSize": "15", "sortOrder": "","pageNum": 1, "mappingType": "3", "mappingId": "$id"})).call(getCommentInfo)),

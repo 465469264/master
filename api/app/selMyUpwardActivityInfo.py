@@ -8,7 +8,7 @@ class selMyUpwardActivityInfo(HttpRunner):
             .variables(**{
                           "number": {
                                     "body":{
-                                        "type": "$type",                     #1>活动页  2>可能是习惯页
+                                        "type": "$type",                     #1>报名中        2>进行中   3>已结束
                                         "pageSize": "$pageSize",                #尺寸
                                         "pageNum": "$pageNum"              #页码
                                     },
@@ -32,7 +32,6 @@ class selMyUpwardActivityInfo(HttpRunner):
                 .extract()
                 .validate()
                 .assert_equal("status_code", 200)
-                .assert_equal("body.body[$a].id", "$id")
 
         )
     ]

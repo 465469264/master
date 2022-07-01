@@ -1,24 +1,27 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
-#获取圈子页的活动列表
-class selUpwardActivityInfo(HttpRunner):
+#生成报名付费活动订单
+class createUpwardActOrder(HttpRunner):
     config = (
-        Config("获取圈子页的活动列表")
+        Config("生成报名付费活动订单")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                           "number": {
                                     "body":{
-                                    "type":"$type",            #不传时，获取所有    1>报名中  2>进行中   3>已结束
+                                        "learnId": "$learnId",
+                                        "actId": "$actId"                    #活动id
                                     },
-                                    "header":{"appType":"3"}
+                                    "header": {"appType": "3"}
                                     },
-                          "data": "${base64_encode($number)}",
-                          })
+                    "data": "${base64_encode($number)}",
+
+        }
+                       )
         )
     teststeps = [
         Step(
-            RunRequest("获取圈子页的活动列表")
-                .post("/proxy/mkt/selUpwardActivityInfo/1.0/")
+            RunRequest("生成报名付费活动订单")
+                .post("/proxy/bds/createUpwardActOrder/1.0/")
                 .with_headers(**{
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
                             "Content-Type": "base64.b64encode",
@@ -28,8 +31,7 @@ class selUpwardActivityInfo(HttpRunner):
             )
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body[0].id", "id")                #活动id
-                .with_jmespath("body.body[0].actName", "actName")       #活动名称
+                .with_jmespath("body.body", "body")                #活动付费订单id
                 .validate()
                 .assert_equal("status_code", 200)
         )
@@ -40,4 +42,4 @@ class selUpwardActivityInfo(HttpRunner):
 
 
 if __name__ == '__main__':
-    selUpwardActivityInfo().test_start()
+    createUpwardActOrder().test_start()
