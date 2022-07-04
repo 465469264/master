@@ -434,3 +434,13 @@ def msgType():
         {"msgType":"1"},{"msgType":"1"},{"msgType":"2"},{"msgType":"3"},{"msgType":"4"},{"msgType":"5"},{"msgType":"6"},{"msgType":"7"},{"msgType":"8"},{"msgType":"9"},{"msgType":"10"},
 
     ]
+
+#智米生成列表对应的商品类型
+def salesType_goodsType():
+    return [
+        {"salesType": "1","goodsType": "1","message":"success"},
+        {"salesType": "1", "goodsType": "2", "message": "success"},
+        {"salesType": "3", "goodsType": "1", "message": "success"},
+        {"salesType": "", "goodsType": "", "message": "success"},
+
+    ]

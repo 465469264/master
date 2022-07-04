@@ -30,8 +30,8 @@ class GetJDProvince(HttpRunner):
                             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body[0].name", "provinceName")
-                .with_jmespath("body.body[0].code", "provinceCode")
+                .with_jmespath("body.body[13].name", "provinceName")
+                .with_jmespath("body.body[13].code", "provinceCode")
 
                 .validate()
                 .assert_equal("status_code", 200)
