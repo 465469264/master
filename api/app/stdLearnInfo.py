@@ -36,7 +36,7 @@ class stdLearnInfo(HttpRunner):
                 .with_jmespath("body.body.learnInfos[0].grade", "grade")
                 .with_jmespath("body.body.learnInfos[0].unvsName", "unvsName")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
         )
     ]
 

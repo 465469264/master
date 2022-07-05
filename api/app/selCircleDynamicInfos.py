@@ -39,7 +39,7 @@ class selCircleDynamicInfos(HttpRunner):
                 .extract()
                 .with_jmespath("body.body[0].id", "id")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 
@@ -83,7 +83,7 @@ class selCircleDynamicInfos2(HttpRunner):
                 .extract()
                 .with_jmespath("body.body[0].id", "id")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 

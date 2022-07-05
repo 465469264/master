@@ -32,10 +32,10 @@ class usTaskClockRanking(HttpRunner):
                 .with_jmespath("body.body[0].id","id")
                 .with_jmespath("body.body[0].name", "name")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]
 
 if __name__ == '__main__':
-    selTaskClockRecommend().test_start()
+    usTaskClockRanking().test_start()

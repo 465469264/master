@@ -35,7 +35,7 @@ class usNewPosting(HttpRunner):
             )
                 .with_data('$data')
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

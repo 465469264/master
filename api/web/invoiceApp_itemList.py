@@ -22,7 +22,6 @@ class invoiceApp_itemList(HttpRunner):
                 .with_jmespath("body.body.data[0].itemId", "itemId")
                 .with_jmespath("body.body.data[0].itemName", "itemName")
                 .with_jmespath("body.body.data[0].learnId", "learnId")
-
                 .validate()
                 .assert_equal("status_code", 200)
         )

@@ -30,10 +30,11 @@ class Test_perationStatistic(HttpRunner):
             "pfsnLevel": "1",
             "unvsId": "164690457468960222",
             "pfsnId": "164690470996983675",
-            "taId": "169"
-        }
+            "taId": "169",
+            "message": "success"
+                        }
                        )
-    )
+            )
     teststeps = [
         Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${write_Register_mobile(register_mobile_chengjiao,$mobile)}').export(*["app_auth_token", "mobile", "userId","realName"])),
         Step(RunTestCase("获取报名zmtoken").call(get_zmtoken).export(*["zmtoken"])),

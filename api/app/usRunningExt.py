@@ -16,7 +16,6 @@ class usRunningExt(HttpRunner):
                                             "subType": "$subType",                                         #普通贴：subType :0     1：读书贴  2：跑步贴）
                                             "markTaskType": "$markTaskType",                                  #任务打卡类型：2：读书  3：跑步    4：其他
                                             "mappingIdType": "$mappingIdType",                  #外键mappingid类型（1：读书 2：自考课次 3：跑步）
-                                            "iOS_version": "7.19.3",
                                             "scType": "$scType",                                     #读书社:scType.2,  跑团：scType.3，  自考圈：scType.4	，同学圈：scType.1   ，职场圈：scType.5
                                             "scVideoUrl": "",
                                             "ifRunRecord": "$ifRunRecord",                               #是否生成跑步记录  1：是（发帖+跑步记录）  0：否（单纯发跑步帖子）

@@ -21,7 +21,9 @@ class TestCasesbuy_give_zhimi(HttpRunner):
             "a": "1",
             "zhimiType": "1",   #1>进账   2>出账
             "reasonStatus": "2",  # 2>通过   3>驳回
-        })
+            "message": "success",
+                        }
+                       )
             )
     teststeps = [
         # 智米赠送申请

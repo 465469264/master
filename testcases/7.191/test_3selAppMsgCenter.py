@@ -16,7 +16,9 @@ class TestCasesMsgCenter(HttpRunner):
         Config("学员和老师账号返回的通知标题")
             .verify(False)
             .variables(**{
-        })
+            "message": "success",
+                        }
+                       )
             )
     teststeps = [
         Step(RunTestCase("学员和老师账号返回的通知标题").call(selAppMsgCenter)),

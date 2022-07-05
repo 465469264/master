@@ -15,11 +15,13 @@ class Test_Circle_Dynamicst(HttpRunner):
         Config("圈子页的活动报名-点赞，评论，查看我的活动")
             .verify(False)
             .variables(**{
-             "mobile": "${read_data_number(ApplyRecord,mobile)}",
-            "content": "测试测试",
-            "type": ""
+                            "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                            "content": "测试测试",
+                            "message": "success",
+                            "type":""
 
-        })
+                            }
+                       )
     )
     teststeps = [
         Step(RunTestCase("获取信息").call(get_info).teardown_hook('${delete_activity($userId)}').export(*["nickname", "realName","stdName","userId"])),

@@ -37,9 +37,7 @@ class selStdAchievement(HttpRunner):
                 .assert_equal("body.body.achievementInfo[$a].rewardScore", "$rewardScore")
                 .assert_equal("body.body.achievementInfo[$a].totalScore", "$totalScore")
                 .assert_equal("body.body.achievementInfo[$a].isPass", "$isPass")
-
-
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]

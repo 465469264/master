@@ -22,7 +22,9 @@ class Test_Apply_qita(HttpRunner):
                 "a":"1",
                 "zhimiType": "1",  #1是赠送
                 "reasonStatus": "2",  # 2>通过   3>驳回
-                })
+                "message": "success",
+
+        })
     )
     teststeps = [
         Step(RunTestCase("获取信息").call(get_info).export(*["userId"])),

@@ -9,6 +9,7 @@ class TestCaseschange_number(HttpRunner):
             .variables(**{
             "idcard": "${read_data_number(test_data,idcard)}",
             "mobile": "${get_not_exist_mobile()}",
+            "message": "success",
         })
             )
     teststeps = [

@@ -30,7 +30,7 @@ class selClockTaskDetails(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]

@@ -10,7 +10,9 @@ class TestCasesenrollUpwardAct_sendAppMsg(HttpRunner):
         Config("赠送优惠券给学员")
             .verify(False)
             .variables(**{"mobile": "${read_data_number(ApplyRecord,mobile)}",
-                          "couponId":"${read_data_number(couponId,couponId)}"
+                          "couponId":"${read_data_number(couponId,couponId)}",
+                          "message": "success",
+
                           })
             )
     teststeps = [

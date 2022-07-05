@@ -31,7 +31,7 @@ class selTaskClockRecommend(HttpRunner):
                 .with_jmespath("body.body[0].id","id")
                 .with_jmespath("body.body[0].name", "name")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]

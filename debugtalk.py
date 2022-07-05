@@ -352,7 +352,6 @@ def update_task():
     data4 = conn_sql().get_data(sql4)
     return data1,data2,data3,data4
 
-
 #多参数
 
 #发票类
@@ -377,9 +376,10 @@ def Apply_Enrollment():
 # 评论活动
 def Activity_content():
     return [
-        {"content":"测试测试测试"},
-        {"content":"热评外显，默认取动态中点赞最高评论放在外面显示，只显示一条；且评论的点赞数要达到>>5个赞才显示在列表外如果某条动态热评最高的点赞只有4个赞，则这条热评不外显在列表外,动态详情的评论增加按热度的排序，默认按热度排序,按热度排：点赞从"},
-
+        {"title":"评论传空","content":"","message":"评论的内容与图片不能同时为空"},
+        {"title":"正常传参","content":"测试测试测试","message":"success"},
+        {"title":"参数超长","content":"热评外显，默认取动态中点赞最高评论放在外面显示，只显示一条；且评论的点赞数要达到>>5个赞才显示在列表外如果某条动态热评最高的点赞只有4个赞，则这条热评不外显在列表外,动态详情的评论增加按热度的排序，默认按热度排序,按热度排：点赞从","message":"success"},
+        {"title":"参数类型传参","content":"@@123haha  --22","message":"success"},
     ]
 
 #跑步打卡数据

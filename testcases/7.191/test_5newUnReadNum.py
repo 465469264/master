@@ -7,6 +7,8 @@ class TestCasesnewUnReadNum(HttpRunner):
         Config("评论和@的newUnReadNum的返回数据")
             .verify(False)
             .variables(**{
+            "message": "success",
+
         })
             )
     teststeps = [

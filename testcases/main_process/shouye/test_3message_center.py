@@ -15,8 +15,9 @@ class TestCaseschicken_message(HttpRunner):
             "menuType":"1",
             "mappingId": "${read_data_number(circle,mappingId)}",
             "circleUserId": "${read_data_number(circle,circleUserId)}",
-
-        })
+            "message": "success"
+                        }
+                       )
             )
     teststeps = [
         Step(RunTestCase("通知列表-学习提醒-一键已读").with_variables(**({"a": "1"})).call(

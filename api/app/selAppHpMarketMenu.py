@@ -34,7 +34,6 @@ class selAppHpMarketMenu(HttpRunner):
                 .with_jmespath("body.body.msgInfo.unReadMsgNum", "unReadMsgNum")
                 .with_jmespath("body.body.marketInfo[0][0].menuName","menuName")
                 .validate()
-                .assert_equal("body.message", "success")
-                # .assert_equal("body.body.marketInfo[0].menuName","读专科")
+                .assert_equal("body.message", "$message")
         )
     ]

@@ -8,10 +8,11 @@ class Test_reping(HttpRunner):
         Config("热评 ")
             .verify(False)
             .variables(**{
-            "userRoleType": 2,
-            "own": 1,
-            "pageSize": 20,
-            "pageNum": 1
+                            "userRoleType": 2,
+                            "own": 1,
+                            "pageSize": 20,
+                            "pageNum": 1,
+                            "message": "success",
                         }
                        )
     )

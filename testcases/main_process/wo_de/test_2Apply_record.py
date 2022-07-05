@@ -1,8 +1,3 @@
-import pytest,sys,os
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
-print(str(Path(__file__).parent.parent.parent.parent))
-
 from httprunner import HttpRunner, Config, Step, Parameters,RunTestCase
 from api.app.getInvoiceApply import getInvoiceApply
 from api.app.studentInvoiceApply import ApplyRecord
@@ -14,16 +9,17 @@ from api.app.getInvoiceApplyRecord import getInvoiceApplyRecord
 from api.app.userHome import get_info
 
 class TestApply_Record(HttpRunner):
-    @pytest.mark.parametrize("param",Parameters({"companyTaxNumber-invoiceTitle-companyName-applyPurpose-email":"${Apply_record()}"}))
-    def test_start(self,param):
-        super().test_start(param)
     config = (
         Config("申请模块")
             .verify(False)
             .variables(**{
-                "mobile": "${read_data_number(ApplyRecord,mobile)}"
-                })
-    )
+                "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                 "message": "success",
+                "companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试",
+                "email": "123@qq.com"
+                        }
+                       )
+            )
     teststeps = [
         Step(RunTestCase("获取信息").call(get_info).export(*["userId"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId"])),

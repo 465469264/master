@@ -8,7 +8,9 @@ class Test_Apply_qita(HttpRunner):
         Config("智米商城branner")
             .verify(False)
             .variables(**{
-                })
+                        "message": "success"
+                }
+                       )
     )
     teststeps = [
         Step(RunTestCase("智米商城branner").call(getAppBanner)),

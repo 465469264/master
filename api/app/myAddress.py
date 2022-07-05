@@ -8,8 +8,7 @@ class myAddress(HttpRunner):
             .variables(**{
                             "number": {
                                     "body":{
-                                        "android_sdk": 28,
-                                        "saType": "$saType",              #地址类型	  1>教材地址	  2>试卷邮寄地址	  3>收获地址
+                                        "saType": "$saType",              #地址类型	  1>教材地址	  2>试卷邮寄地址	  3>收货物地址
                                             },
                                     "header":{
                                         "appType":"3"
@@ -32,8 +31,17 @@ class myAddress(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .with_jmespath("body.body[0].saId", "saId")
+                .with_jmespath("body.body[0].districtCode", "districtCode")    #区
+                .with_jmespath("body.body[0].districtName", "districtName")
+                .with_jmespath("body.body[0].provinceCode", "provinceCode")    #省
+                .with_jmespath("body.body[0].provinceName", "provinceName")
+                .with_jmespath("body.body[0].cityName", "cityName")          #市
+                .with_jmespath("body.body[0].cityCode", "cityCode")
+                .with_jmespath("body.body[0].streetName", "streetName")      #县
+                .with_jmespath("body.body[0].streetCode", "streetCode")
+                .with_jmespath("body.body[0].address", "address")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

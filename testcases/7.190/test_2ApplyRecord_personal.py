@@ -12,13 +12,15 @@ class TestCases_ApplyRecord_personal(HttpRunner):
         Config("申个人发票用例")
             .verify(False)
             .variables(**{
-                "mobile": "${read_data_number(ApplyRecord,mobile)}"
-                })
+                "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                    "message": "success",
+                    "body": "SUCCESS",
+                        }
+                       )
     )
     teststeps = [
         # 缴费辅导费,并生成学院订单
-        Step(
-            RunTestCase("获取信息").call(get_info).teardown_hook('${login_web()}', "Cookie").export(*["userId", "Cookie"])),
+        Step(RunTestCase("获取信息").call(get_info).teardown_hook('${login_web()}', "Cookie").export(*["userId", "Cookie"])),
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("获取可申请发票订单").call(getInvoiceApply).export(*["bdSubOrderId", "itemCode","learnId","itemName", "grade", "payment","invoiceType"])),
         Step(RunTestCase("申请个人发票").with_variables(**({"companyTaxNumber" :"","invoiceTitle": "2","companyName": "","applyPurpose": "测试","email": "123@qq.com"})).call(ApplyRecord)),

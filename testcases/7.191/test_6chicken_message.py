@@ -9,7 +9,8 @@ class TestCaseschicken_message(HttpRunner):
             .verify(False)
             .variables(**{
             "level":"2",
-            "menuType":"1"
+            "menuType":"1",
+            "message": "success",
         })
             )
     teststeps = [

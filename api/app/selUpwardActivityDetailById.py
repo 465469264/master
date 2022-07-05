@@ -30,7 +30,7 @@ class selUpwardActivityDetailById(HttpRunner):
                 .extract()
                 .with_jmespath("body.body.actName", "actName")       #活动名称
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
                 .assert_equal("body.body.actName", "$actName")  # 活动名称
 
         )

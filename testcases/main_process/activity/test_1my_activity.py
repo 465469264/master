@@ -8,14 +8,17 @@ class Test_Circle_Dynamicst(HttpRunner):
         Config("圈子页查看报名中-进行中-已结束")
             .verify(False)
             .variables(**{
-            "type": ""
+                            "message": "success",
+                            "pageSize": 10,
+                            "pageNum": 1
 
-        })
+                            }
+                       )
     )
     teststeps = [
-        Step(RunTestCase("圈子页查看活动页-报名中").with_variables(**({"type":1,"pageSize":10,"pageNum":1})).call(selMyUpwardActivityInfo)),
-        Step(RunTestCase("圈子页查看活动页-进行中").with_variables(**({"type": 2, "pageSize": 10, "pageNum": 1})).call(selMyUpwardActivityInfo)),
-        Step(RunTestCase("圈子页查看活动页-已结束").with_variables(**({"type": 3, "pageSize": 10, "pageNum": 1})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看活动页-报名中").with_variables(**({"type":1})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看活动页-进行中").with_variables(**({"type": 2})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看活动页-已结束").with_variables(**({"type": 3})).call(selMyUpwardActivityInfo)),
 
     ]
 

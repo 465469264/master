@@ -8,7 +8,9 @@ class Test_qiandao(HttpRunner):
         Config("赠送优惠券给学员")
             .verify(False)
             .variables(**{
-                          })
+                            "message": "success",
+                            }
+                       )
             )
     teststeps = [
         Step(RunTestCase("获取学员是否已签到").call(isSign).teardown_hook('${judge_sing($body)}', "message").export(*["message"])),

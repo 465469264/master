@@ -33,7 +33,7 @@ class selCircleTopic(HttpRunner):
                 .extract()
                 # .with_jmespath("body.body[0].bannerDesc","bannerDesc")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]

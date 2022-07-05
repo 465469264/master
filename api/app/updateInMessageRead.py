@@ -25,12 +25,13 @@ class updateInMessageRead(HttpRunner):
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
                 "authtoken": "${ENV(app_auth_token)}",
-            })
+                                }
+                              )
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("body.message", "success")
-        )
+                .assert_equal("body.message", "$message")
+            )
     ]
 
 if __name__ == '__main__':

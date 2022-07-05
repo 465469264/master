@@ -14,7 +14,10 @@ class Test_shouye_find(HttpRunner):
     config = (
         Config("搜索接口搜索不同类型")
             .verify(False)
-            .variables(**{})
+            .variables(**{
+                            "message": "success"
+                         }
+                       )
     )
     teststeps = [
         Step(RunTestCase("首页搜索").call(getSearchList)),

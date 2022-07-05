@@ -20,6 +20,7 @@ class TestCasesAddNewComment(HttpRunner):
             "ifLimit": "0",
             "commentType": "4",          #评论圈子
             "content": "测试测试测试",
+            "message": "success",
 
         })
     )

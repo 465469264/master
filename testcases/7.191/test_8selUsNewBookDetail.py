@@ -7,11 +7,15 @@ class TestCasesSelClockTaskTopic_for_read(HttpRunner):
     config = (
         Config("读书打卡带出书籍")
             .verify(False)
-            .variables(**{"mobile": "${read_data_number(accountnumber,teacher_student6)}"})
+            .variables(**{
+                            "message": "success",
+                            "name": "数星星的夜",
+                            "markTaskType": "2"
+                        }
+                       )
             )
     teststeps = [
-        Step(RunTestCase("登录学员和老师账号").call(app_login).export(*["app_auth_token","userId"])),
-        Step(RunTestCase("带出书籍").with_variables(**({"name": "数星星的夜","markTaskType": "2"})).call(selUsNewBookDetail))
+        Step(RunTestCase("带出书籍").call(selUsNewBookDetail))
 
     ]
 

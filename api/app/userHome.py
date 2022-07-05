@@ -31,6 +31,6 @@ class get_info(HttpRunner):
                 .with_jmespath("body.body.realName", "realName")
                 .with_jmespath("body.body.stdName", "stdName")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]

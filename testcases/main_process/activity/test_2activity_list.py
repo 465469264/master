@@ -8,9 +8,9 @@ class Test_Circle_Dynamicst(HttpRunner):
         Config("圈子页的活动报名-点赞，评论，查看我的活动")
             .verify(False)
             .variables(**{
-             "mobile": "${read_data_number(ApplyRecord,mobile)}",
-            "type": ""
-        })
+                            "message": "success",
+                            }
+                       )
     )
     teststeps = [
         Step(RunTestCase("获取所有活动").with_variables(**({"type": ""})).call(selUpwardActivityInfo).export(*["id","actName"])),

@@ -10,14 +10,15 @@ class studentCertificateApply(HttpRunner):
                                     "body":{
                                             #这些时申请“其他”时的必传字段
                                             "districtCode": "$districtCode",         #区的编码
-                                            "district": "$district",         #区名
-                                            "city": "$city",              #市名
+                                            "district": "$district",                  #区名
+                                            "city": "$city",                        #市名
                                             "cityCode": "$cityCode",              #市编码
-                                            "stampDown": "$stampDown",              #未知字段   传1
-                                            "receiveName": "$receiveName",        #收获人的详细地址
-                                            "provinceCode": "$provinceCode",        #省编码
-                                            "province": "$province",           #省名
-                                            "street": "",                 #街道
+                                            "street": "$street",                          # 县
+                                            "provinceCode": "$provinceCode",        # 省编码
+                                            "province": "$province",                # 省名
+                                            "receiveName": "$receiveName",        #收获人名字
+                                            "stampDown": "$stampDown",             # 未知字段   传1
+
                                             "receiverName": "$receiverName",       #收货人名字
                                             "receiverMobile": "$receiverMobile",  #收获人手机号码
                                             "receiveMobile": "$receiveMobile",   #收获人手机号码
@@ -26,10 +27,10 @@ class studentCertificateApply(HttpRunner):
                                             "materialName":"$materialName",             #材料名称
 
                                             #公用字段
-                                            "applyType": "$applyType",  # 6>报读证明  5>其他       3>查询
+                                            "applyType": "$applyType",        # 6>报读证明  5>其他       3>查询
                                             "remark": "$remark",                #备注
                                             "stdName": "$stdName",
-                                            "receiveType": "$receiveType",             #未知字段
+                                            "receiveType": "$receiveType",             # 收获类型1>快递
                                             "unvsName": "$unvsName",
                                             "userId": "$userId",
                                             "applyPurpose": "$applyPurpose",            #申请理由
@@ -57,13 +58,13 @@ class studentCertificateApply(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':
     studentCertificateApply().test_start()
 
-
+#申请报读证明
 class studentCertificateApply2(HttpRunner):
     config = (
         Config("申请证明")
@@ -73,7 +74,7 @@ class studentCertificateApply2(HttpRunner):
                             "number": {
                                     "body":{
                                             "applyType": "$applyType",  # 6>报读证明  5>其他       3>查询
-                                            "remark": "$remark",                #备注
+                                            "remark": "$remark",                        #备注
                                             "stdName": "$stdName",
                                             "receiveType": "$receiveType",             #未知字段
                                             "unvsName": "$unvsName",
@@ -103,6 +104,6 @@ class studentCertificateApply2(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]

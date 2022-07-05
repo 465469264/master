@@ -19,6 +19,7 @@ class TestCasesbuy_zhimi_goods(HttpRunner):
             "zhimiType": "1",  # 1>进账   2>出账
             "amount": "100",  # 100智米
             "reasonStatus": "2",  # 2>通过   3>驳回
+            "message": "success",
 
         })
             )

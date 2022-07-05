@@ -22,8 +22,8 @@ class usReadOrForward(HttpRunner):
             )
     teststeps = [
         Step(
-            RunRequest("获取圈子数据")
-                .post("/proxy/us/selCircleDynamicInfos/1.0/")
+            RunRequest("获取附近的发帖人")
+                .post("/proxy/us/usReadOrForward/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.19.9/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -35,8 +35,8 @@ class usReadOrForward(HttpRunner):
                 .extract()
                 .with_jmespath("body.body[0].id", "id")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':
-    selCircleDynamicInfos().test_start()
+    usReadOrForward().test_start()

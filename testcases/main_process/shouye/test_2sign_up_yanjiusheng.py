@@ -23,8 +23,10 @@ class Test_Sign_up_yanjiusheng(HttpRunner):
             "pfsnLevel": "6",
             "unvsId": "164673093611618401",
             "pfsnId": "164673098206016400",
-            "taId": "155184016465430588"
-        })
+            "taId": "155184016465430588",
+            "message": "success"
+                        }
+                       )
             )
     teststeps = [
         Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${write_Register_mobile(register_mobile_yanjiusheng,$mobile)}').export(*["app_auth_token","mobile","userId"])),

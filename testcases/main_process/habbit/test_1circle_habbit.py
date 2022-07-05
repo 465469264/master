@@ -18,10 +18,12 @@ class Test_circle_habbit(HttpRunner):
             "own": "0",
             "scType": "3",
             "userRoleType": "",
+            "message": "success"
+
         })
     )
     teststeps = [
-        Step(RunTestCase("获取信息").call(get_info).teardown_hook('${delete_activity($userId)}').export(*["nickname", "realName","stdName","userId"])),
+        Step(RunTestCase("获取信息").call(get_info).export(*["nickname", "realName","stdName","userId"])),
         Step(RunTestCase("APP圈子活动页返回推荐的习惯").call(selTaskClockRecommend).export(*["id","name"])),
         Step(RunTestCase("查看第一个推荐的习惯详情").with_variables(**({"taskId":"$id"})).call(selClockTaskDetails)),
         Step(RunTestCase("查看打卡情况").with_variables(**({"taskId": "$id"})).call(selClockTaskRecords)),

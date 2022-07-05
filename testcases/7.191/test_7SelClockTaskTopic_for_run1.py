@@ -8,8 +8,10 @@ class TestCasesSelClockTaskTopic_for_run(HttpRunner):
             .verify(False)
             .variables(**{
                             "markTaskType": "3",
-                            "topicName":"#amylee跑步测试勿删#"               #校验的话题词
-                          })
+                            "topicName":"#amylee跑步测试勿删#",               #校验的话题词
+                            "message": "success",
+                        }
+                       )
             )
     teststeps = [
         Step(RunTestCase("习惯默认带出习惯话题").call(SelClockTaskTopic)),

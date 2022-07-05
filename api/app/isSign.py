@@ -29,7 +29,7 @@ class isSign(HttpRunner):
                 .extract()
                 .with_jmespath("body.body","body")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
         )
     ]

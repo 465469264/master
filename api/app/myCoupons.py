@@ -9,7 +9,7 @@ class myCoupons(HttpRunner):
                             "number": {
                                     "body":{
                                          "recruitType": "$recruitType",                 #查所有时不需要传  ，查对应优惠政策优惠券时传1
-                                        "scholarship": "$scholarship"        #优惠情况，前端会调两次接口，一次查询有优惠政策对应的优惠券，第二次查询所有，测试数据优惠政策：1273
+                                        "scholarship": "$scholarship"                   #优惠情况，前端会调两次接口，一次查询有优惠政策对应的优惠券，第二次查询所有，测试数据优惠政策：1273
                                             },
                                     "header":{
                                         "appType":"3"
@@ -32,7 +32,7 @@ class myCoupons(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

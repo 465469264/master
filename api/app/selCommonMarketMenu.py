@@ -1,15 +1,18 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
-# 习惯任务-我的战绩
-class usTaskClockRecord(HttpRunner):
+# 发现页的菜单
+class selCommonMarketMenu(HttpRunner):
     config = (
-        Config("习惯任务-我的战绩")
+        Config("发现页的菜单")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
-                           "number": {
-                                    "body":{
+                           "number": { "header": {
+                                        "appType": "4",
                                     },
-                                    "header":{"appType":"3"}
+                                    "body": {
+                                        "level": "$level",        #2>2级菜单   3>3级菜单
+                                        "menuType": "$menuType",     # 1>首页   2>学堂页   3>发现页   4>我的页面
+                                    }
                            },
                             "data": "${base64_encode($number)}"
                             }
@@ -17,8 +20,8 @@ class usTaskClockRecord(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("习惯任务-我的战绩")
-                .post("/proxy/mkt/usTaskClockRecord/1.0/")
+            RunRequest("发现页的菜单")
+                .post("/proxy/mkt/selCommonMarketMenu/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -27,8 +30,6 @@ class usTaskClockRecord(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body[0].id","id")
-                .with_jmespath("body.body[0].name", "name")
                 .validate()
                 .assert_equal("body.message", "$message")
 
@@ -36,4 +37,4 @@ class usTaskClockRecord(HttpRunner):
     ]
 
 if __name__ == '__main__':
-    usTaskClockRecord().test_start()
+    selCommonMarketMenu().test_start()

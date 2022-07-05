@@ -35,7 +35,7 @@ class getCommentInfo(HttpRunner):
                 .extract()
                 .with_jmespath("body.body.list[0].commentId", "commentId")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
                 .assert_equal("body.body.list[$a].content", "$content")
 
         )

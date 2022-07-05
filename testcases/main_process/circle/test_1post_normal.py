@@ -11,9 +11,10 @@ class Test_Read_habbit(HttpRunner):
             .variables(**{
             "localFile": "${read_data_number(SelClockTaskTopic_run,localFile)}",
             "bucketName": "yzimstemp",
-            "subType": "0"
+            "subType": "0",
+            "message": "success"
 
-                        }
+        }
                        )
     )
     teststeps = [

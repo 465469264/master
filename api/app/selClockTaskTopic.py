@@ -34,7 +34,7 @@ class SelClockTaskTopic(HttpRunner):
                 .with_jmespath("body.body.markContent", "markContent")
                 .with_jmespath("body.body.taskEnrollId", "taskEnrollId")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

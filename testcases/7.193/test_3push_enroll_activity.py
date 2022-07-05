@@ -8,7 +8,8 @@ class TestCasesenrollUpwardAct_sendAppMsg(HttpRunner):
         Config("报名活动触发提醒")
             .verify(False)
             .variables(**{"mobile": "${get_not_exist_mobile()}",
-                          "actId": "${read_data_number(Activity,actId)}"
+                          "actId": "${read_data_number(Activity,actId)}",
+                          "message": "success",
                           })
             )
     teststeps = [

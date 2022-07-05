@@ -31,7 +31,7 @@ class myApplyType(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

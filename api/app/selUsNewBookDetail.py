@@ -33,8 +33,8 @@ class selUsNewBookDetail(HttpRunner):
                 .with_jmespath("body.body.readPersonNum","readPersonNum")
                 .with_jmespath("body.body.bookId","bookId")
                 .validate()
-                .assert_equal("body.message", "success")
-                .assert_equal("body.body.name", "$name")
+                .assert_equal("body.message", "$message")
+                # .assert_equal("body.body.name", "$name")
 
         )
     ]

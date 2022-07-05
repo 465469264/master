@@ -1,5 +1,4 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
-
 from api.app.mallConfirmOrder import mallConfirmOrder
 from api.app.stuItemToPay import stuItemToPay
 from api.app.goodsListAll import goodsListAll

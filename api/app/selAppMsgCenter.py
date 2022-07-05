@@ -44,7 +44,7 @@ class selAppMsgCenter(HttpRunner):
                 .assert_equal("body.body[8].title", "点赞")
                 .assert_equal("body.body[9].title", "评论")
                 .assert_equal("body.body[10].title", "粉丝")
-
+                .assert_equal("body.message", "$message")
         )
     ]
 

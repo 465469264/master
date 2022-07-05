@@ -12,7 +12,9 @@ class TestCasesActivity_sendAppMsg(HttpRunner):
             .verify(False)
             .variables(**{
             "mobile": "${read_data_number(ApplyRecord,mobile)}",
-            "semester": "1"
+            "semester": "1",
+            "message": "success",
+
         })
             )
     teststeps = [

@@ -12,9 +12,10 @@ class TestCaseCircle_Dynamics_post(HttpRunner):
                 "userRoleType": 2,
                 "own": 1,
                 "pageSize": 20,
-                "pageNum": 1
-
-        })
+                "pageNum": 1,
+                "message": "success"
+                        }
+                       )
     )
     teststeps = [
         Step(RunTestCase("获取用户信息，获取userId").call(get_info).export(*["userId"])),

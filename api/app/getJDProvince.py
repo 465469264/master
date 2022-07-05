@@ -32,9 +32,8 @@ class GetJDProvince(HttpRunner):
                 .extract()
                 .with_jmespath("body.body[13].name", "provinceName")
                 .with_jmespath("body.body[13].code", "provinceCode")
-
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

@@ -28,9 +28,8 @@ class Register(HttpRunner):
                 .with_jmespath("body.body.userInfo.mobile", "mobile")
                 .with_jmespath("body.body.userInfo.userId", "userId")
                 .with_jmespath("body.body.userInfo.realName", "realName")
-
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

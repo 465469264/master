@@ -12,7 +12,9 @@ class TestCases_ApplyRecord_enterprise(HttpRunner):
         Config("申请企业发票用例")
             .verify(False)
             .variables(**{
-                "mobile": "${read_data_number(ApplyRecord,mobile)}"
+                "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                "message": "success",
+                "body": "SUCCESS",
                 })
     )
     teststeps = [

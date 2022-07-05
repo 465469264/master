@@ -8,6 +8,7 @@ class TestCasesLIive_poster(HttpRunner):
         Config("app直播广场获取海报")
             .verify(False)
             .variables(**{
+            "message": "success",
         })
             )
     teststeps = [

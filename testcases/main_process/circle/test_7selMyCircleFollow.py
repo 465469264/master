@@ -11,6 +11,7 @@ class Test_Circle_Dynamics(HttpRunner):
             .variables(**{
             "targetMobile": "",                    # 对象手机
             "targetRealName": "",                 # 对象名称
+            "message": "success"
 
         })
     )

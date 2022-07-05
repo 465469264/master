@@ -40,10 +40,11 @@ class sign_up_education(HttpRunner):
                 "Content-Type": "text/yzedu+; charset=UTF-8",
                 "Host": "${ENV(app_Host)}",
                 "authtoken": "$app_auth_token",
-            })
+                                }
+                              )
                 .with_data('$data')
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 

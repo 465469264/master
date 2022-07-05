@@ -14,7 +14,8 @@ class Test_Delete_cicle(HttpRunner):
             "userRoleType": "",
             "pageNum": 1,
             "status": "3",       #3>删除
-    })
+            "message": "success"
+        })
     )
     teststeps = [
         Step(RunTestCase("获取登陆人参数").call(get_info).export(*["userId"])),

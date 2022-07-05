@@ -32,7 +32,7 @@ class getSearchList(HttpRunner):
                 .with_jmespath("body.body[0].targetUserId", "targetUserId")
                 .with_jmespath("body.body[0].targetRealName", "targetRealName")
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
 

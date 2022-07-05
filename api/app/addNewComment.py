@@ -25,7 +25,7 @@ class addNewComment(HttpRunner):
         )
     teststeps = [
         Step(
-            RunRequest("评论帖子")
+            RunRequest("评论")
                 .post("/proxy/mkt/addNewComment/1.0/")
                 .with_headers(**{
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
@@ -36,8 +36,9 @@ class addNewComment(HttpRunner):
             }
             )
                 .with_data('$data')
+                .extract()
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
         )
     ]
 if __name__ == '__main__':

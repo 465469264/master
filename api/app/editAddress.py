@@ -22,7 +22,6 @@ class eddit_address(HttpRunner):
                                             "isDefault": "2",                    #未知字段
                                             "saType": "$saType",                   #地址类型	  1>教材地址	  2>试卷邮寄地址	  3>收获地址
                                             "saId":"$saId",                       #编辑地址需要有地址id，从我的地址这个接口获取
-
                                             "excType": "$excType",                   #1>新增   2> 保存
                                             "email": "$email"                 #邮箱
                                         },
@@ -46,6 +45,6 @@ class eddit_address(HttpRunner):
                             })
                 .with_data('$data')
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]

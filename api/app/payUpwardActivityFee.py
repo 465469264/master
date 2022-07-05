@@ -34,9 +34,8 @@ class payUpwardActivityFee(HttpRunner):
             )
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.accAmount", "accAmount")
                 .validate()
-                .assert_equal("body.message", "success")
+                .assert_equal("body.message", "$message")
 
 
         )
