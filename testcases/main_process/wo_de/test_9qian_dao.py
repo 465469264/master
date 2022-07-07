@@ -13,8 +13,8 @@ class Test_qiandao(HttpRunner):
                        )
             )
     teststeps = [
-        Step(RunTestCase("获取学员是否已签到").call(isSign).teardown_hook('${judge_sing($body)}', "message").export(*["message"])),
-        Step(RunTestCase("签到").with_variables(**({"message":"$message"})).call(sign)),
+        Step(RunTestCase("获取学员是否已签到").call(isSign).teardown_hook('${judge_sing($body)}', "message1").export(*["message1"])),
+        Step(RunTestCase("签到").with_variables(**({"message":"$message1"})).call(sign)),
         Step(RunTestCase("获取签到信息").call(getSignInfo)),
 
     ]

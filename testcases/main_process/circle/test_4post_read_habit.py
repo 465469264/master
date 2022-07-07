@@ -24,6 +24,7 @@ class Test_Read_habbit(HttpRunner):
             "message": "success",
             "userRoleType": "",
             "own": 1,
+            "status": "3",          #删除
             "pageSize": 20,
             "pageNum": 1,
 
@@ -36,7 +37,7 @@ class Test_Read_habbit(HttpRunner):
         Step(RunTestCase("默认带出读书绩效话题").call(SelClockTaskTopic).export(*["taskEnrollId","markContent"])),
         Step(RunTestCase("带出书籍").call(selUsNewBookDetail).export(*["name","imgUrl","readPersonNum","bookId"])),
         Step(RunTestCase("发贴读书习惯打卡帖子").call(usReadExt)),
-        Step(RunTestCase("查看自己的圈子").call(selCircleDynamicInfos2)),
+        Step(RunTestCase("查看自己的圈子").call(selCircleDynamicInfos2).export(*["id"])),
         Step(RunTestCase("删除自己的第一条圈子").with_variables(**({"circleUserId": "$userId"})).call(usSetDynamics)),
 
     ]

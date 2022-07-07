@@ -31,7 +31,7 @@ class isLiving(HttpRunner):
             )
             .with_data('$data')
             .extract()
-            .with_jmespath("body.body.isLiving", "$isLiving")
+            .with_jmespath("body.body.isLiving", "isLiving")
             .validate()
             .assert_equal("body.message", "$message")
         ),
