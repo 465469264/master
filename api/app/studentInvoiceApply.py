@@ -9,12 +9,12 @@ class ApplyRecord(HttpRunner):
                           "number": {
                                     "body":{
                                             "learnId": "$learnId",
-                                            "companyTaxNumber": "$companyTaxNumber",
-                                            "invoiceTitle": "$invoiceTitle",           #抬头类型  1->企业, 2->个人
+                                            "companyTaxNumber": "$companyTaxNumber",                                    #税号
+                                            "invoiceTitle": "$invoiceTitle",                                            #抬头类型  1->企业, 2->个人
                                             "userId": "$userId",
                                             "bdsInvoiceItem": "[{\"amount\":\"$payment\",\"itemName\":\"$itemName\",\"invoiceType\":$invoiceType,\"subOrderNo\":\"$bdSubOrderId\",\"expressFee\":\"15\",\"itemCode\":\"$itemCode\"}]",
                                             "companyName": "$companyName",
-                                            "hasPaperInvoice": 0,
+                                            "hasPaperInvoice": 0,                                                       #运费
                                             "email": "$email",
                                             "applyPurpose": "$applyPurpose",
                                         },

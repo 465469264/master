@@ -76,7 +76,7 @@ class studentCertificateApply2(HttpRunner):
                                             "applyType": "$applyType",  # 6>报读证明  5>其他       3>查询
                                             "remark": "$remark",                        #备注
                                             "stdName": "$stdName",
-                                            "receiveType": "$receiveType",             #未知字段
+                                            "receiveType": "$receiveType",             # 收获类型1>快递    3>线上
                                             "unvsName": "$unvsName",
                                             "userId": "$userId",
                                             "applyPurpose": "$applyPurpose",            #申请理由

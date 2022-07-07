@@ -1,21 +1,23 @@
+import pytest,sys,os
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 from api.app.userHome import get_info
 from httprunner import HttpRunner, Config, Step, Parameters,RunTestCase
 from api.app.stdLearnInfo import stdLearnInfo
 from api.app.studentCertificateApply import studentCertificateApply2
 from api.app.getCertificateApply import getCertificateApply
 
-
 class Test_Apply_Enrollment(HttpRunner):
+    @pytest.mark.parametrize("param",Parameters({"title-remark-applyPurpose-message":"${Apply_Enrollment()}"}))
+    def test_start(self,param):
+        super().test_start(param)
     config = (
         Config("申请模块")
             .verify(False)
             .variables(**{
-                "mobile": "${read_data_number(ApplyRecord,mobile)}",
-                "applyType": "6",
-                "message": "success",
-                "receiveType": "3",
-                "remark": "测试",
-                "applyPurpose": "测试"
+                            "mobile": "${read_data_number(ApplyRecord,mobile)}",
+                            "applyType": "6",
+                            "receiveType": "3",
                         }
                        )
     )

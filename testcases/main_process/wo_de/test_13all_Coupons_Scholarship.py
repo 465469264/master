@@ -1,18 +1,23 @@
+import pytest,sys,os
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+print(str(Path(__file__).parent.parent.parent.parent))
 from httprunner import HttpRunner, Config, Step, Parameters,RunTestCase
 from api.app.stdLearnInfo import stdLearnInfo
 from api.web.studentCoupon_add import studentCoupon_add
 from api.app.myCoupons import myCoupons
 
 class TestCasesenrollUpwardAct_sendAppMsg(HttpRunner):
+    @pytest.mark.parametrize("param",Parameters({"title-recruitType-scholarship-message":"${Coupons_scholarship()}"}))
+    def test_start(self,param):
+        super().test_start(param)
     config = (
         Config("赠送优惠券给学员")
             .verify(False)
             .variables(**{"mobile": "${read_data_number(ApplyRecord,mobile)}",
                           "couponId":"${read_data_number(couponId,couponId)}",
-                          "recruitType": "1", "scholarship": "1273",
-                            "message": "success",
-
-    })
+                            }
+                       )
             )
     teststeps = [
         Step(RunTestCase("获取学员报读信息").call(stdLearnInfo).teardown_hook('${login_web()}', "Cookie").export(*["learnId","stdId","Cookie"])),

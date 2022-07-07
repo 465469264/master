@@ -3,7 +3,7 @@ from httprunner import HttpRunner, Config, Step, RunRequest, RunTestCase
 
 class personalHomepageStatistics(HttpRunner):
     config = (
-        Config("跳转他人的主页")
+        Config("主页")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
@@ -20,7 +20,7 @@ class personalHomepageStatistics(HttpRunner):
         )
     teststeps = [
         Step(
-            RunRequest("跳转他人的主页")
+            RunRequest("主页")
                 .post("/proxy/us/personalHomepageStatistics/1.0/")
                 .with_headers(**{
                             "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",

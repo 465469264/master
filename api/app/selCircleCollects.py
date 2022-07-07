@@ -1,16 +1,16 @@
+#我的圈子-收藏帖子列表
 from httprunner import HttpRunner, Config, Step, RunRequest
-#删除帖子
-class usSetDynamics(HttpRunner):
+class selCircleCollects(HttpRunner):
     config = (
-        Config("删除帖子")
+        Config("收藏帖子")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                             "number": {
                                     "body":{
-                                        "status": "$status",                         #0>禁用  1>启用  3>删除）
-                                        "id": "$id",                         #圈子id
-                                        "circleUserId": "$circleUserId",       #发帖人的userid
+                                            "pageSize": "$pageSize",
+                                            "userId": "$userId",
+                                            "pageNum": "$pageNum"
                                         },
                                     "header":{
                                             "appType": "3",
@@ -21,8 +21,8 @@ class usSetDynamics(HttpRunner):
             )
     teststeps = [
         Step(
-            RunRequest("删除帖子")
-                .post("/proxy/us/usSetDynamics/1.0/")
+            RunRequest("收藏帖子")
+                .post("/proxy/us/selCircleCollects/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.19.9/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -33,6 +33,7 @@ class usSetDynamics(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .validate()
-                .assert_equal("status_code", 200)
+                .assert_equal("body.message", "$message")
         )
     ]
+

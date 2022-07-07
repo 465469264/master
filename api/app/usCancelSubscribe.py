@@ -1,16 +1,17 @@
+#习惯打卡-我的战绩里-开启/关闭打卡提醒
 from httprunner import HttpRunner, Config, Step, RunRequest
-#获取系统时间
-class getSystemDateTime(HttpRunner):
+class usCancelSubscribe(HttpRunner):
     config = (
-        Config("获取系统时间")
+        Config("习惯打卡-我的战绩里-开启/关闭打卡提醒")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
-                           "number": { "header": {
-                                        "appType": "4",
-                                    },
-                                    "body": {
-                                    }
+                           "number": {
+                                    "body":{
+                                            "status": "$status"              #0>关闭    1>打开
+
+                                            },
+                                    "header":{"appType":"3"}
                            },
                             "data": "${base64_encode($number)}"
                             }
@@ -18,8 +19,8 @@ class getSystemDateTime(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("获取系统时间")
-                .post("/proxy/bds/getSystemDateTime/1.0/")
+            RunRequest("习惯打卡-我的战绩里-开启/关闭打卡提醒")
+                .post("/proxy/mkt/usCancelSubscribe/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -28,12 +29,10 @@ class getSystemDateTime(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body","body")
                 .validate()
                 .assert_equal("body.message", "$message")
-
         )
     ]
 
 if __name__ == '__main__':
-    getSystemDateTime().test_start()
+    usCancelSubscribe().test_start()

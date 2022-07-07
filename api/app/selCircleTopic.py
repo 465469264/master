@@ -10,7 +10,7 @@ class selCircleTopic(HttpRunner):
                                         "appType": "4",
                                     },
                                     "body": {
-                                        "type": "$type",      #0>返回所有     1>返回习惯打卡话题
+                                        "type": "$type",      #0/为空>返回所有     1>返回习惯打卡话题
                                         "pageSize": "$pageSize",
                                         "pageNum": "$pageNum"
                                     }
@@ -31,7 +31,7 @@ class selCircleTopic(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                # .with_jmespath("body.body[0].bannerDesc","bannerDesc")
+                .with_jmespath("body.body[0].topicName","topicName")
                 .validate()
                 .assert_equal("body.message", "$message")
 

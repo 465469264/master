@@ -5,7 +5,8 @@ from api.app.selClockTaskTopic import SelClockTaskTopic
 from api.app.selUsNewBookDetail import selUsNewBookDetail
 from api.app.usReadExt import usReadExt
 from api.app.userHome import get_info
-
+from api.app.usSetDynamics import usSetDynamics
+from api.app.selCircleDynamicInfos import selCircleDynamicInfos2
 
 class Test_Read_habbit(HttpRunner):
     config = (
@@ -20,7 +21,11 @@ class Test_Read_habbit(HttpRunner):
             "cycleType": "1",       #打卡周期类型 1: 连续 2：累计
             "subType": "1",         #普通贴：subType :0     1：读书贴  2：跑步贴）
             "scType": "2",           #读书社:scType.2,  跑团：scType.3，  自考圈：scType.4	，同学圈：scType.1   ，职场圈：scType.5
-            "message": "success"
+            "message": "success",
+            "userRoleType": "",
+            "own": 1,
+            "pageSize": 20,
+            "pageNum": 1,
 
         }
                        )
@@ -30,7 +35,9 @@ class Test_Read_habbit(HttpRunner):
         Step(RunTestCase('获取用户报读信息').call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("默认带出读书绩效话题").call(SelClockTaskTopic).export(*["taskEnrollId","markContent"])),
         Step(RunTestCase("带出书籍").call(selUsNewBookDetail).export(*["name","imgUrl","readPersonNum","bookId"])),
-        Step(RunTestCase("发贴读书习惯打卡帖子").call(usReadExt))
+        Step(RunTestCase("发贴读书习惯打卡帖子").call(usReadExt)),
+        Step(RunTestCase("查看自己的圈子").call(selCircleDynamicInfos2)),
+        Step(RunTestCase("删除自己的第一条圈子").with_variables(**({"circleUserId": "$userId"})).call(usSetDynamics)),
 
     ]
 if __name__ == '__main__':

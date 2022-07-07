@@ -1,8 +1,8 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
-#获取系统时间
-class getSystemDateTime(HttpRunner):
+#首页礼品商城热门推荐
+class selAppGoodsShop(HttpRunner):
     config = (
-        Config("获取系统时间")
+        Config("首页礼品商城热门推荐")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
@@ -10,6 +10,10 @@ class getSystemDateTime(HttpRunner):
                                         "appType": "4",
                                     },
                                     "body": {
+                                        "salesType": "$salesType",                   #1>兑换活动  2>抽奖活动  3>竞价活动  4>生日活动
+                                        "pageSize": "$pageSize",                    #1>显示一个，2>显示两个
+                                        "pageNum": "$pageNum",                     #页码
+                                        "goodsType": "$goodsType"                   #1>普通商品	 2>课程商品	3>活动商品	4>教材商品	 5>生日商品
                                     }
                            },
                             "data": "${base64_encode($number)}"
@@ -18,8 +22,8 @@ class getSystemDateTime(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("获取系统时间")
-                .post("/proxy/bds/getSystemDateTime/1.0/")
+            RunRequest("首页礼品商城热门推荐")
+                .post("/proxy/us/selAppGoodsShop/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -28,7 +32,7 @@ class getSystemDateTime(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body","body")
+                .with_jmespath("body.body[0].goodName","goodName")
                 .validate()
                 .assert_equal("body.message", "$message")
 
@@ -36,4 +40,4 @@ class getSystemDateTime(HttpRunner):
     ]
 
 if __name__ == '__main__':
-    getSystemDateTime().test_start()
+    selAppGoodsShop().test_start()

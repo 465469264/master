@@ -1,26 +1,22 @@
-#搜索不同类型
-import pytest,sys,os
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
-print(str(Path(__file__).parent.parent.parent.parent))
-
+#首页-搜索
 from httprunner import HttpRunner, Config, Step, Parameters, RunTestCase
 from api.app.getSearchList import getSearchList
 
 class Test_shouye_find(HttpRunner):
-    @pytest.mark.parametrize("param",Parameters({"keyWords-type":"${search()}"}))
-    def test_start(self,param):
-        super().test_start(param)
     config = (
         Config("搜索接口搜索不同类型")
             .verify(False)
             .variables(**{
-                            "message": "success"
-                         }
+                            "message": "success",
+                            "keyWords": "彭正",
+                            "type": "7",
+                            "pageNum": "1",
+                             "pageSize": "20"
+                            }
                        )
     )
     teststeps = [
-        Step(RunTestCase("首页搜索").call(getSearchList)),
+        Step(RunTestCase("首页搜索-查找老师").call(getSearchList)),
 
     ]
 

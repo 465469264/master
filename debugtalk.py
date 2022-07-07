@@ -311,6 +311,7 @@ def delete_task_habit(userId):
     data = conn_sql().get_data(sql)
     return data
 
+
 # 查询用户的智米
 def find_zhimi(userId):
     sql = 'SELECT zhimi_amount FROM us.us_base_info WHERE user_id = "{}"'.format(userId)
@@ -337,7 +338,7 @@ def delete_order(learnId):
     data = conn_sql().get_data(sql)
     return data
 
-# 修改打卡任务
+# 修改习惯打卡任务
 def update_task():
     a = now_times()
     b = day_late()
@@ -352,30 +353,40 @@ def update_task():
     data4 = conn_sql().get_data(sql4)
     return data1,data2,data3,data4
 
-#多参数
 
+
+
+#测试用例传参
 #发票类
 def Apply_record():
     return [
-        {"companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com"},
-        {"companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com",},
-        {"companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试", "email": ""},
-        {"companyTaxNumber": "123456789111111111", "invoiceTitle": "2", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com"}
+        {"title":"企业发票-正常传参","companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com","message": "success",},
+        {"title":"企业发票-税号为空","companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "123@qq.com","message": "success",},
+        {"title":"企业发票-邮箱为空","companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试", "email": "123@qq.com","message": "success",},
+        {"title":"企业发票-税号邮箱为空","companyTaxNumber": "", "invoiceTitle": "1", "companyName": "测试", "applyPurpose": "测试","email": "","message": "success",},
+        {"title": "企业发票-公司名称为空", "companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "", "applyPurpose": "测试","email": "123@qq.com","message": "success",},
+        {"title": "企业发票-申请说明为空", "companyTaxNumber": "123456789111111111", "invoiceTitle": "1", "companyName": "","applyPurpose": "", "email": "123@qq.com","message": "success",},
+        {"title": "个人发票-正常传参", "companyTaxNumber": "", "invoiceTitle": "2", "companyName": "","applyPurpose": "测试", "email": "123@qq.com","message": "success",},
+        {"title": "个人发票-传税号及公司名称", "companyTaxNumber": "123456789111111111", "invoiceTitle": "2", "companyName": "测试","applyPurpose": "测试", "email": "123@qq.com","message": "success",},
+        {"title": "个人发票-申请说明，邮箱传空", "companyTaxNumber": "", "invoiceTitle": "2", "companyName": "","applyPurpose": "", "email": "","message": "success",},
+
     ]
 
 #报读证明
 def Apply_Enrollment():
     return[
-        {"remark": "测试","applyPurpose": "测试"},
-        {"remark": "","applyPurpose": "测试","receiveType": "3"},
-        {"remark": "","applyPurpose": "","receiveType": "3"},
-        {"remark": "测试@@@123古典风格fffff","applyPurpose": "测试@@@123古典风格fffff测试@@@123古典风格fffff测试@@@123古典风格fffff"}
+        {"title":"正常传参","remark": "测试","applyPurpose": "测试","message": "success",},
+        {"title":"备注为空","remark": "","applyPurpose": "测试","message": "success"},
+        {"title":"申请理由为空","remark": "测试","applyPurpose": "","message": "success"},
+        {"title": "备注/申请理由为空", "remark": "", "applyPurpose": "","message": "success"},
+        {"title":"申请理由及备注的输入类型","remark": "测@123风fF","applyPurpose": "测@123风fF","message": "success"}
 
     ]
 
 # 评论活动
 def Activity_content():
     return [
+        {"title": "传1个字符", "content": "a", "message": "success"},
         {"title":"评论传空","content":"","message":"评论的内容与图片不能同时为空"},
         {"title":"正常传参","content":"测试测试测试","message":"success"},
         {"title":"参数超长","content":"热评外显，默认取动态中点赞最高评论放在外面显示，只显示一条；且评论的点赞数要达到>>5个赞才显示在列表外如果某条动态热评最高的点赞只有4个赞，则这条热评不外显在列表外,动态详情的评论增加按热度的排序，默认按热度排序,按热度排：点赞从","message":"success"},
@@ -392,39 +403,34 @@ def run():
 def search():
     # 类型，0>搜索栏搜索    6>上进学社   2>查询好友  7>查询老师  4>上进习惯  5>上进活动  3>查看话题  1>查看动态  8>礼品商城  12>上进直播
     return[
-        {"keyWords": "a","type": "0"},
-        {"keyWords": "测试测试测试", "type": "2"},
-        {"keyWords": "测试", "type": "3"},
-        {"keyWords": "amylee", "type": "4"},
-        {"keyWords": "a", "type": "5"},
-        {"keyWords": "amylee", "type": "6"},
-        {"keyWords": "amylee", "type": "8"},
-        {"keyWords": "amylee", "type": "12"},
-    ]
-#进入不同的圈子页
-#圈子  0>关注  1>同学圈  2>读书社  3>跑团  4>自考圈       查看自己圈子/别人圈子时/最新圈子时不传
-def scircle():
-    return[
-        {"scType": "2"},
-        {"scType": "3"},
+        {"title": "关键字传空", "keyWords": "", "type": "2", "message": "success"},
+        {"title": "type传空", "keyWords": "a", "type": "", "message": "服务网络有异常，请稍候再试！"},
+        {"title":"搜索全部","keyWords": "a","type": "0","message": "服务网络有异常，请稍候再试！"},
+        {"title":"搜索好友","keyWords": "测试测试测试", "type": "2","message": "success"},
+        {"title":"搜索话题","keyWords": "测试", "type": "3","message": "success"},
+        {"title":"搜索上进习惯","keyWords": "amylee", "type": "4","message": "success"},
+        {"title":"搜索上进活动","keyWords": "a", "type": "5","message": "success"},
+        {"title":"搜索上进学社","keyWords": "测", "type": "6","message": "success"},
+        {"title":"搜索礼品商城","keyWords": "amylee", "type": "8","message": "success"},
     ]
 
 #优惠券传值，分别查所有优惠券，查报读的优惠政策，非报读的优惠政策
 def Coupons_scholarship():
     return[
-        {"recruitType": "", "scholarship": ""},
-        {"recruitType": "1", "scholarship": "1273"},
-        {"recruitType": "", "scholarship": "1272"}
+        {"title":"都不传","recruitType": "","scholarship": "","message": "success",},
+        {"title":"传其他的优惠政策","recruitType": "1","scholarship": "1273","message": "success",},
+        {"title":"scholarship","recruitType": "","scholarship": "1272","message": "success",}
     ]
 
-#帮助与反馈>传值
+#我的页面-帮助与反馈>传值
 def channel():
     return[
-        {"channel": "1", "message": "success"},
-        {"channel": "3", "message": "success"},
-        {"channel": "5", "message": "success"},
-        {"channel": "6", "message": "success"},
-        {"channel": "1,3,5,6", "message": "success"},
+        {"title":"问题1","channel": "1", "message": "success"},
+        {"title":"问题3","channel": "3", "message": "success"},
+        {"title":"问题5","channel": "5", "message": "success"},
+        {"title":"问题6","channel": "6", "message": "success"},
+        {"title":"问题1，3，5，6","channel": "1,3,5,6", "message": "success"},
+        {"title": "channel传空", "channel": "", "message": "服务网络有异常，请稍候再试！"},
 
     ]
 
@@ -435,12 +441,12 @@ def msgType():
 
     ]
 
-#智米生成列表对应的商品类型
+#智米商城列表对应的商品类型
 def salesType_goodsType():
     return [
-        {"salesType": "1","goodsType": "1","message":"success"},
-        {"salesType": "1", "goodsType": "2", "message": "success"},
-        {"salesType": "3", "goodsType": "1", "message": "success"},
-        {"salesType": "", "goodsType": "", "message": "success"},
+        {"title":"正常传参","salesType": "1","goodsType": "1","message":"success"},
+        {"title":"活动类型传空","salesType": "", "goodsType": "2", "message": "success"},
+        {"title":"商品类型传空","salesType": "1", "goodsType": "", "message": "success"},
+        {"title":"活动/商品穿孔","salesType": "", "goodsType": "", "message": "success"},
 
     ]

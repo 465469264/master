@@ -21,7 +21,7 @@ class Test_Enroll_Activity(HttpRunner):
         })
     )
     teststeps = [
-        Step(RunTestCase("获取用户信息").call(get_info).teardown_hook('${delete_activity($userId)}').export(*["nickname", "realName", "stdName","userId"])),
+        Step(RunTestCase("获取用户信息").with_variables(**({"message": "success"})).call(get_info).teardown_hook('${delete_activity($userId)}').export(*["nickname", "realName", "stdName","userId"])),
         Step(RunTestCase("评论活动").call(addNewComment)),
 
     ]

@@ -31,6 +31,7 @@ class selProblemList(HttpRunner):
                 .with_data('$data')
                 .extract()
                 .with_jmespath("body.body[0].id", "id")
+                .with_jmespath("body.message", "message")
                 .validate()
                 .assert_equal("body.message", "$message")
         )

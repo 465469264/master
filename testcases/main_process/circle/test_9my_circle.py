@@ -9,7 +9,7 @@ class TestCaseCircle_Dynamics_post(HttpRunner):
         Config("查看自己的圈子动态")
             .verify(False)
             .variables(**{
-                "userRoleType": 2,
+                "userRoleType":"",
                 "own": 1,
                 "pageSize": 20,
                 "pageNum": 1,

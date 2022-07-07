@@ -3,7 +3,7 @@ from api.app.userHome import get_info
 from api.app.getAppBanner import getAppBanner
 
 
-class Test_Apply_qita(HttpRunner):
+class Test_shangcheng_branner(HttpRunner):
     config = (
         Config("智米商城branner")
             .verify(False)
@@ -17,4 +17,4 @@ class Test_Apply_qita(HttpRunner):
 
     ]
 if __name__ == '__main__':
-    Test_Apply_qita().test_start()
+    Test_shangcheng_branner().test_start()

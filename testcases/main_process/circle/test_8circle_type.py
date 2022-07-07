@@ -1,9 +1,4 @@
 #不同的圈子
-# import pytest,sys,os
-# from pathlib import Path
-# sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
-
-
 from httprunner import HttpRunner, Config, Step, Parameters, RunTestCase
 from api.app.selCircleDynamicInfos import selCircleDynamicInfos
 from api.app.userHome import get_info
@@ -14,9 +9,6 @@ from api.app.addNewComment import addNewComment
 from api.app.usPraise import usPraise
 
 class Test_circle_type(HttpRunner):
-    # @pytest.mark.parametrize("param",Parameters({"scType":"${scircle()}"}))
-    # def test_start(self,param):
-    #     super().test_start(param)
     config = (
         Config("搜索接口搜索不同类型")
             .verify(False)
