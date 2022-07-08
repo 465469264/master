@@ -1,15 +1,16 @@
-#上进分-等级列表
+#我的上进分-明细
 from httprunner import HttpRunner, Config, Step, RunRequest
-class advLevelList(HttpRunner):
+class gsMyScoreInfos(HttpRunner):
     config = (
-        Config("上进分-等级列表")
+        Config("我的上进分-明细")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                            "number": {
                                     "body":{
-                                        "minLevel": "$minLevel",        #显示的最低范围
-                                        "maxLevel": "$maxLevel",        #显示的最高范围
+                                        "pageSize": "$pageSize",
+                                        "term": "$term",
+                                        "pageNum": "$pageNum"
                                         },
                                     "header":{"appType":"3"}
                            },
@@ -19,8 +20,8 @@ class advLevelList(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("上进分-等级列表")
-                .post("/proxy/mkt/advLevelList/1.0/")
+            RunRequest("我的上进分-明细")
+                .post("/proxy/mkt/gsMyScoreInfos/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -29,12 +30,8 @@ class advLevelList(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.advScore","advScore")
                 .validate()
                 .assert_equal("body.message", "$message")
-
+                .assert_equal("body.body[0].behaviorDesc", "$behaviorDesc")
         )
     ]
-
-if __name__ == '__main__':
-    sign().test_start()

@@ -1,17 +1,15 @@
-#上进分-等级列表
+#成长权益-勋章
 from httprunner import HttpRunner, Config, Step, RunRequest
-class advLevelList(HttpRunner):
+class gsMedalInfos(HttpRunner):
     config = (
-        Config("上进分-等级列表")
+        Config("成长权益-勋章")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                            "number": {
                                     "body":{
-                                        "minLevel": "$minLevel",        #显示的最低范围
-                                        "maxLevel": "$maxLevel",        #显示的最高范围
                                         },
-                                    "header":{"appType":"3"}
+                                    "header":{"appType":"4"}
                            },
                             "data": "${base64_encode($number)}"
                             }
@@ -19,8 +17,8 @@ class advLevelList(HttpRunner):
     )
     teststeps = [
         Step(
-            RunRequest("上进分-等级列表")
-                .post("/proxy/mkt/advLevelList/1.0/")
+            RunRequest("成长权益-勋章")
+                .post("/proxy/mkt/gsMedalInfos/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -29,12 +27,7 @@ class advLevelList(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.advScore","advScore")
                 .validate()
                 .assert_equal("body.message", "$message")
-
         )
     ]
-
-if __name__ == '__main__':
-    sign().test_start()

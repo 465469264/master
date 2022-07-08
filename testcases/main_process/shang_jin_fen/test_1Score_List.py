@@ -14,7 +14,7 @@ class Test_Score_List(HttpRunner):
                             "pageSize": 10,
                             "pageNum": 1,
                             "minLevel": "1",  # 显示的最低范围
-                            "maxLevel": "2",  # 显示的最高范围
+                            "maxLevel": "8",  # 显示的最高范围
                             "advLevel": "1",
 
                             }
@@ -22,10 +22,10 @@ class Test_Score_List(HttpRunner):
     )
     teststeps = [
         Step(RunTestCase("获取learnId").call(stdLearnInfo).export(*["learnId"])),
-        # Step(RunTestCase("上进分-成长轨迹的等级列表").call(advLevelList)),
-        # Step(RunTestCase("上进分-成长权益").with_variables(**({"name":"勋章"})).call(usGrowthRights)),
+        Step(RunTestCase("上进分-成长轨迹的等级列表").call(advLevelList)),
+        Step(RunTestCase("上进分-成长权益").with_variables(**({"name":"勋章"})).call(usGrowthRights)),
         Step(RunTestCase("上进分-type传空").with_variables(**({"type": ""})).call(gsAwardInfos)),
-        Step(RunTestCase("上进分-成长新人礼").with_variables(**({"type": ""})).call(gsAwardInfos)),
+        Step(RunTestCase("上进分-成长新人礼").with_variables(**({"type": "1"})).call(gsAwardInfos)),
         Step(RunTestCase("上进分-每日奖励").with_variables(**({"type": "2"})).call(gsAwardInfos)),
         Step(RunTestCase("上进分-学习奖励").with_variables(**({"type": "3"})).call(gsAwardInfos)),
         Step(RunTestCase("上进分-成长奖励").with_variables(**({"type": "4"})).call(gsAwardInfos)),

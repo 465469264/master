@@ -353,8 +353,12 @@ def update_task():
     data4 = conn_sql().get_data(sql4)
     return data1,data2,data3,data4
 
-
-
+#查询最新的一次我的上进分明细
+def find_MyScoreInfos(userId):
+    sql = 'SELECT behavior_desc FROM mkt.gs_score_change_record where user_id = "{}" ORDER BY create_time desc limit 1'.format(userId)
+    data = conn_sql().get_data(sql)[0]['behavior_desc']
+    print(data)
+    return data
 
 #测试用例传参
 #发票类
