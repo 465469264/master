@@ -19,7 +19,7 @@ class TestLog(object):
         self.logger.setLevel(logging.DEBUG)
         # 创建一个handler，用于写入日志文件
         self.log_time = time.strftime("%Y_%m_%d_")
-        self.log_path = r"C:\Users\Administrator\Desktop\er_loupractice\logs\log"
+        self.log_path = r"C:\Users\Administrator\Desktop\er_loupractice\logs"
         self.log_name = self.log_path + self.log_time + '.log'
 
         self.log_colors_config = {

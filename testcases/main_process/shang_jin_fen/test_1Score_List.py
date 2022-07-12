@@ -4,7 +4,7 @@ from api.app.advLevelList import advLevelList
 from api.app.usGrowthRights import usGrowthRights
 from api.app.stdLearnInfo import stdLearnInfo
 from api.app.gsAwardInfos import gsAwardInfos
-
+from api.app.gsRuleInfos import gsRuleInfos
 class Test_Score_List(HttpRunner):
     config = (
         Config("圈子页查看报名中-进行中-已结束")
@@ -21,6 +21,7 @@ class Test_Score_List(HttpRunner):
                        )
     )
     teststeps = [
+        Step(RunTestCase("返回所有上进分任务的情况").call(gsRuleInfos)),
         Step(RunTestCase("获取learnId").call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("上进分-成长轨迹的等级列表").call(advLevelList)),
         Step(RunTestCase("上进分-成长权益").with_variables(**({"name":"勋章"})).call(usGrowthRights)),

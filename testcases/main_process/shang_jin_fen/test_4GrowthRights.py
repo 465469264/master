@@ -17,8 +17,9 @@ class Test_GrowthRights(HttpRunner):
     )
     teststeps = [
         Step(RunTestCase("成长权益-我的勋章").call(gsMedalInfos)),
-        Step(RunTestCase("成长权益-智米奖励").call(gsLevelRewardInfos).export(*["id"])),
-        Step(RunTestCase("智米奖励-领取智米").with_variables(**({"levelInfoId":"$id"})).call(gsReceiveLevelZhimi)),
+        Step(RunTestCase("成长权益-智米奖励").call(gsLevelRewardInfos).teardown_hook('${ifReceive($ifReceive)}',"message1").export(*["id"],"message1")),
+        Step(RunTestCase("智米奖励-领取智米").with_variables(**({"levelInfoId":"$id","message":"$message1"})).call(gsReceiveLevelZhimi)),
+
 
     ]
 

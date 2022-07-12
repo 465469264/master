@@ -1,24 +1,27 @@
-#成长权益-智米奖励
 from httprunner import HttpRunner, Config, Step, RunRequest
-class gsLevelRewardInfos(HttpRunner):
+# 学堂页的学习报告
+class usStudyReport(HttpRunner):
     config = (
-        Config("成长权益-智米奖励")
+        Config("学堂页的学习报告")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                            "number": {
-                                    "body":{
+                                       "header": {
+                                                    "appType": "4",
+                                                },
+                                        "body": {
+                                                "learnId": "$learnId",
+                                                    }
                                         },
-                                    "header":{"appType":"4"}
-                           },
                             "data": "${base64_encode($number)}"
                             }
                        )
     )
     teststeps = [
         Step(
-            RunRequest("成长权益-智米奖励")
-                .post("/proxy/mkt/gsLevelRewardInfos/1.0/")
+            RunRequest("学堂页的学习报告")
+                .post("/proxy/us/usStudyReport/1.0/")
                 .with_headers(**{
                 "User-Agent": "Android/environment=test/app_version=7.18.2/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
                 "Content-Type": "text/yzedu+; charset=UTF-8",
@@ -27,9 +30,9 @@ class gsLevelRewardInfos(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.levelRewardInfos[0].id","id")           #提取第一个任务
-                .with_jmespath("body.body.levelRewardInfos[0].ifReceive", "ifReceive")
+                .with_jmespath("body.body[0].businessType","businessType")           #businessType  2>读书会	3>跑团	98>考试成绩	100>习惯报名数
                 .validate()
                 .assert_equal("body.message", "$message")
+
         )
     ]

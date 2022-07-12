@@ -26,11 +26,11 @@ class TestCasesbuy_zhimi_goods(HttpRunner):
     teststeps = [
         # 智米赠送申请
         Step(RunTestCase("取智米赠送的web_token").setup_hook('${login_web()}', "Cookie").call(zhimi_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token","Cookie"])),
-        Step(RunTestCase("获取用户信息，获取userId").call(get_info).export(*["userId"])),
+        Step(RunTestCase("获取用户信息，获取userId").setup_hook('${delay(1)}').call(get_info).export(*["userId"])),
         Step(RunTestCase("后台申请智米赠送100").with_variables(**({"zhimiCount":"$amount","accSerialType":"5",})).call(zhimi_give)),
         #智米赠送审核
-        Step(RunTestCase("获取要审核的记录id").call(zhimi_give_check_list).export(*["id"])),
-        Step(RunTestCase("获取智米审核web_token").call(zhimi_check_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
+        Step(RunTestCase("获取要审核的记录id").setup_hook('${delay(1)}').call(zhimi_give_check_list).export(*["id"])),
+        Step(RunTestCase("获取智米审核web_token").setup_hook('${delay(1)}').call(zhimi_check_token).teardown_hook('${get_html($body)}', "_web_token").export(*["_web_token"])),
         Step(RunTestCase("智米赠送审核").call(check_zhimi)),
         Step(RunTestCase("查看智米是否有推送").call(selAppMsgCenter)),
     ]

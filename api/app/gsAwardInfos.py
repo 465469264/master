@@ -70,6 +70,10 @@ class gsAwardInfos2(HttpRunner):
             })
                 .with_data('$data')
                 .extract()
+                .with_jmespath("body.body[0].rewardType", "ruleGroup0")
+                .with_jmespath("body.body[0].ruleCode", "ruleCode0")
+                .with_jmespath("body.body[0].id", "id0")
+
                 .with_jmespath("body.body[1].rewardType", "rewardType")        # rewardType:   1>每日奖励  2>学习奖励  3>成长奖励
                 .with_jmespath("body.body[1].ruleGroup", "ruleGroup")          # 规则组
                 .with_jmespath("body.body[1].ruleCode", "ruleCode1")            #ruleCode：赠送分规则，第二个是在线累计长达30分钟
@@ -82,8 +86,6 @@ class gsAwardInfos2(HttpRunner):
                 .with_jmespath("body.body[4].id", "id4")
                 .validate()
                 .assert_equal("body.message", "$message")
-                .assert_equal("body.body[$a].sort","$sort")
-
         )
     ]
 

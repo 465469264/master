@@ -22,8 +22,8 @@ if __name__ == '__main__':
     os.system('allure serve ./logs/temp')
 
     # 判断缓存目录是否存在，如果存在就删除
-    if os.path.exists(os.path.join(f_list + "/pytest_cache")):
-        shutil.rmtree(os.path.join(f_list + "/pytest_cache"))
+    if os.path.exists(os.path.join(f_list + "/.pytest_cache")):
+        shutil.rmtree(os.path.join(f_list + "/.pytest_cache"))
         print("已删除旧的缓存目录")
 
     #删除logs下得temp

@@ -5,7 +5,7 @@ from api.app.getSignInfo import getSignInfo
 
 class Test_qiandao(HttpRunner):
     config = (
-        Config("赠送优惠券给学员")
+        Config("用户签到")
             .verify(False)
             .variables(**{
                             "message": "success",

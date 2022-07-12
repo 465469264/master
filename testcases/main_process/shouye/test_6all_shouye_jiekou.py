@@ -5,6 +5,7 @@ from api.app.selAppGoodsShop import selAppGoodsShop
 from api.app.selAppAdvertisement import selAppAdvertisement
 from api.app.getAPPVersionInfo import getAPPVersionInfo
 
+
 class Test_shouye_jiekou(HttpRunner):
     config = (
         Config("首页的接口")

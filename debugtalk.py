@@ -81,6 +81,23 @@ def judge_sing(body):
     elif body == False:
         return "success"
 
+#判断智米奖励是否已领取
+def ifReceive(body):
+    if body == 1:
+        return "该等级的奖励已领取"
+    elif body == False:
+        return "success"
+
+#判断学籍
+def judge_learnId(learnId,learnId1,learnId_dangqian):
+    if learnId_dangqian == learnId:
+        a = learnId1
+        return a
+    elif learnId_dangqian == learnId1:
+        a = learnId
+        return a
+
+
 
 
 # 公用模块
@@ -359,6 +376,15 @@ def find_MyScoreInfos(userId):
     data = conn_sql().get_data(sql)[0]['behavior_desc']
     print(data)
     return data
+
+#根据学服任务id,修改数据库中这个学服任务的id为未读
+def student_task(taskId):
+    sql = 'UPDATE bms.oa_student_task SET is_read = 0 where task_id = "{}"'.format(taskId)
+    data = conn_sql().get_data(sql)
+    print(data)
+    return data
+
+
 
 #测试用例传参
 #发票类

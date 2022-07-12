@@ -32,7 +32,7 @@ class AccountSerial(HttpRunner):
                 .extract()
                 .validate()
                 .assert_equal("body.message", "$message")
-                .assert_equal("body.body[$a].amount", "$amount")
+                # .assert_equal("body.body[$a].amount", "$amount")
 
         )
     ]
