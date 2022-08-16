@@ -24,7 +24,7 @@ class Test_all_goods_list(HttpRunner):
     teststeps = [
         Step(RunTestCase("智米商城-商品列表").call(goodsList)),
         Step(RunTestCase("智米商城-所有商品").call(goodsListAll)),
-        Step(RunTestCase("智米商城-培训课程列表").call(getVocationalCourseList)),
+        Step(RunTestCase("智米商城-培训课程列表").call(getVocationalCourseList))
 
     ]
 if __name__ == '__main__':

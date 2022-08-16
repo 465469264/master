@@ -145,11 +145,11 @@ def now_times():
 
 #获取当前时间后一个小时
 def time_late():
-    return((datetime.datetime.now() + datetime.timedelta(hours=+2)).strftime("%Y/%m/%d %H:%M:%S"))
+    return((datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime("%Y/%m/%d %H:%M:%S"))
 
 # 往后1分钟
 def time_late_minutes():
-    return ((datetime.datetime.now() + datetime.timedelta(minutes=+1)).strftime("%Y/%m/%d %H:%M:%S"))
+    return ((datetime.datetime.now() + datetime.timedelta(minutes=+5)).strftime("%Y/%m/%d %H:%M:%S"))
 
 # 获取往后6天时间
 def day_late():
@@ -245,10 +245,10 @@ def login_web():
             "mobile": "18221823862",
             "ImgValidCode": "",
             "validCode": "888888"}
-    url = "http://bms.yzwill.cn/loginByMobile.do"
+    url = "http://27-bms.yzwill.cn/loginByMobile.do"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "uri": "http://bms.yzwill.cn/toLogin.do",
+        "uri": "http://27-bms.yzwill.cn/toLogin.do",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
     res = s.post(url=url, headers=headers, data=data)
     print(res)
@@ -285,31 +285,6 @@ def std_stage(learnId):
     data = conn_sql().get_data(sql)
     return data
 
-#修改数据库的开播时间和开播状态
-def Modify_lives_schedule():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=254'.format(a,b)
-    data = conn_sql().get_data(sql)
-    # return data
-
-
-#修改数据库让直播类型为营销课
-def Marketing_class_yingxiao():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =3 where id=254'.format(a, b)
-    data = conn_sql().get_data(sql)
-    return data
-
-#修改数据库让直播类型为公开课 哼哼哈嘿的id是254
-def Marketing_class_gongkai():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =1 where id=254'.format(a, b)
-    data = conn_sql().get_data(sql)
-    return data
-
 # 修改活动为未提醒
 def update_activity():
     sql = 'UPDATE mkt.mkt_upward_activity SET is_send=0 WHERE id=206'
@@ -327,7 +302,6 @@ def delete_task_habit(userId):
     sql = 'delete from mkt.mkt_mark_task_enroll where user_id = "{}"'.format(userId)
     data = conn_sql().get_data(sql)
     return data
-
 
 # 查询用户的智米
 def find_zhimi(userId):
@@ -356,19 +330,16 @@ def delete_order(learnId):
     return data
 
 # 修改习惯打卡任务
-def update_task():
+def update_task(id1,id2):
     a = now_times()
     b = day_late()
     c = time_late_minutes()
-    sql = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = 905'.format(c,a,b,b)
-    sql2 = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = 906'.format(c,a,b,b)
-    sql3 = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = 907'.format(c,a,b,b)
-    sql4 = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = 908'.format(c,a,b,b)
+    sql = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = "{}"'.format(c,a,b,b,id1)
+    sql2 = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = "{}"'.format(c,a,b,b,id2)
     data1 = conn_sql().get_data(sql)
     data2 = conn_sql().get_data(sql2)
-    data3 = conn_sql().get_data(sql3)
-    data4 = conn_sql().get_data(sql4)
-    return data1,data2,data3,data4
+    return data1,data2
+
 
 #查询最新的一次我的上进分明细
 def find_MyScoreInfos(userId):
@@ -383,6 +354,48 @@ def student_task(taskId):
     data = conn_sql().get_data(sql)
     print(data)
     return data
+
+
+#直播间相关sql
+#删除直播间管理员垃圾数据
+def delete_lives_admin(mobile):
+    sql = 'delete from bms.bd_lives_admin where mobile = "{}"'.format(mobile)
+    data = conn_sql().get_data(sql)
+    return data
+
+#修改让腾讯云直播开播
+def kaibo_tengxun():
+    a = now_times()
+    b = time_late()
+    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=324'.format(a,b)
+    data = conn_sql().get_data(sql)
+
+#修改数据库的开播时间和开播状态
+def Modify_lives_schedule():
+    a = now_times()
+    b = time_late()
+    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=254'.format(a,b)
+    data = conn_sql().get_data(sql)
+    # return data
+
+#修改数据库让直播类型为营销课
+def Marketing_class_yingxiao():
+    a = now_times()
+    b = time_late()
+    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =3 where id=254'.format(a, b)
+    data = conn_sql().get_data(sql)
+    return data
+
+#修改数据库让直播类型为公开课 哼哼哈嘿的id是254
+def Marketing_class_gongkai():
+    a = now_times()
+    b = time_late()
+    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =1 where id=254'.format(a, b)
+    data = conn_sql().get_data(sql)
+    return data
+
+
+
 
 
 

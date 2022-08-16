@@ -23,6 +23,8 @@ class getUserInfo(HttpRunner):
                             )
                 .extract()
                 .with_jmespath("body.body.data[0].user_id", "user_id")
+                .with_jmespath("body.body.data[0].yz_code", "yz_code")
+                .with_jmespath("body.body.data[0].real_name", "real_name")
                 .validate()
                 .assert_equal("status_code", 200)
         )
