@@ -364,19 +364,12 @@ def delete_lives_admin(mobile):
     return data
 
 #修改让腾讯云直播开播
-def kaibo_tengxun():
+def Modify_lives_schedule(id):
     a = now_times()
     b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=324'.format(a,b)
+    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id="{}"'.format(a,b,id)
     data = conn_sql().get_data(sql)
 
-#修改数据库的开播时间和开播状态
-def Modify_lives_schedule():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id=254'.format(a,b)
-    data = conn_sql().get_data(sql)
-    # return data
 
 #修改数据库让直播类型为营销课
 def Marketing_class_yingxiao():
