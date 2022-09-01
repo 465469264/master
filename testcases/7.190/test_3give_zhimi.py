@@ -16,7 +16,7 @@ class TestCasesbuy_give_zhimi(HttpRunner):
             "accType": "2",  # accType.1	>现金账户	 2>智米	 3>滞留账户
             "pageSize": "20",
             "pageNum": "1",
-            "amount": "1000000",     # 100智米
+            "amount": "100",     # 100智米
             "a": "1",
             "zhimiType": "1",   #1>进账   2>出账
             "reasonStatus": "2",  # 2>通过   3>驳回

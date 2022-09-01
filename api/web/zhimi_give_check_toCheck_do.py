@@ -13,7 +13,7 @@ class zhimi_check_token(HttpRunner):
                 .post("/zhimi_give_check/toCheck.do?id=$id")
                 .with_headers(**{
                 "Content - Type":"application/x-www-form-urlencoded; charset=UTF-8",
-                "Host": "bms.yzwill.cn",
+                # "Host": "bms.yzwill.cn",
                 "Cookie":"$Cookie"
             })
                 .extract()

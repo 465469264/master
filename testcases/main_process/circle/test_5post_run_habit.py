@@ -12,7 +12,7 @@ class Test_Run_habbit(HttpRunner):
         Config("报跑步打卡的话术-及发帖")
             .verify(False)
             .variables(**{
-            "taskId": "${read_data_number(SelClockTaskTopic_run,taskid)}",
+            # "taskId": "${read_data_number(SelClockTaskTopic_run,taskid)}",
             "localFile": "${read_data_number(SelClockTaskTopic_run,localFile)}",
             "bucketName": "yzimstemp",
             "markTaskType": "3",
@@ -21,7 +21,7 @@ class Test_Run_habbit(HttpRunner):
             "subType":"2",         #跑步贴
             "mappingIdType": "3",  #跑步类型
             "scType":"3",          #跑团
-            "ifRunRecord":"1",        #生成跑步记录
+            "ifRunRecord":"0",        #生成跑步记录
             "own":"0",
             "message": "success"
                         }

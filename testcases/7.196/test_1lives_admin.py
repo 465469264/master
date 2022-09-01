@@ -9,7 +9,7 @@ class Test_lives_admin(HttpRunner):
         Config("直播间管理员")
             .verify(False)
             .variables(**{
-                        "mobile":"11223331848"
+                        "mobile":"11223331848"           #随便创建管理员用到的手机号
                         }
                        )
     )

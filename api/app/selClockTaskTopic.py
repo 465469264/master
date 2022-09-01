@@ -30,7 +30,7 @@ class SelClockTaskTopic(HttpRunner):
                             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.topicName","$topicName")
+                .with_jmespath("body.body.topicName","topicName")
                 .with_jmespath("body.body.markContent", "markContent")
                 .with_jmespath("body.body.taskEnrollId", "taskEnrollId")
                 .validate()

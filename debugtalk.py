@@ -340,7 +340,6 @@ def update_task(id1,id2):
     data2 = conn_sql().get_data(sql2)
     return data1,data2
 
-
 #查询最新的一次我的上进分明细
 def find_MyScoreInfos(userId):
     sql = 'SELECT behavior_desc FROM mkt.gs_score_change_record where user_id = "{}" ORDER BY create_time desc limit 1'.format(userId)
@@ -369,7 +368,6 @@ def Modify_lives_schedule(id):
     b = time_late()
     sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id="{}"'.format(a,b,id)
     data = conn_sql().get_data(sql)
-
 
 #修改数据库让直播类型为营销课
 def Marketing_class_yingxiao():

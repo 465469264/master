@@ -8,7 +8,7 @@ class newUsLivesScheduleInfos(HttpRunner):
             .variables(**{
             "number": {
                 "body": {
-                        "tab": "1",
+                        "tab": "$tab",     #1>直播计划   2>历史直播
                         "pageNum": "1"
                     },
                 "header": {
@@ -32,7 +32,10 @@ class newUsLivesScheduleInfos(HttpRunner):
             .with_data('$data')
             .extract()
             .with_jmespath("body.body[0].posterUrl", "posterUrl")
-            .with_jmespath("body.body[0].channelNum", "channelNum")
+            .with_jmespath("body.body[0].channelNum", "channelNum")                          #直播间群组id
+            .with_jmespath("body.body[0].id", "id")                                          #直播主键id
+            .with_jmespath("body.body[0].name", "name")                                      #直播名称
+            .with_jmespath("body.body[0].liveAdminUserId", "liveAdminUserId")                #直播间管理员
             .validate()
             .assert_equal("body.message", "$message")
         ),
