@@ -1,5 +1,6 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.newUsLivesScheduleInfos import newUsLivesScheduleInfos
+from api.app.liveInfos import liveInfos
 from api.app.selMessageList import selMessageList
 from api.app.sendMsg import sendMsg,send_message_gift,send_message_usFollowNew
 from api.app.usFollowNew import usFollowNew
@@ -46,15 +47,16 @@ class Test_audience_live(HttpRunner):
         Step(RunTestCase("获取智米审核web_token").call(zhimi_check_token).teardown_hook('${get_html($body)}',"_web_token").export(*["_web_token"])),
         Step(RunTestCase("智米赠送").call(check_zhimi)),
         #获取直播广场-发送弹幕-点赞-关注-取消关注-赠送智米-赠送智米发送弹幕-离开直播间
-        Step(RunTestCase("获取账号信息").setup_hook('${Modify_lives_schedule(324)}', "").call(get_info).export(*["realName","userId"])),
+        Step(RunTestCase("获取账号信息").setup_hook('${Modify_lives_schedule(324)}').call(get_info).export(*["realName","userId"])),
         Step(RunTestCase("app-获取直播计划").with_variables(**({"tab": "1"})).call(newUsLivesScheduleInfos).export(*["channelNum","id","name","liveAdminUserId"])),
+        Step(RunTestCase("获取直播间信息").with_variables(**({"groupId": "$channelNum"})).call(liveInfos)),
         Step(RunTestCase("观众进入直播间--获取直播间弹幕").with_variables(**({"groupId": "$channelNum","sort": "2"})).call(selMessageList)),
         Step(RunTestCase("直播间-观众-群聊直播间-发送弹幕").with_variables(**({"groupId":"$channelNum","msgType": "1","cmd": "5","userName": "$realName","userIdentity": "1","content": "测试amylee"})).call(sendMsg)),
         Step(RunTestCase("获取讲师信息").with_variables(**({"liveId":"$id"})).call(getLivesScheduleTeacherInfo).export(*["teacher_userId","teacher_userName"])),
         Step(RunTestCase("直播间-关注讲师").with_variables(**({"operateType": "1","targetUserId": "$teacher_userId"})).call(usFollowNew)),
         Step(RunTestCase("关注讲师-发送弹幕").with_variables(**({"groupId": "$channelNum", "msgType": "1", "cmd": "10", "userName": "$realName", "userIdentity": "1","teacherName":"teacher_userName","teacherId":"teacher_userId"})).call(send_message_usFollowNew)),
         Step(RunTestCase("直播间-取消关注讲师").with_variables(**({"operateType": "2", "targetUserId": "$teacher_userId"})).call(usFollowNew)),
-        # Step(RunTestCase("直播间点赞").with_variables(**({"groupId": "$channelNum"})).call(livePraise)),
+        Step(RunTestCase("直播间点赞").with_variables(**({"groupId": "$channelNum"})).call(livePraise)),
         Step(RunTestCase("获取用户的stdid").call(stdLearnInfo).export(*["stdId"])),
         Step(RunTestCase("获取直播间的礼物赠送配置").call(selLiveGift).export(*["money","gift_name","giftType"])),
         Step(RunTestCase("直播间赠送智米").with_variables(**({"mappingId": "$id","giftName": "$gift_name","teaEmpName": "$teacher_userName","stuLearnId": "$stdId","teaEmpId": "$teacher_userId","stuUserName": "$realName","courseTimeName": "$name","type": "5"})).call(usRewardGift)),
