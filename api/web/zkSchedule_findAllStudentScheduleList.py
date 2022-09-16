@@ -1,16 +1,16 @@
 from httprunner import HttpRunner, Config, Step, RunRequest
-#自考延长考期跟进------延期申请信息
-class zkDefer_getApplyDelayInfo(HttpRunner):
+#自考教务---自考学生排课
+class zkSchedule_findAllStudentScheduleList(HttpRunner):
     config = (
-        Config("自考延长考期跟进------延期申请信息")
+        Config("自考教务---自考学生排课")
             .base_url("${ENV(BASE_URL)}")
             .verify(False)
             .variables()
     )
     teststeps = [
         Step(
-            RunRequest("自考延长考期跟进------延期申请信息")
-                .post("/zkDefer/getApplyDelayInfo.do")
+            RunRequest("自考教务---自考学生排课")
+                .post("/zkSchedule/findAllStudentScheduleList.do")
                 .with_headers(**{
                 "Content - Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 "Content - Length": "246",
@@ -21,12 +21,12 @@ class zkDefer_getApplyDelayInfo(HttpRunner):
                                 )
                 .with_data(
                             {
-                            "learnId": "$learnId"                 #查看目标学员的延期记录
+                            "length": "10",
+                            "start": "0",
 
                             }
                             )
                 .extract()
-                .with_jmespath("body.body.serviceTimeEnd","serviceTimeEnd")
                 .validate()
                 .assert_equal("status_code", 200)
         )

@@ -14,7 +14,7 @@ class zkDefer_applyDelay(HttpRunner):
             .with_headers(**{
                                 "Content - Type": "application/x-www-form-urlencoded; charset=UTF-8",
                                 "Content - Length": "246",
-                                "Host": "bms.yzwill.cn",
+                                "Host": "${ENV(Host)}",
                                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
                                 "Cookie": "$Cookie"
                                 }
