@@ -1,18 +1,17 @@
+#圈子页-读书
 from httprunner import HttpRunner, Config, Step, RunRequest
-#习惯打卡
-class SelClockTaskTopic(HttpRunner):
+class selCommonlyUsedBooks(HttpRunner):
     config = (
-        Config("习惯打卡话题")
+        Config("圈子页-读书")
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
                             "number": {
                                     "body":{
-                                            "markTaskType": "$markTaskType",
+                                            "userId": "$userId",
                                         },
                                     "header":{
                                             "appType": "3",
-
                                         }
                                 },
                             "data": "${base64_encode($number)}"
@@ -20,23 +19,19 @@ class SelClockTaskTopic(HttpRunner):
             )
     teststeps = [
         Step(
-            RunRequest("习惯打卡话题")
-                .post("/proxy/mkt/selClockTaskTopic/1.0/")
+            RunRequest("圈子页-读过的读书")
+                .post("/proxy/us/selCommonlyUsedBooks/1.0/")
                 .with_headers(**{
-                "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
-                "Content-Type": "base64.b64encode",
+                "User-Agent": "Android/environment=test/app_version=7.19.9/sdk=28/dev=samsung/phone=SM-N9500/android_system=9",
+                "Content-Type": "text/yzedu+; charset=UTF-8",
+
                 "Host": "${ENV(app_Host)}",
                 "authtoken": "${ENV(app_auth_token)}",
                             })
                 .with_data('$data')
                 .extract()
-                .with_jmespath("body.body.topicName","topicName")
-                .with_jmespath("body.body.markContent", "markContent")
-                .with_jmespath("body.body.taskEnrollId", "taskEnrollId")
-                .with_jmespath("body.body.taskId", "taskId")
+                .with_jmespath("body.body[0].bookId","bookId")
                 .validate()
                 .assert_equal("body.message", "$message")
         )
     ]
-if __name__ == '__main__':
-    SelClockTaskTopic().test_start()

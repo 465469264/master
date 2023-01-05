@@ -31,10 +31,10 @@ class updateStudentTScore(HttpRunner):
                             "scores[$a].advScore": "$advScore",                      #上进分
                             "scores[$a].usualTimeMark": "$usualTimeMark",            #平时成绩
                             "scores[$a].score": "$score",                            #卷面分
-                            "scores[$a].totalmark": "$totalmark",                     #期末总分
+                            "scores[$a].totalmark": "$totalmark",                     #总分+奖励分
                             "scores[$a].rewardScore": "$rewardScore",                #学业奖励分
                             "scores[$a].totalRewardScore": "$totalRewardScore",       #总分+奖励分
-                            "scores[$a].teacherId": "$teacherId",                    #老师id
+                            "scores[$a].teacherId": "$teacherId",                    #老师idcourseName
                             "scores[$a].teacher": "$teacher",                        #老师姓名
                             "scores[$a].examStatus": "$examStatus",                  #状态： 1>补考  2>缓考    3>缺考   4>正常   5>作弊
                              "scores[$a].courseScoreType": "$courseScoreType",       #课程类型   1>常规课程    2>校派课程

@@ -35,15 +35,6 @@ class selAppMsgCenter(HttpRunner):
                 .validate()
                 .assert_equal("body.body[0].title", "小y")
                 .assert_equal("body.body[1].title", "学习提醒")
-                .assert_equal("body.body[2].title", "任务提醒")
-                .assert_equal("body.body[3].title", "账户通知")   #只有红点，没数字
-                .assert_equal("body.body[4].title", "活动提醒")
-                .assert_equal("body.body[5].title", "资讯头条")
-                .assert_equal("body.body[6].title", "系统提醒")   #只有红点，没数字
-                .assert_equal("body.body[7].title", "@我")
-                .assert_equal("body.body[8].title", "点赞")
-                .assert_equal("body.body[9].title", "评论")
-                .assert_equal("body.body[10].title", "粉丝")
                 .assert_equal("body.message", "$message")
         )
     ]

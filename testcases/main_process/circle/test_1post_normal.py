@@ -5,6 +5,9 @@ from api.app.usNewPosting import usNewPosting
 from api.app.getStsToken import getStsToken
 from api.app.selCircleDynamicInfos import selCircleDynamicInfos2
 from api.app.usSetDynamics import usSetDynamics
+from api.app.selSocialCircleType import selSocialCircleType
+from api.app.selRunInfo import selRunInfo
+
 
 class Test_Read_habbit(HttpRunner):
     config = (
@@ -24,6 +27,8 @@ class Test_Read_habbit(HttpRunner):
                        )
              )
     teststeps = [
+        Step(RunTestCase("登陆前，获取圈子的默认列表").call(selSocialCircleType)),
+        Step(RunTestCase("获取账号的上进跑规则").call(selRunInfo)),
         Step(RunTestCase("获取登陆人参数").call(get_info).export(*["userId"])),
         Step(RunTestCase('获取用户报读信息').call(stdLearnInfo).export(*["learnId"])),
         Step(RunTestCase("获取上传图片信息").call(getStsToken).teardown_hook('${upload($accessKeyId,$accessKeySecret,$endpoint,$localFile,$bucketName)}', "scPicUrl").export(*["scPicUrl"])),

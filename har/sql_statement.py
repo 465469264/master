@@ -4,9 +4,9 @@ from pymysql import ProgrammingError
 class conn_sql():
     def __init__(self):
         self.database= "bms"
-        self.user= "dev"
-        self.password= "T3sbPtjYElXrjHJs5i9c"
-        self.host="10.0.2.17"
+        self.user= "root"
+        self.password= "K1qOHvbSmqbe4XNwz1Nj"
+        self.host="120.78.173.82"
         self.port= 3306
         self.cursorclass = pymysql.cursors.DictCursor
 

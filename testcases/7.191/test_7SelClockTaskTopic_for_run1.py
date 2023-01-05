@@ -14,7 +14,7 @@ class TestCasesSelClockTaskTopic_for_run(HttpRunner):
                        )
             )
     teststeps = [
-        Step(RunTestCase("习惯默认带出习惯话题").call(SelClockTaskTopic)),
+        Step(RunTestCase("习惯默认带出习惯话题").setup_hook('${update_task(905,906)}').call(SelClockTaskTopic)),
                  ]
 
 if __name__ == '__main__':

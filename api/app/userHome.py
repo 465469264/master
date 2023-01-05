@@ -30,6 +30,7 @@ class get_info(HttpRunner):
                 .with_jmespath("body.body.nickname", "nickname")
                 .with_jmespath("body.body.realName", "realName")
                 .with_jmespath("body.body.stdName", "stdName")
+                .with_jmespath("body.body.ruleType", "ruleType")
                 .validate()
                 .assert_equal("body.message", "$message")
         )

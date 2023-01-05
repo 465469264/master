@@ -24,6 +24,7 @@ class findStudentTScoreBySemester(HttpRunner):
                             )
                 .extract()
                 .with_jmespath("body.body[0].courseName", "courseName")              #课程名称
+                .with_jmespath("body.body[0].examSubjectName", "examSubjectName")             # 考试科目
                 .with_jmespath("body.body[0].courseId", "courseId")                 # 课程id
                 .with_jmespath("body.body[0].score", "score")                        #卷面分
                 .with_jmespath("body.body[0].totalmark", "totalmark")                #期末总分
@@ -35,6 +36,7 @@ class findStudentTScoreBySemester(HttpRunner):
                 .with_jmespath("body.body[0].usualTimeMark", "usualTimeMark")        # 平时成绩
 
                 .with_jmespath("body.body[1].courseName", "courseName1")  # 课程名称
+                .with_jmespath("body.body[0].examSubjectName", "examSubjectName1")  # 考试科目
                 .with_jmespath("body.body[1].courseId", "courseId1")  # 课程id
                 .with_jmespath("body.body[1].score", "score1")  # 卷面分
                 .with_jmespath("body.body[1].totalmark", "totalmark1")  # 期末总分
@@ -46,6 +48,7 @@ class findStudentTScoreBySemester(HttpRunner):
                 .with_jmespath("body.body[1].usualTimeMark", "usualTimeMark1")  # 平时成绩
 
                 .with_jmespath("body.body[2].courseName", "courseName2")  # 课程名称
+                .with_jmespath("body.body[0].examSubjectName", "examSubjectName2")  # 考试科目
                 .with_jmespath("body.body[2].courseId", "courseId2")  # 课程id
                 .with_jmespath("body.body[2].score", "score2")  # 卷面分
                 .with_jmespath("body.body[2].totalmark", "totalmark2")  # 期末总分
@@ -57,6 +60,7 @@ class findStudentTScoreBySemester(HttpRunner):
                 .with_jmespath("body.body[2].usualTimeMark", "usualTimeMark2")  # 平时成绩
 
                 .with_jmespath("body.body[3].courseName", "courseName3")  # 课程名称
+                .with_jmespath("body.body[0].examSubjectName", "examSubjectName3")  # 考试科目
                 .with_jmespath("body.body[3].courseId", "courseId3")  # 课程id
                 .with_jmespath("body.body[3].score", "score3")  # 卷面分
                 .with_jmespath("body.body[3].totalmark", "totalmark3")  # 期末总分

@@ -13,7 +13,7 @@ class TestCasesSelClockTaskTopic_for_run(HttpRunner):
                        )
             )
     teststeps = [
-        Step(RunTestCase("默认带出读书绩效话题+读书习惯话题+习惯自动话术").with_variables(**({"markTaskType": "2"})).call(SelClockTaskTopic))
+        Step(RunTestCase("默认带出读书绩效话题+读书习惯话题+习惯自动话术").call(SelClockTaskTopic))
     ]
 
 if __name__ == '__main__':

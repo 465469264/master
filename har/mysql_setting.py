@@ -2,10 +2,10 @@
 import pymysql
 
 config = {
-          'host': '10.0.2.17',#'localhost'
+          'host': '120.78.173.82',#'localhost'
           'port': 3306,     #MySQL默认端口
-          'user': 'dev',    #mysql默认用户名
-          'password': 'T3sbPtjYElXrjHJs5i9c',
+          'user': 'root',    #mysql默认用户名
+          'password': 'K1qOHvbSmqbe4XNwz1Nj',
           'database': 'bms',  #数据库
           'charset': 'utf8mb4',
           'cursorclass': pymysql.cursors.DictCursor,

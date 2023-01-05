@@ -99,7 +99,6 @@ def judge_learnId(learnId,learnId1,learnId_dangqian):
 
 
 
-
 # 公用模块
 # 接口数据加密
 def base64_encode(code):
@@ -118,12 +117,14 @@ def get_not_exist_mobile():
     while True:
         mobile = get_mobile()
         data = {"mobile": mobile}
-        response = requests.post("http://bms.yzwill.cn/recruit/getStudentInfoByMobile", data=data)
+        response = requests.post("http://test0-bms.yzwill.cn/recruit/getStudentInfoByMobile", data=data)
         result = response.text
         if result == '{"code":"00","body":null,"msg":"","ok":true}':
             return mobile
         else:
             continue
+
+
 
 # 随机生成姓名
 def get_name():
@@ -245,10 +246,10 @@ def login_web():
             "mobile": "18221823862",
             "ImgValidCode": "",
             "validCode": "888888"}
-    url = "http://27-bms.yzwill.cn/loginByMobile.do"
+    url = "http://test0-bms.yzwill.cn/loginByMobile.do"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        "uri": "http://27-bms.yzwill.cn/toLogin.do",
+        "uri": "http://test0-bms.yzwill.cn/toLogin.do",
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
     res = s.post(url=url, headers=headers, data=data)
     print(res)
@@ -321,7 +322,7 @@ def College_order(learn_Id):
           'li.learn_id FROM bms.bd_fee_define f LEFT JOIN bms.bd_learn_info li ON li.fee_id = f.fee_id LEFT JOIN bms.bd_fee_item it ON it.item_code = f.item_code LEFT JOIN bms.bd_student_info si ON si.std_id = li.std_id WHERE li.learn_id = "{}"'.format(learn_Id)
     data = conn_sql().get_data(sql)
     return data
-# College_order('164880778923176371')
+
 
 #27环境执行删除生成多的最后两条订单
 def delete_order(learnId):
@@ -339,6 +340,8 @@ def update_task(id1,id2):
     data1 = conn_sql().get_data(sql)
     data2 = conn_sql().get_data(sql2)
     return data1,data2
+
+
 
 #查询最新的一次我的上进分明细
 def find_MyScoreInfos(userId):
@@ -465,8 +468,28 @@ def channel():
         {"title":"问题6","channel": "6", "message": "success"},
         {"title":"问题1，3，5，6","channel": "1,3,5,6", "message": "success"},
         {"title": "channel传空", "channel": "", "message": "服务网络有异常，请稍候再试！"},
-
+            ]
+#修改平时成绩
+def chengji():
+    return[
+        {"title":"用例1----常规课程卷面分整数","score":"50","rewardScore":"20","examStatus":"4","courseScoreType": "1"},
+        {"title": "用例2----常规课程卷面分一位小数", "score": "20.5", "rewardScore": "20", "examStatus": "4", "courseScoreType": "1"},
+        {"title": "用例3----常规课程卷面分2位小数", "score": "20.55", "rewardScore": "20", "examStatus": "4", "courseScoreType": "1"},
+        {"title": "用例4----常规课程卷面分为空", "score": "", "rewardScore": "20", "examStatus": "4","courseScoreType": "1"},
+        {"title": "用例5----常规课程卷面分为空,奖励分为空", "score": "", "rewardScore": "", "examStatus": "4", "courseScoreType": "1"},
+        {"title": "用例6----常规课程奖励分为一位小数", "score": "", "rewardScore": "20.5", "examStatus": "4", "courseScoreType": "1"},
+        {"title": "用例7----常规课程奖励分为一位小数", "score": "", "rewardScore": "20.55", "examStatus": "4", "courseScoreType": "1"},
+        {"title": "用例8----常规课程奖励分为一位小数", "score": "", "rewardScore": "20.55", "examStatus": "4", "courseScoreType": "1"},
+        {"title":"用例9----常规课程卷面分整数，补考状态","score":"50","rewardScore":"20","examStatus":"1","courseScoreType": "1"},
+        {"title": "用例10----常规课程卷面分整数，缓考状态", "score": "50", "rewardScore": "20", "examStatus": "2", "courseScoreType": "1"},
+        {"title": "用例11----常规课程卷面分整数，作弊状态", "score": "50", "rewardScore": "20", "examStatus": "5","courseScoreType": "1"},
+        {"title": "用例12----常规课程卷面分整数，状态传空", "score": "50", "rewardScore": "20", "examStatus": "","courseScoreType": "1"},
+        {"title": "用例13----校派课程卷面分整数", "score": "50", "rewardScore": "20", "examStatus": "4", "courseScoreType": "2"},
+        {"title": "用例4----校派课程卷面分为空", "score": "", "rewardScore": "20", "examStatus": "4", "courseScoreType": "2"},
+        {"title": "用例5----校派课程卷面分为空,奖励分为空", "score": "", "rewardScore": "", "examStatus": "4", "courseScoreType": "2"},
     ]
+
+
 
 #消息通知一键已读
 def msgType():
