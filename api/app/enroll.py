@@ -6,7 +6,6 @@ class sign_up_education(HttpRunner):
             .base_url("${ENV(app_BASE_URL)}")
             .verify(False)
             .variables(**{
-
                           "number": {
                               "body": {
                                         "activeName": "$activeName",         #营销活动

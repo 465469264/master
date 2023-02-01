@@ -11,8 +11,7 @@ class Test_login(HttpRunner):
         })
     )
     teststeps = [
-        Step(RunTestCase("登录").call(app_login).teardown_hook(
-            '${w_env_token($app_auth_token)}'))
+        Step(RunTestCase("登录").call(app_login).teardown_hook('${w_env_token($app_auth_token)}'))
 
     ]
 
