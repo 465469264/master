@@ -5,7 +5,7 @@ from faker import Faker
 from httprunner import __version__
 from httprunner.loader import load_dot_env_file
 from har.sql_statement import conn_sql
-from har.logger import log
+# from har.logger import log
 import configparser,os,yaml
 f = Faker(locale='zh_CN')
 import re,oss2
@@ -27,40 +27,40 @@ def sleep(n_secs):
 
 #APP的
 # 校验学员+老师身份消息通知title
-def judge_newUnReadNum(newUnReadNum7,newUnReadNum9):
-    try:
-        assert int(newUnReadNum7) == 1
-        log.info("newUnReadNum新消息正确")
-    except AssertionError:
-        log.error("newUnReadNum新消息错误")
-
-#校验首页小鸡的新消息数据数量
-def judge_newUnReadNum2(ls,unReadMsgNum):
-    print(ls)
-    for a in range(len(ls)):
-        if ls[a] == None:
-            ls[a] = 0
-    try:
-        assert sum(ls) == unReadMsgNum
-        log.info("首页小鸡的新消息新消息正确")
-    except AssertionError:
-        log.error("首页小鸡的新消息新消息错误")
-
-# 判断老师身份账号登录默认带出跑步绩效话题+X月累计打卡X天（X月是指本月，X天是累计X天发帖，1天内不管发多少次算1天）
-def judge_topic1(body):
-    try:
-        assert body['topicName'] == "#上进远智跑团打卡#"
-        log.info("跑步绩效话题正确")
-    except AssertionError:
-        log.error("跑步绩效话题错误")
-
-# 判断报名活动的消息推送
-def selAppMsgCenter_msgtype2(body):
-    try:
-        assert "恭喜你成功报名" in str(body["body"][4]["newMsg"])
-        log.info("报名活动消息推送成功")
-    except AssertionError:
-        log.error("报名活动消息推送错误")
+# def judge_newUnReadNum(newUnReadNum7,newUnReadNum9):
+#     try:
+#         assert int(newUnReadNum7) == 1
+#         log.info("newUnReadNum新消息正确")
+#     except AssertionError:
+#         log.error("newUnReadNum新消息错误")
+#
+# #校验首页小鸡的新消息数据数量
+# def judge_newUnReadNum2(ls,unReadMsgNum):
+#     print(ls)
+#     for a in range(len(ls)):
+#         if ls[a] == None:
+#             ls[a] = 0
+#     try:
+#         assert sum(ls) == unReadMsgNum
+#         log.info("首页小鸡的新消息新消息正确")
+#     except AssertionError:
+#         log.error("首页小鸡的新消息新消息错误")
+#
+# # 判断老师身份账号登录默认带出跑步绩效话题+X月累计打卡X天（X月是指本月，X天是累计X天发帖，1天内不管发多少次算1天）
+# def judge_topic1(body):
+#     try:
+#         assert body['topicName'] == "#上进远智跑团打卡#"
+#         log.info("跑步绩效话题正确")
+#     except AssertionError:
+#         log.error("跑步绩效话题错误")
+#
+# # 判断报名活动的消息推送
+# def selAppMsgCenter_msgtype2(body):
+#     try:
+#         assert "恭喜你成功报名" in str(body["body"][4]["newMsg"])
+#         log.info("报名活动消息推送成功")
+#     except AssertionError:
+#         log.error("报名活动消息推送错误")
 
 # 获取图片上传路径
 def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):

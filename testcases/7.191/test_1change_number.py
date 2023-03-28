@@ -15,7 +15,7 @@ class TestCaseschange_number(HttpRunner):
     teststeps = [
         Step(RunTestCase("APP手机号注册-获取注册登录的token和手机号").call(Register).teardown_hook('${w_env($mobile)},${write_Register_mobile(new_mobile,$mobile)}').export(*["app_auth_token","mobile","userId"])),
         Step(RunTestCase("验证需要解绑的学员身份证").setup_hook('${delay(1)}').call(getAuthCode).export(*["oldmobile"])),
-        Step(RunTestCase("验证需要解绑的学员身份证").call(untyingMobile)),
+        Step(RunTestCase("替换手机号").call(untyingMobile)),
                  ]
 
 if __name__ == '__main__':
