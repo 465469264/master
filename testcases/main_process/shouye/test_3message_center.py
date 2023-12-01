@@ -36,6 +36,7 @@ class TestCaseschicken_message(HttpRunner):
             updateInMessageRead)),
         Step(RunTestCase("获取用户信息").call(get_info).export(*["nickname", "realName", "stdName"])),
         Step(RunTestCase("老师账号返回的通知标题").call(selAppMsgCenter)),
+
                  ]
 
 if __name__ == '__main__':

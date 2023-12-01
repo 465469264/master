@@ -1,4 +1,4 @@
-import time,base64,random,requests,json,datetime
+import time,base64,random,requests,json,datetime,re,sys
 import uuid
 
 from faker import Faker
@@ -25,43 +25,6 @@ def sum_two(m, n):
 def sleep(n_secs):
     time.sleep(n_secs)
 
-#APP的
-# 校验学员+老师身份消息通知title
-# def judge_newUnReadNum(newUnReadNum7,newUnReadNum9):
-#     try:
-#         assert int(newUnReadNum7) == 1
-#         log.info("newUnReadNum新消息正确")
-#     except AssertionError:
-#         log.error("newUnReadNum新消息错误")
-#
-# #校验首页小鸡的新消息数据数量
-# def judge_newUnReadNum2(ls,unReadMsgNum):
-#     print(ls)
-#     for a in range(len(ls)):
-#         if ls[a] == None:
-#             ls[a] = 0
-#     try:
-#         assert sum(ls) == unReadMsgNum
-#         log.info("首页小鸡的新消息新消息正确")
-#     except AssertionError:
-#         log.error("首页小鸡的新消息新消息错误")
-#
-# # 判断老师身份账号登录默认带出跑步绩效话题+X月累计打卡X天（X月是指本月，X天是累计X天发帖，1天内不管发多少次算1天）
-# def judge_topic1(body):
-#     try:
-#         assert body['topicName'] == "#上进远智跑团打卡#"
-#         log.info("跑步绩效话题正确")
-#     except AssertionError:
-#         log.error("跑步绩效话题错误")
-#
-# # 判断报名活动的消息推送
-# def selAppMsgCenter_msgtype2(body):
-#     try:
-#         assert "恭喜你成功报名" in str(body["body"][4]["newMsg"])
-#         log.info("报名活动消息推送成功")
-#     except AssertionError:
-#         log.error("报名活动消息推送错误")
-
 # 获取图片上传路径
 def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
     auth = oss2.Auth(accessKeyId, accessKeySecret)
@@ -73,6 +36,7 @@ def upload(accessKeyId,accessKeySecret,endpoint,localFile,bucketName):
     scPicUrl = uid + extension
     bucket.put_object_from_file(scPicUrl, localFile)
     return scPicUrl
+
 
 #判断是否已登录
 def judge_sing(body):
@@ -97,7 +61,66 @@ def judge_learnId(learnId,learnId1,learnId_dangqian):
         a = learnId
         return a
 
+#判断用户对帖子是否已经点赞，若已点赞-则取消点赞，若没点赞-则进行点赞
+def judge_fabulousNum(fabulous):
+    if int(fabulous) == 1:
+        fabulousNum = -1
+        return fabulousNum
+    elif int(fabulous) == 0:
+        fabulousNum = 1
+        return fabulousNum
 
+#判断帖子的评论是否已点赞
+def judge_ifFabulous(ifFabulous):
+    if int(ifFabulous) == 1:
+        fabulousNum_comment = -1
+        return fabulousNum_comment
+    elif int(ifFabulous) == 0:
+        fabulousNum_comment = 1
+        return fabulousNum_comment
+
+#提取习惯的id和开始时间戳
+def get_task_id(body):
+    a = timestap()
+    data_list = body
+    taskId = [item['id'] for item in data_list if a >item['startTime']][0]
+    return(taskId)
+
+#精准定位图片位置
+def find_file(file_name):
+    # 获取当前脚本所在的目录
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    # 在当前目录及其子目录中查找文件
+    for root, dirs, files in os.walk(script_directory):
+        if file_name in files:
+            # 找到文件后返回绝对路径
+            path = os.path.abspath(os.path.join(root, file_name))
+            return path
+    # 如果文件未找到，返回 None 或者适合你的默认值
+    return None
+
+from PIL import Image, ImageDraw, ImageFont
+def edit_photo(file_name):
+    path = find_file(file_name)
+    image_path = path
+    image = Image.open(image_path)
+    width, height = image.size
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()  # 使用默认字体
+    text = "hhh"
+    text_position = ((width - draw.textsize(text, font=font)[0]) // 2, height // 2)
+    text_color = (255, 255, 255)  # 文本颜色，RGB格式
+    draw.text(text_position, text, font=font, fill=text_color)
+    edited_image_path = path
+    image.save(edited_image_path)
+    image.show()
+
+
+#根据评论详情，提取出自己的评论id，预防万一其他用户评论，导致提取了他人评论id
+def get_comment_id(body,realName):
+    data_list = body
+    comment_Id = [item['commentId'] for item in data_list if  item['realName']== realName][0]
+    return comment_Id
 
 # 公用模块
 # 接口数据加密
@@ -114,16 +137,40 @@ def get_mobile():
 
 # 获取未注册的随机手机号码
 def get_not_exist_mobile():
+
     while True:
         mobile = get_mobile()
         data = {"mobile": mobile}
-        response = requests.post("http://test0-bms.yzwill.cn/recruit/getStudentInfoByMobile", data=data)
+        response = requests.post("https://new.yzou.cn/recruit/getStudentInfoByMobile", data=data)
         result = response.text
         if result == '{"code":"00","body":null,"msg":"","ok":true}':
             return mobile
         else:
             continue
 
+
+# 获取当前时间戳
+def timestap():
+    import time
+    current_timestamp_seconds = time.time()
+    # 将秒转换为毫秒
+    current_timestamp_milliseconds = int(current_timestamp_seconds * 1000)
+    return(current_timestamp_milliseconds)
+
+def nowtime():
+    from datetime import datetime
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return current_time
+
+
+def timestap2():
+    from datetime import datetime
+    timestamp_in_milliseconds = 1698768000000
+    # 将毫秒数转换为秒数
+    timestamp_in_seconds = timestamp_in_milliseconds / 1000
+    # 转换为人类可读的日期时间
+    human_readable_time = datetime.utcfromtimestamp(timestamp_in_seconds).strftime('%Y-%m-%d %H:%M:%S')
+    return(human_readable_time)
 
 
 # 随机生成姓名
@@ -139,22 +186,6 @@ def idcard():
 #延迟执行
 def delay(body):
     time.sleep(body)
-
-#获取当前时间
-def now_times():
-    return(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-
-#获取当前时间后一个小时
-def time_late():
-    return((datetime.datetime.now() + datetime.timedelta(hours=+1)).strftime("%Y/%m/%d %H:%M:%S"))
-
-# 往后1分钟
-def time_late_minutes():
-    return ((datetime.datetime.now() + datetime.timedelta(minutes=+5)).strftime("%Y/%m/%d %H:%M:%S"))
-
-# 获取往后6天时间
-def day_late():
-    return ((datetime.datetime.now() + datetime.timedelta(days=6)).strftime("%Y/%m/%d %H:%M:%S"))
 
 
 # 写入测试数据，及读取测试数据
@@ -243,7 +274,7 @@ def write_Register_mobile(b,mobile):
 def login_web():
     s = requests.Session()
     data = {"isOpenImage": "",
-            "mobile": "18221823862",
+            "mobile": "13729042582",
             "ImgValidCode": "",
             "validCode": "888888"}
     url = "http://test0-bms.yzwill.cn/loginByMobile.do"
@@ -257,6 +288,7 @@ def login_web():
     Cookie = "SESSION=" + cookie
     return Cookie
 
+
 #获取web_token
 def get_html(body):
     pattern = re.compile(r'value="(.+)" name="_web_token"')  # 查找数字
@@ -269,127 +301,6 @@ def get_html(body):
 def web_cookie(cookie):
     Cookie = "SESSION=" + str(cookie)
     return Cookie
-
-
-
-# 修改数据库模块
-# 修改优惠券的开始结束时间
-def coupon(coupon_id):
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_coupon SET publish_start_time ="{}",publish_expire_time = "{}" where coupon_id= "{}"'.format(a,b,coupon_id)
-    data = conn_sql().get_data(sql)
-
-#把学员变为在线学员
-def std_stage(learnId):
-    sql = 'UPDATE `bms`.`bd_learn_info` SET std_stage=7 WHERE learn_id ={}'.format(learnId)
-    data = conn_sql().get_data(sql)
-    return data
-
-# 修改活动为未提醒
-def update_activity():
-    sql = 'UPDATE mkt.mkt_upward_activity SET is_send=0 WHERE id=206'
-    data = conn_sql().get_data(sql)
-    return data
-
-# 删除用户的报名活动记录
-def delete_activity(a):
-    sql = 'delete from mkt.mkt_upward_enroll where user_id = "{}"'.format(a)
-    data = conn_sql().get_data(sql)
-    return data
-
-# 删除用户的习惯打卡报名记录
-def delete_task_habit(userId):
-    sql = 'delete from mkt.mkt_mark_task_enroll where user_id = "{}"'.format(userId)
-    data = conn_sql().get_data(sql)
-    return data
-
-# 查询用户的智米
-def find_zhimi(userId):
-    sql = 'SELECT zhimi_amount FROM us.us_base_info WHERE user_id = "{}"'.format(userId)
-    data = conn_sql().get_data(sql)
-    return data
-
-#缴费单
-def feeList():
-    feeList=[{"itemCode":"Y1","itemName":"代收第一年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"2","itemYear":"1","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S1","itemName":"代收第一年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"3","itemYear":"1","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y2","itemName":"代收第二年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"5","itemYear":"2","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S2","itemName":"代收第二年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"6","itemYear":"2","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"Y3","itemName":"代收第三年学费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"8","itemYear":"3","itemType":"2","feeId":None,"itemSeq":None},{"itemCode":"S3","itemName":"代收第三年书费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"9","itemYear":"3","itemType":"4","feeId":None,"itemSeq":None},{"itemCode":"YS","itemName":"代收艺术加考费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"100","itemYear":"1","itemType":"3","feeId":None,"itemSeq":None},{"itemCode":"Y0","itemName":"考前辅导费","amount":"20.00","discount":"0.00","fdId":None,"odId":None,"payable":"20.00","discountType":None,"orderNum":"103","itemYear":"0","itemType":"1","feeId":None,"itemSeq":None}]
-    return feeList
-
-#27环境执行生成学院订单
-def College_order(learn_Id):
-    sql = 'INSERT INTO pay.bd_sub_order (sub_order_no,order_no,item_code,item_name,item_seq,item_year,item_type,fee_amount,offer_amount,payable,sub_order_status,std_id,std_name,mobile,id_card,user_id,sub_learn_id ) SELECT bms.seq (),' \
-          'CONCAT( "YZ", DATE_FORMAT( NOW(), "%Y%m%d%H%i%s" ), "12378"),it.item_code,it.item_name,it.delay_num,it.item_year,it.item_type,f.define_amount,0.00,f.define_amount,"1",li.std_id,li.ln_std_name,li.mobile,li.id_card,si.user_id,' \
-          'li.learn_id FROM bms.bd_fee_define f LEFT JOIN bms.bd_learn_info li ON li.fee_id = f.fee_id LEFT JOIN bms.bd_fee_item it ON it.item_code = f.item_code LEFT JOIN bms.bd_student_info si ON si.std_id = li.std_id WHERE li.learn_id = "{}"'.format(learn_Id)
-    data = conn_sql().get_data(sql)
-    return data
-
-
-#27环境执行删除生成多的最后两条订单
-def delete_order(learnId):
-    sql = 'delete from pay.bd_sub_order where sub_order_no in (select t.sub_order_no from (select * from pay.bd_sub_order where sub_learn_id = "{}" order by sub_order_no desc limit 0,2)as t)'.format(learnId)
-    data = conn_sql().get_data(sql)
-    return data
-
-# 修改习惯打卡任务
-def update_task(id1,id2):
-    a = now_times()
-    b = day_late()
-    c = time_late_minutes()
-    sql = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = "{}"'.format(c,a,b,b,id1)
-    sql2 = 'UPDATE mkt.bd_mark_task_info SET enroll_end_time = "{}",start_time = "{}",end_time = "{}",divide_reward_time = "{}",status = 2 where id = "{}"'.format(c,a,b,b,id2)
-    data1 = conn_sql().get_data(sql)
-    data2 = conn_sql().get_data(sql2)
-    return data1,data2
-
-
-
-#查询最新的一次我的上进分明细
-def find_MyScoreInfos(userId):
-    sql = 'SELECT behavior_desc FROM mkt.gs_score_change_record where user_id = "{}" ORDER BY create_time desc limit 1'.format(userId)
-    data = conn_sql().get_data(sql)[0]['behavior_desc']
-    print(data)
-    return data
-
-#根据学服任务id,修改数据库中这个学服任务的id为未读
-def student_task(taskId):
-    sql = 'UPDATE bms.oa_student_task SET is_read = 0 where task_id = "{}"'.format(taskId)
-    data = conn_sql().get_data(sql)
-    print(data)
-    return data
-
-
-#直播间相关sql
-#删除直播间管理员垃圾数据
-def delete_lives_admin(mobile):
-    sql = 'delete from bms.bd_lives_admin where mobile = "{}"'.format(mobile)
-    data = conn_sql().get_data(sql)
-    return data
-
-#修改让腾讯云直播开播
-def Modify_lives_schedule(id):
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1 where id="{}"'.format(a,b,id)
-    data = conn_sql().get_data(sql)
-
-#修改数据库让直播类型为营销课
-def Marketing_class_yingxiao():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =3 where id=254'.format(a, b)
-    data = conn_sql().get_data(sql)
-    return data
-
-#修改数据库让直播类型为公开课 哼哼哈嘿的id是254
-def Marketing_class_gongkai():
-    a = now_times()
-    b = time_late()
-    sql = 'UPDATE bms.bd_lives_schedule SET start_time ="{}",end_time = "{}",status = 1,live_type =1 where id=254'.format(a, b)
-    data = conn_sql().get_data(sql)
-    return data
-
-
-
 
 
 
@@ -430,10 +341,12 @@ def Activity_content():
         {"title":"参数类型传参","content":"@@123haha  --22","message":"success"},
     ]
 
-#跑步打卡数据
-def run():
-    return[
-        {"distance":"3","spendDesc":"9'19","runSecond":"0.47","historyRun":"0","runTime":"00:27:59"}
+def inMessageList():
+    return [
+        {"title":"@我","msgType":"8","msgTitle":"有人@你哟~"},
+        {"title": "点赞", "msgType": "9","msgTitle":"有人给你点赞啦！"},
+        {"title": "评论", "msgType": "10","msgTitle":"有人给你评论啦！"},
+        {"title": "粉丝", "msgType": "11","msgTitle":"有人默默关注你罗~"}
     ]
 
 #搜索接口不同类型及不同关键字
@@ -507,3 +420,18 @@ def salesType_goodsType():
         {"title":"活动/商品穿孔","salesType": "", "goodsType": "", "message": "success"},
 
     ]
+
+
+#生产环境
+#拼接建立socket的head，拼接cookie
+def return_Cookie(headers):
+    cookie_string = headers['Set-Cookie']
+    acw_tc_match = re.search(r'acw_tc=([^;]+)', cookie_string)
+    # session_match = re.search(r'SESSION=([^;]+)', cookie_string)
+    server_id_match = re.search(r'SERVERID=([^;]+)', cookie_string)
+    acw_tc_value = acw_tc_match.group(1)
+    # session_value = session_match.group(1)
+    server_id_value = server_id_match.group(1)
+    Cookie = 'acw_tc=' + acw_tc_value + '; ' + 'SERVERID=' + server_id_value
+    return Cookie
+

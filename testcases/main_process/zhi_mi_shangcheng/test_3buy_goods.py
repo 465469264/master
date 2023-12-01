@@ -1,19 +1,8 @@
 from httprunner import HttpRunner, Config, Step, RunRequest,RunTestCase
 from api.app.mallConfirmOrder import mallConfirmOrder
 from api.app.stuItemToPay import stuItemToPay
-from api.app.goodsListAll import goodsListAll
-from api.app.goodsDetail import goodsDetail
 from api.app.getOrderList import getOrderList
-from api.app.addComment import addComment
-from api.app.goodsComment import goodsComment
-from api.app.goodsSalesRecords import goodsSalesRecords
-from api.app.getAccountBalance import getAccountBalance
-from api.app.editAddress import eddit_address
-from api.app.getJDProvince import GetJDProvince
-from api.app.getJDCity import getJDCity
-from api.app.getJDCounty import getJDCounty
-from api.app.getJDTown import getJDTown
-from api.app.myAddress import myAddress
+
 
 
 class Test_buy_goods(HttpRunner):

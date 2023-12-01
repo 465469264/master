@@ -2,7 +2,7 @@ from httprunner import HttpRunner, Config, Step, RunRequest, RunTestCase
 from api.app.addNewComment import addNewComment
 from api.app.selCircleDynamicInfos import selCircleDynamicInfos2
 from api.app.userHome import get_info
-
+import sys
 
 #msgType:  1>学习提醒, 5>任务提醒,  6>账户通知 , 2>活动提醒  4>资讯头条,  3>系统提醒  ,8>@我   9>点赞   10>评论  ,11>粉丝
 class TestCasesAddNewComment(HttpRunner):

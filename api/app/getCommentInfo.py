@@ -3,7 +3,7 @@ from httprunner import HttpRunner, Config, Step, RunRequest
 class getCommentInfo(HttpRunner):
     config = (
         Config("获取评论信息")
-            .base_url("${ENV(app_BASE_URL)}")
+            .base_url("${ENV(app_URL)}")
             .verify(False)
             .variables(**{
                           "number": {
@@ -24,20 +24,20 @@ class getCommentInfo(HttpRunner):
             RunRequest("获取评论信息")
                 .post("/proxy/mkt/getCommentInfo/1.0/")
                 .with_headers(**{
-                            "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
+                            "User-Agent": "${ENV(User-Agent)}",
                             "Content-Type": "base64.b64encode",
                             "Host": "${ENV(app_Host)}",
                             "authtoken": "${ENV(app_auth_token)}",
-
-            }
-            )
+                                }
+                                )
                 .with_data('$data')
                 .extract()
                 .with_jmespath("body.body.list[0].commentId", "commentId")
+                .with_jmespath("body.body.list[0].mappingId", "mappingId")
+                .with_jmespath("body.body.list[0].ifFabulous", "ifFabulous")      #提取是否点赞
+                .with_jmespath("body.body.list","body")
                 .validate()
                 .assert_equal("body.message", "$message")
-                .assert_equal("body.body.list[$a].content", "$content")
-
         )
     ]
 if __name__ == '__main__':

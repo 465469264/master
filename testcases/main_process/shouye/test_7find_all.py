@@ -22,11 +22,10 @@ class Test_shouye_find(HttpRunner):
     )
     teststeps = [
         Step(RunTestCase("首页搜索").call(getSearchList)),
-
     ]
 
-if __name__ == "__main__":
-    Test_shouye_find().test_start()
+# if __name__ == "__main__":
+#     Test_shouye_find().test_start()
 
 
 

@@ -3,21 +3,19 @@ from httprunner import HttpRunner, Config, Step, RunRequest
 class app_login(HttpRunner):
     config = (
         Config("APP手机号")
-            .base_url("${ENV(app_BASE_URL)}")
+            .base_url("${ENV(app_URL)}")
             .verify(False)
             .variables(**{
                           "number": {
-                                    "body":{
-                                    "mobile": "$mobile",
-                                    "valicode": "888888",
-                                    "regChannel": "6",
-                                    "notPrompt": 1,
-                                    "android_sdk": 28,
-                                    "uuId": "2a74253c-7c4d-3c84-abb6-e9e72fabb9a1",
-                                    "sign": "86E4295F988D9CDADB9CBB4494B71692",
-                                    },
-                                    "header":{"appType":"3"}
-                                    },
+                                      "header": {"appType": "4",
+                                                 "deviceId": "AFE40300-BC49-4CEB-9825-951DA17100BE"},
+                                       "body": {"mobile": "$mobile",
+                                                "uuId": "AFE40300-BC49-4CEB-9825-951DA17100BE",
+                                                "valicode": "$valicode",
+                                                "appType": "4",
+                                                "sign": "93BA8CA4EBB01BE48F288D21EF0BA5A6",
+                                                "regChannel": "6"}}
+                                    ,
                           "data": "${base64_encode($number)}",
                           })
         )
@@ -35,8 +33,6 @@ class app_login(HttpRunner):
                 .extract()
                 .with_jmespath("body.body.app_auth_token", "app_auth_token")
                 .with_jmespath("body.body.userInfo.userId", "userId")
-                .with_jmespath("body.body.userInfo.realName", "realName")
-
                 .validate()
                 .assert_equal("status_code", 200)
         )
@@ -48,5 +44,3 @@ class app_login(HttpRunner):
 
 if __name__ == '__main__':
     app_login().test_start()
-
-

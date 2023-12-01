@@ -17,9 +17,9 @@ class Test_Circle_Dynamicst(HttpRunner):
                        )
     )
     teststeps = [
-        Step(RunTestCase("圈子页查看活动页-报名中").with_variables(**({"type":1})).call(selMyUpwardActivityInfo)),
-        Step(RunTestCase("圈子页查看活动页-进行中").with_variables(**({"type": 2})).call(selMyUpwardActivityInfo)),
-        Step(RunTestCase("圈子页查看活动页-已结束").with_variables(**({"type": 3})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看我的活动-报名中").with_variables(**({"type":1})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看我的活动-进行中").with_variables(**({"type": 2})).call(selMyUpwardActivityInfo)),
+        Step(RunTestCase("圈子页查看我的活动-已结束").with_variables(**({"type": 3})).call(selMyUpwardActivityInfo)),
 
     ]
 

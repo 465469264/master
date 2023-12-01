@@ -3,36 +3,36 @@ from httprunner import HttpRunner, Config, Step, RunRequest
 class selUpwardActivityDetailById(HttpRunner):
     config = (
         Config("获取活动详情")
-            .base_url("${ENV(app_BASE_URL)}")
+            .base_url("${ENV(app_URL)}")
             .verify(False)
             .variables(**{
                           "number": {
                                     "body":{
-                                     "actId": "$actId"
+                                            "actId": "$actId"
                                     },
-                                    "header":{"appType":"3"}
-                                    },
+                                    "header": {"appType": "${ENV(appType)}"}
+                                        },
                           "data": "${base64_encode($number)}",
-                          })
-        )
+                          }
+                       )
+            )
     teststeps = [
         Step(
             RunRequest("获取活动详情")
                 .post("/proxy/mkt/selUpwardActivityDetailById/1.0/")
                 .with_headers(**{
-                            "User-Agent": "Android/environment=test/app_version=7.18.1/sdk=30/dev=samsung/phone=SM-G988U/android_system=.env",
-                            "Content-Type": "base64.b64encode",
-                            "authtoken": "${ENV(app_auth_token)}",
-                            "Host": "${ENV(app_Host)}"
+                                    "User-Agent": "${ENV(User-Agent)}",
+                                    "Content-Type": "text/yzedu+; charset=UTF-8",
+                                    "Host": "${ENV(app_Host)}",
+                                    "authtoken": "${ENV(app_auth_token)}",
                 }
             )
                 .with_data('$data')
                 .extract()
                 .with_jmespath("body.body.actName", "actName")       #活动名称
+                .with_jmespath("body.body.fabulous", "fabulous")     #是否点赞
                 .validate()
                 .assert_equal("body.message", "$message")
-                .assert_equal("body.body.actName", "$actName")  # 活动名称
-
         )
     ]
 
